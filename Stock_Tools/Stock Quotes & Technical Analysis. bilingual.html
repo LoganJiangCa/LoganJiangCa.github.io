@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>个股行情获取与技术面分析</title>
+  <title>Stock Quotes &amp; Technical Analysis</title>
   <style>
     .basic-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.basic-metric{padding:10px 11px;border:1px solid #dfe8f4;border-radius:9px;background:#fff}.basic-metric small{display:block;margin-bottom:4px;color:#7a8799;font-size:12px}.basic-metric strong{display:block;overflow:hidden;color:#243047;font-size:15px;text-overflow:ellipsis;white-space:nowrap}.basic-metric.loading strong{color:#9aa5b1}.analysis-item span b{display:inline}.analysis-item span b.analysis-subtitle{display:block;margin:7px 0 1px;color:#243047}.analysis-item span b.analysis-subtitle:first-child{margin-top:0}.analysis-item.analysis-wide{grid-column:1/-1}@media(max-width:700px){.basic-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
     details.macd-settings{padding:0;overflow:hidden}details.macd-settings>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;list-style:none;cursor:pointer}details.macd-settings>summary::-webkit-details-marker{display:none}.macd-settings-toggle{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border:1px solid #b8cdf0;border-radius:999px;background:#edf4ff;color:#075dcc;font-size:12px;font-weight:700;transition:.2s}.macd-settings-toggle:hover{background:#dceaff;box-shadow:0 3px 10px #1677ff20}.macd-settings-chevron{display:inline-block;font-size:15px;line-height:1;transition:transform .2s}details.macd-settings[open] .macd-settings-chevron{transform:rotate(180deg)}.macd-settings-body{padding:0 14px 12px}.macd-reset-row{display:flex;justify-content:flex-end;margin:-2px 0 4px}.macd-reset{border:1px solid #d6e2f3;border-radius:999px;background:#fff}
@@ -138,7 +138,7 @@
     'use strict';
     const $ = id => document.getElementById(id);
     const UI_LANGUAGE_KEY='stockToolLanguageV1';
-    let uiLang=localStorage.getItem(UI_LANGUAGE_KEY)==='en'?'en':'zh',translating=false;
+    let uiLang=localStorage.getItem(UI_LANGUAGE_KEY)==='zh'?'zh':'en',translating=false;
     const originalText=new WeakMap(),originalAttributes=new WeakMap();
     const enReplacements=[
       ['📊 个股行情获取与技术面分析','📊 Stock Quotes & Technical Analysis'],['个股行情获取与技术面分析','Stock Quotes & Technical Analysis'],['附带小工具','Utility'],['补仓计算器','Position Averaging Calculator'],['【个股行情基础分析】','Stock Market Analysis'],['60 日','60 Days'],['120 日','120 Days'],['240 日','240 Days'],
