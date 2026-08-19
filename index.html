@@ -195,13 +195,38 @@
         padding: 26px;
       }
 
-      .profile-visual img {
+      .profile-visual .portrait-shell {
         position: absolute;
         inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+          radial-gradient(circle at 50% 22%, rgba(255,255,255,0.35), transparent 20%),
+          linear-gradient(135deg, #172f4a 0%, #1f5c9a 45%, #9ecbff 100%);
+      }
+
+      .portrait-card {
+        width: 72%;
+        max-width: 330px;
+        aspect-ratio: 3 / 4;
+        border-radius: 28px;
+        overflow: hidden;
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.34);
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(4px);
+      }
+
+      .portrait-card img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: center top;
+        display: block;
       }
 
       .profile-visual::before {
@@ -617,7 +642,11 @@
 
           <div class="profile-card">
             <div class="profile-visual">
-              <img src="assets/profile-photo.svg" alt="Logan Jiang portrait" />
+              <div class="portrait-shell">
+                <div class="portrait-card">
+                  <img src="assets/profile-portrait.png" alt="Logan Jiang portrait" />
+                </div>
+              </div>
               <div class="profile-badge">Open to opportunities</div>
               <div class="profile-summary">
                 <div class="avatar">LJ</div>
@@ -712,9 +741,9 @@
           <div class="timeline-item">
             <div class="year">Apr 2020 - Jun 2026</div>
             <div class="timeline-content">
-              <h4>senior data analyst / Consultant</h4>
-              <p><strong>智器云南京信息科技有限公司</strong> · Permanent Full-time</p>
-              <p>NanJing, Jiangsu, China · Hybrid</p>
+              <h4>Senior Data Analyst / Consultant</h4>
+              <p><strong>Nanjing Cognitive Intelligence Information &amp; Technology Co., Ltd.</strong> · Permanent Full-time</p>
+              <p>Nanjing, Jiangsu, China · Hybrid</p>
               <p>Contributed to large-scale digital transformation and economic big data initiatives across government, public security, discipline inspection, tobacco, banking, finance, insurance, and more.</p>
               <div class="tags" style="margin-top: 12px;">
                 <span>MySQL</span>
