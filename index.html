@@ -1,235 +1,808 @@
-<!-- Generated with Claude -->
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Business Analytics Portfolio</title>
-
+    <title>Logan Jiang | Analyst & Quant Portfolio</title>
     <style>
-      /* ============================================================
-       BASIC STYLES — students can tweak colors/fonts here
-       ============================================================ */
+      :root {
+        --bg: #f3f6fb;
+        --bg-2: #edf3fa;
+        --panel: rgba(255, 255, 255, 0.8);
+        --panel-strong: #ffffff;
+        --primary: #102a43;
+        --primary-2: #1d4f91;
+        --primary-3: #60a5fa;
+        --gold: #d4a64a;
+        --gold-soft: #f9f2e6;
+        --text: #122033;
+        --muted: #4d5e75;
+        --line: rgba(16, 42, 67, 0.1);
+        --shadow: 0 18px 40px rgba(12, 26, 42, 0.12);
+      }
+
       * {
         box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
       }
 
       body {
-        font-family: Arial, Helvetica, sans-serif;
-        color: #222;
-        background: #f7f7f7;
-        line-height: 1.5;
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+        color: var(--text);
+        line-height: 1.7;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
       }
 
       .container {
-        max-width: 900px;
+        width: min(1180px, calc(100% - 32px));
         margin: 0 auto;
-        padding: 40px 20px;
       }
 
-      /* ---------- HEADER (photo + name + subheading) ---------- */
-      header {
-        text-align: center;
-        margin-bottom: 30px;
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(14px);
+        background: rgba(243, 246, 251, 0.85);
+        border-bottom: 1px solid rgba(16, 42, 67, 0.08);
       }
 
-      /* Empty space for photo — replace with your own <img> if you like */
-      .photo {
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
-        background: #ddd;
-        border: 2px dashed #aaa;
-        margin: 0 auto 16px;
+      .nav {
         display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 72px;
+        gap: 18px;
+      }
+
+      .brand {
+        font-size: 0.95rem;
+        letter-spacing: 0.18em;
+        font-weight: 800;
+        color: var(--primary);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 22px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      .cta,
+      .secondary-btn {
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        color: #888;
-        font-size: 13px;
+        padding: 12px 20px;
+        border-radius: 999px;
+        font-weight: 700;
+        transition: all 0.2s ease;
       }
 
-      header h1 {
-        font-size: 28px;
-        margin-bottom: 6px;
-      } /* NAME */
-      header p {
-        font-size: 16px;
-        color: #555;
-      } /* EXPERIENCES */
-
-      /* ---------- TABS ---------- */
-      .tabs {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        margin-bottom: 24px;
-      }
-
-      .tab-button {
-        padding: 10px 22px;
-        border: 1px solid #ccc;
-        background: #fff;
-        cursor: pointer;
-        font-size: 15px;
-        border-radius: 4px;
-      }
-
-      .tab-button.active {
-        background: #2c3e50;
+      .cta {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
         color: #fff;
-        border-color: #2c3e50;
+        box-shadow: var(--shadow);
       }
 
-      /* ---------- TAB CONTENT ---------- */
-      .tab-content {
-        display: none;
+      .secondary-btn {
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.7);
+        color: var(--primary);
       }
-      .tab-content.active {
+
+      .hero {
+        padding: 72px 0 20px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.35fr 0.9fr;
+        gap: 44px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: var(--gold-soft);
+        color: #9c6b1a;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 18px 0 18px;
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        line-height: 0.98;
+        letter-spacing: -0.06em;
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 38%, var(--primary-3) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .lead {
+        max-width: 700px;
+        color: var(--muted);
+        font-size: 1.06rem;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin: 28px 0 26px;
+      }
+
+      .stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 26px;
+      }
+
+      .stat {
+        min-width: 160px;
+      }
+
+      .stat strong {
         display: block;
+        font-size: clamp(1.5rem, 2vw, 2.3rem);
+        color: var(--primary);
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .profile-card {
+        background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.82));
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        padding: 18px;
+      }
+
+      .profile-visual {
+        min-height: 440px;
+        border-radius: 24px;
+        background: linear-gradient(135deg, #112b48 0%, #1c5a96 46%, #7abaf7 100%);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: end;
+        padding: 26px;
+      }
+
+      .profile-visual::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent, rgba(7, 18, 31, 0.22));
+      }
+
+      .profile-badge {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.35);
+        background: rgba(255,255,255,0.13);
+        color: #fff;
+        font-size: 0.72rem;
+        font-weight: 700;
+      }
+
+      .profile-summary {
+        position: relative;
+        z-index: 1;
+        color: #fff;
+      }
+
+      .avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: -0.06em;
+        border: 2px solid rgba(255,255,255,0.5);
+        background: rgba(255,255,255,0.12);
+        margin-bottom: 16px;
+      }
+
+      .profile-summary h2 {
+        margin: 0 0 6px;
+        font-size: 2rem;
+      }
+
+      .profile-summary p {
+        margin: 0;
+        color: rgba(255,255,255,0.82);
+      }
+
+      .mini-cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .mini-card {
+        background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(244,247,251,0.9));
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 16px 14px;
+      }
+
+      .mini-card strong {
+        display: block;
+        color: var(--primary);
+        margin-bottom: 4px;
+      }
+
+      .mini-card span {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      section {
+        padding: 30px 0 10px;
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 18px;
+        margin-bottom: 20px;
+      }
+
+      .section-head h3 {
+        margin: 0;
+        font-size: clamp(2rem, 3vw, 2.8rem);
+        letter-spacing: -0.05em;
+      }
+
+      .section-head p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .about-grid,
+      .skills-grid,
+      .projects-grid,
+      .contact-grid {
+        display: grid;
+        gap: 22px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1.25fr 0.75fr;
+      }
+
+      .panel,
+      .skill-card,
+      .timeline-item,
+      .project-card,
+      .info-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
       }
 
       .panel {
-        background: #fff;
-        border: 1px solid #eee;
-        border-radius: 6px;
-        padding: 24px;
+        padding: 26px;
       }
 
-      /* ---------- PROJECT CARDS (1 x 3 grid) ---------- */
-      .cards {
+      .panel p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .facts-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
+        gap: 14px;
       }
 
-      .card {
-        border: 1px solid #eee;
-        border-radius: 6px;
+      .facts-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        color: var(--muted);
+      }
+
+      .facts-list li::before {
+        content: "•";
+        font-size: 2rem;
+        line-height: 1;
+        color: var(--gold);
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .skill-card {
+        padding: 22px;
+      }
+
+      .skill-card h4 {
+        margin: 0 0 14px;
+        font-size: 1.12rem;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .tags span {
+        border-radius: 999px;
+        background: rgba(29, 79, 145, 0.08);
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 0.8rem;
+        padding: 8px 12px;
+      }
+
+      .experience {
+        display: grid;
+        gap: 18px;
+      }
+
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 18px;
+        padding: 20px 22px;
+        position: relative;
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: 26px;
+        top: 22px;
+        bottom: -18px;
+        width: 2px;
+        background: rgba(29, 79, 145, 0.18);
+      }
+
+      .timeline-item:last-child::before {
+        display: none;
+      }
+
+      .year {
+        position: relative;
+        z-index: 1;
+        font-weight: 800;
+        color: var(--primary-2);
+      }
+
+      .year::before {
+        content: "";
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--primary-2);
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+
+      .timeline-content h4 {
+        margin: 0 0 6px;
+        font-size: 1.2rem;
+      }
+
+      .timeline-content p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .projects-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .project-card {
         overflow: hidden;
-        background: #fff;
       }
 
-      /* Empty space for project photo */
-      .card-photo {
-        height: 120px;
-        background: #ddd;
-        border-bottom: 1px dashed #aaa;
+      .project-visual {
+        height: 170px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #888;
-        font-size: 12px;
+        background: linear-gradient(135deg, #102a43 0%, #1d4f91 48%, #9ec8ff 100%);
+        color: rgba(255,255,255,0.93);
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
       }
 
-      .card-text {
-        padding: 14px;
-      }
-      .card-text h3 {
-        font-size: 16px;
-        margin-bottom: 6px;
-      }
-      .card-text p {
-        font-size: 14px;
-        color: #555;
+      .project-body {
+        padding: 22px;
       }
 
-      /* ---------- MOBILE: stack cards vertically ---------- */
-      @media (max-width: 640px) {
-        .cards {
+      .project-body h4 {
+        margin: 0 0 10px;
+      }
+
+      .project-body p {
+        margin: 0 0 16px;
+        color: var(--muted);
+      }
+
+      .contact-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+      }
+
+      .contact-box {
+        background: linear-gradient(135deg, #0d223b 0%, #1d4f91 100%);
+        border-radius: 24px;
+        padding: 28px;
+        color: #fff;
+        box-shadow: var(--shadow);
+      }
+
+      .small-text {
+        display: block;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        opacity: 0.75;
+        margin-bottom: 12px;
+      }
+
+      .contact-box h3 {
+        margin: 0 0 16px;
+        font-size: clamp(1.9rem, 3vw, 2.7rem);
+        line-height: 1.1;
+      }
+
+      .contact-box p {
+        margin: 0 0 20px;
+        color: rgba(255,255,255,0.82);
+      }
+
+      .contact-box .secondary-btn {
+        background: rgba(255,255,255,0.12);
+        border-color: rgba(255,255,255,0.25);
+        color: #fff;
+      }
+
+      .info-card {
+        padding: 24px;
+      }
+
+      .info-card p {
+        margin: 0 0 12px;
+        color: var(--muted);
+      }
+
+      footer {
+        padding: 34px 0 48px;
+        text-align: center;
+        color: var(--muted);
+      }
+
+      @media (max-width: 920px) {
+        .hero-grid,
+        .about-grid,
+        .contact-grid,
+        .projects-grid,
+        .skills-grid {
           grid-template-columns: 1fr;
+        }
+
+        .nav {
+          flex-wrap: wrap;
+          justify-content: center;
+          padding: 18px 0;
+        }
+
+        .nav-links {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .timeline-item {
+          grid-template-columns: 1fr;
+        }
+
+        .timeline-item::before {
+          display: none;
+        }
+
+        .section-head {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .profile-visual {
+          min-height: 360px;
         }
       }
     </style>
   </head>
 
   <body>
-    <div class="container">
-      <!-- ============================================================
-         HEADER: photo, name, experiences
-         ============================================================ -->
-      <header>
-        <!-- Replace this div with <img src="your-photo.jpg" class="photo"> -->
-        <div class="photo">Photo</div>
-
-        <h1>Logan Jiang</h1>
-        <p>MMA student at McGill Desautels | Data & Risk Consultant | Anti-Money Laundering & Risk Management | Digital Economy & Digital Transformation |  Skilled in SQL, Neo4j, Python & Data Visualization</p>
-      </header>
-
-      <!-- ============================================================
-         TABS
-         ============================================================ -->
-      <div class="tabs">
-        <button class="tab-button active" onclick="showTab('about')">
-          About Me
-        </button>
-        <button class="tab-button" onclick="showTab('projects')">
-          Projects
-        </button>
-      </div>
-
-      <!-- ---------- TAB 1: ABOUT ME ---------- -->
-      <div id="about" class="tab-content active">
-        <div class="panel">
-          <p>
-            I have years of analytical experience in anti-money laundering (AML), with a strong track record in economic crime data analytics and internal investigative compliance. As a consultant, I have contributed to multiple large-scale enterprise information system development and digital transformation initiatives. Outside of work, I am passionate about quantitative analysis and am currently building my own quantitative backtesting model.
-          </p>
+    <div class="topbar">
+      <div class="container nav">
+        <a href="#home" class="brand">LOGAN JIANG</a>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
         </div>
-      </div>
-
-      <!-- ---------- TAB 2: PROJECTS ---------- -->
-      <div id="projects" class="tab-content">
-        <div class="cards">
-          <!-- CARD 1 -->
-          <div class="card">
-            <div class="card-photo">Project Image</div>
-            <div class="card-text">
-              <h3>Stock Quotes & Technical Analysis. bilingual</h3>
-              <p>Enter a stock ticker to automatically retrieve 120 days of historical trading data. The tool conducts a comprehensive technical analysis using trading volume, MACD, RSI, Williams %R, and Bollinger Bands. It incorporates 240 built-in multi-indicator rule combinations and presents the results in plain, easy-to-understand language, helping beginners learn technical analysis while providing technical insights for their next trading decisions. A position-averaging calculator is also included at the bottom of the page.
-.</p>
-            </div>
-          </div>
-
-          <!-- CARD 2 -->
-          <div class="card">
-            <div class="card-photo">Project Image</div>
-            <div class="card-text">
-              <h3>Project Title</h3>
-              <p>Short description of what you did and the tools you used.</p>
-            </div>
-          </div>
-
-          <!-- CARD 3 -->
-          <div class="card">
-            <div class="card-photo">Project Image</div>
-            <div class="card-text">
-              <h3>Project Title</h3>
-              <p>Short description of what you did and the tools you used.</p>
-            </div>
-          </div>
-        </div>
+        <a href="#contact" class="cta">Let’s Connect</a>
       </div>
     </div>
 
-    <!-- ============================================================
-       SIMPLE TAB SWITCHING SCRIPT
-       ============================================================ -->
-    <script>
-      function showTab(id) {
-        // hide all tab contents
-        document.querySelectorAll(".tab-content").forEach(function (el) {
-          el.classList.remove("active");
-        });
-        // remove active state from all buttons
-        document.querySelectorAll(".tab-button").forEach(function (btn) {
-          btn.classList.remove("active");
-        });
-        // show the selected tab + highlight the clicked button
-        document.getElementById(id).classList.add("active");
-        event.target.classList.add("active");
-      }
-    </script>
+    <main id="home" class="container">
+      <section class="hero">
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow">Data • Risk • Strategy</span>
+            <h1>
+              Building <span class="gradient-text">clarity</span> from complexity.
+            </h1>
+            <p class="lead">
+              I’m Logan Jiang, a business analytics and risk-focused professional with experience in anti-money laundering, investigative analytics, and digital transformation. I combine structured thinking, data analysis, and business insight to help organizations make smarter decisions.
+            </p>
+            <div class="hero-actions">
+              <a class="cta" href="#projects">View Projects</a>
+              <a class="secondary-btn" href="#about">About Me</a>
+            </div>
+            <div class="stats">
+              <div class="stat">
+                <strong>5+</strong>
+                <span>years in analysis & risk</span>
+              </div>
+              <div class="stat">
+                <strong>10+</strong>
+                <span>data-driven projects</span>
+              </div>
+              <div class="stat">
+                <strong>SQL</strong>
+                <span>Python • Neo4j • BI</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-card">
+            <div class="profile-visual">
+              <div class="profile-badge">Open to opportunities</div>
+              <div class="profile-summary">
+                <div class="avatar">LJ</div>
+                <h2>Logan Jiang</h2>
+                <p>Business Analytics • Risk • Digital Transformation</p>
+              </div>
+            </div>
+
+            <div class="mini-cards">
+              <div class="mini-card">
+                <strong>AML</strong>
+                <span>Investigative analytics</span>
+              </div>
+              <div class="mini-card">
+                <strong>Consulting</strong>
+                <span>Business insights</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="section-head">
+          <h3>About Me</h3>
+          <p>Analytical mindset with a business lens.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="panel">
+            <p>
+              I have hands-on experience in anti-money laundering (AML), economic crime analytics, internal compliance investigations, and digital transformation projects. My work has involved turning large and complex datasets into practical insights for operational teams, risk functions, and strategic decision-making.
+            </p>
+          </div>
+
+          <div class="panel">
+            <ul class="facts-list">
+              <li>Strong analytical background in risk, compliance, and financial data.</li>
+              <li>Experience supporting enterprise technology and transformation initiatives.</li>
+              <li>Passionate about quantitative research and model-driven decision making.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="section-head">
+          <h3>Core Skills</h3>
+          <p>Tools and capabilities for modern business analysis.</p>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h4>Analytics</h4>
+            <div class="tags">
+              <span>SQL</span>
+              <span>Python</span>
+              <span>Excel</span>
+              <span>Power BI</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <h4>Risk & Compliance</h4>
+            <div class="tags">
+              <span>AML</span>
+              <span>Compliance</span>
+              <span>Fraud Analysis</span>
+              <span>Investigation</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <h4>Transformation</h4>
+            <div class="tags">
+              <span>Neo4j</span>
+              <span>Data Modeling</span>
+              <span>Visualization</span>
+              <span>Process Design</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience">
+        <div class="section-head">
+          <h3>Experience</h3>
+          <p>Focused on data, risk, and strategic transformation.</p>
+        </div>
+
+        <div class="experience">
+          <div class="timeline-item">
+            <div class="year">2024</div>
+            <div class="timeline-content">
+              <h4>Master of Management Analytics Student</h4>
+              <p>McGill University, Desautels Faculty of Management</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="year">2022 - 2024</div>
+            <div class="timeline-content">
+              <h4>Data & Risk Consultant</h4>
+              <p>Supported AML and compliance-driven projects involving data analysis, risk review, reporting, and enterprise process improvement.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="year">Earlier</div>
+            <div class="timeline-content">
+              <h4>Economic Crime & Compliance Analytics</h4>
+              <p>Worked with investigative and operational data to strengthen compliance workflows and improve risk transparency.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="section-head">
+          <h3>Featured Projects</h3>
+          <p>Selected work at the intersection of analysis and decision support.</p>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-visual">Stocks</div>
+            <div class="project-body">
+              <h4>Stock Quotes & Technical Analysis</h4>
+              <p>
+                A bilingual stock analysis tool using historical trading data and technical indicators such as MACD, RSI, Williams %R, and Bollinger Bands for actionable market insight.
+              </p>
+              <div class="tags">
+                <span>Python</span>
+                <span>Finance</span>
+                <span>Analytics</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-visual">Risk</div>
+            <div class="project-body">
+              <h4>AML Monitoring Framework</h4>
+              <p>
+                A practical solution for reviewing suspicious patterns, transaction anomalies, and investigation data to improve compliance risk detection.
+              </p>
+              <div class="tags">
+                <span>AML</span>
+                <span>SQL</span>
+                <span>Risk</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-visual">Quant</div>
+            <div class="project-body">
+              <h4>Quantitative Strategy Research</h4>
+              <p>
+                A personal research initiative focused on strategy design, signal testing, and performance evaluation using historical market data.
+              </p>
+              <div class="tags">
+                <span>Backtesting</span>
+                <span>Python</span>
+                <span>Strategy</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="contact-grid">
+          <div class="contact-box">
+            <span class="small-text">Get in touch</span>
+            <h3>Open to data, risk, and strategy opportunities.</h3>
+            <p>
+              I enjoy collaborating on business analytics, compliance analytics, and digital transformation projects where data can drive better decisions.
+            </p>
+            <a class="secondary-btn" href="mailto:loganjiang@example.com">loganjiang@example.com</a>
+          </div>
+
+          <div class="info-card">
+            <span class="small-text">Profile</span>
+            <p><strong>Location:</strong> Montreal, Canada</p>
+            <p><strong>Focus:</strong> Business Analytics, Risk Management, AML, Digital Transformation</p>
+            <p><strong>Interests:</strong> Quantitative analysis, forecasting, operational strategy</p>
+            <p><strong>Stack:</strong> SQL, Python, Neo4j, Excel, Visualization, BI</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © 2026 Logan Jiang · Built for clarity, insight, and impact.
+    </footer>
   </body>
 </html>
