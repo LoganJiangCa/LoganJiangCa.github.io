@@ -177,16 +177,19 @@
       }
 
       .profile-card {
+        width: 100%;
+        max-width: 360px;
+        justify-self: center;
         background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.82));
         border: 1px solid var(--line);
-        border-radius: 28px;
+        border-radius: 24px;
         box-shadow: var(--shadow);
-        padding: 18px;
+        padding: 12px;
       }
 
       .profile-visual {
-        min-height: 380px;
-        border-radius: 24px;
+        min-height: 320px;
+        border-radius: 18px;
         background: #ffffff;
         position: relative;
         overflow: hidden;
@@ -194,7 +197,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 24px 20px 20px;
+        padding: 20px 16px 16px;
       }
 
       .profile-visual .portrait-shell {
@@ -206,13 +209,13 @@
       }
 
       .portrait-card {
-        width: min(180px, 62%);
+        width: min(150px, 56%);
         aspect-ratio: 3 / 4;
-        border-radius: 20px;
+        border-radius: 16px;
         overflow: hidden;
         background: #f4f7fb;
         border: 1px solid var(--line);
-        box-shadow: 0 14px 34px rgba(18, 38, 63, 0.14);
+        box-shadow: 0 10px 26px rgba(18, 38, 63, 0.13);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -234,46 +237,46 @@
         position: relative;
         z-index: 1;
         width: 100%;
-        margin-top: 16px;
+        margin-top: 13px;
         color: var(--ink);
         text-align: center;
       }
 
       .profile-summary h2 {
         margin: 0 0 6px;
-        font-size: 1.7rem;
+        font-size: 1.5rem;
       }
 
       .profile-summary p {
         margin: 0;
         color: var(--muted);
-        font-size: 0.9rem;
+        font-size: 0.82rem;
       }
 
       .mini-cards {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-        margin-top: 18px;
+        gap: 10px;
+        margin-top: 12px;
       }
 
       .mini-card {
         background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(244,247,251,0.9));
         border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 13px 12px;
+        border-radius: 14px;
+        padding: 10px;
       }
 
       .mini-card strong {
         display: block;
         color: var(--primary);
         margin-bottom: 4px;
-        font-size: 0.92rem;
+        font-size: 0.86rem;
       }
 
       .mini-card span {
         color: var(--muted);
-        font-size: 0.82rem;
+        font-size: 0.76rem;
       }
 
       section {
@@ -313,7 +316,7 @@
 
       .education-card {
         display: grid;
-        grid-template-columns: 120px minmax(0, 1fr);
+        grid-template-columns: 190px minmax(0, 1fr);
         gap: 24px;
         align-items: center;
         padding: 26px;
@@ -328,11 +331,15 @@
         border-radius: 20px;
         display: grid;
         place-items: center;
-        background: linear-gradient(135deg, var(--primary), var(--primary-2));
-        color: #fff;
-        font-size: 1.65rem;
-        font-weight: 800;
-        letter-spacing: 0.06em;
+        padding: 16px;
+        background: #fff;
+        border: 1px solid var(--line);
+      }
+
+      .education-mark img {
+        display: block;
+        width: 100%;
+        height: auto;
       }
 
       .education-content h4 {
@@ -588,7 +595,7 @@
         }
 
         .profile-visual {
-          min-height: 360px;
+          min-height: 300px;
         }
       }
     </style>
@@ -651,14 +658,14 @@
               </div>
               <div class="profile-summary">
                 <h2>Logan Jiang</h2>
-                <p>Business Analytics • Risk • Digital Transformation</p>
+                <p>MMA Student • Business Analytics • Risk • Digital Transformation</p>
               </div>
             </div>
 
             <div class="mini-cards">
               <div class="mini-card">
                 <strong>AML</strong>
-                <span>Investigative analytics</span>
+                <span>Intelligence Analysis</span>
               </div>
               <div class="mini-card">
                 <strong>Consulting</strong>
@@ -699,7 +706,9 @@
         </div>
 
         <div class="education-card">
-          <div class="education-mark">MMA</div>
+          <div class="education-mark">
+            <img src="assets/mcgill-university-logo.png" alt="McGill University logo" />
+          </div>
           <div class="education-content">
             <span class="small-text">Graduate Education</span>
             <h4>Master of Management in Analytics (MMA)</h4>
