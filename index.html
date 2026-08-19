@@ -151,29 +151,35 @@
       .hero-actions {
         display: flex;
         flex-wrap: wrap;
-        gap: 14px;
-        margin: 28px 0 26px;
+        gap: 10px;
+        margin: 22px 0 20px;
+      }
+
+      .hero-actions .cta,
+      .hero-actions .secondary-btn {
+        padding: 10px 17px;
+        font-size: 0.92rem;
       }
 
       .stats {
         display: flex;
         flex-wrap: wrap;
-        gap: 26px;
+        gap: 18px;
       }
 
       .stat {
-        min-width: 160px;
+        min-width: 145px;
       }
 
       .stat strong {
         display: block;
-        font-size: clamp(1.5rem, 2vw, 2.3rem);
+        font-size: clamp(1.35rem, 1.8vw, 2rem);
         color: var(--primary);
       }
 
       .stat span {
         color: var(--muted);
-        font-size: 0.88rem;
+        font-size: 0.8rem;
       }
 
       .profile-card {
@@ -255,7 +261,7 @@
 
       .mini-cards {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 10px;
         margin-top: 12px;
       }
@@ -658,11 +664,15 @@
               </div>
               <div class="profile-summary">
                 <h2>Logan Jiang</h2>
-                <p>MMA Student • Business Analytics • Risk • Digital Transformation</p>
+                <p>Business Analytics • Risk • Digital Transformation</p>
               </div>
             </div>
 
             <div class="mini-cards">
+              <div class="mini-card">
+                <strong>MMA Student</strong>
+                <span>McGill University</span>
+              </div>
               <div class="mini-card">
                 <strong>AML</strong>
                 <span>Intelligence Analysis</span>
