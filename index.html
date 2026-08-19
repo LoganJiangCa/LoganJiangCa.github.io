@@ -185,7 +185,7 @@
       }
 
       .profile-visual {
-        min-height: 440px;
+        min-height: 380px;
         border-radius: 24px;
         background: #ffffff;
         position: relative;
@@ -194,7 +194,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 28px 24px 24px;
+        padding: 24px 20px 20px;
       }
 
       .profile-visual .portrait-shell {
@@ -206,7 +206,7 @@
       }
 
       .portrait-card {
-        width: min(220px, 72%);
+        width: min(180px, 62%);
         aspect-ratio: 3 / 4;
         border-radius: 20px;
         overflow: hidden;
@@ -230,41 +230,24 @@
         display: none;
       }
 
-      .profile-badge {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 1;
-        padding: 8px 12px;
-        border-radius: 999px;
-        border: 1px solid rgba(29, 79, 145, 0.16);
-        background: rgba(232, 240, 250, 0.94);
-        color: var(--accent);
-        font-size: 0.72rem;
-        font-weight: 700;
-      }
-
       .profile-summary {
         position: relative;
         z-index: 1;
         width: 100%;
-        margin-top: 20px;
+        margin-top: 16px;
         color: var(--ink);
         text-align: center;
       }
 
-      .avatar {
-        display: none;
-      }
-
       .profile-summary h2 {
         margin: 0 0 6px;
-        font-size: 2rem;
+        font-size: 1.7rem;
       }
 
       .profile-summary p {
         margin: 0;
         color: var(--muted);
+        font-size: 0.9rem;
       }
 
       .mini-cards {
@@ -278,18 +261,19 @@
         background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(244,247,251,0.9));
         border: 1px solid var(--line);
         border-radius: 18px;
-        padding: 16px 14px;
+        padding: 13px 12px;
       }
 
       .mini-card strong {
         display: block;
         color: var(--primary);
         margin-bottom: 4px;
+        font-size: 0.92rem;
       }
 
       .mini-card span {
         color: var(--muted);
-        font-size: 0.9rem;
+        font-size: 0.82rem;
       }
 
       section {
@@ -325,6 +309,44 @@
 
       .about-grid {
         grid-template-columns: 1.25fr 0.75fr;
+      }
+
+      .education-card {
+        display: grid;
+        grid-template-columns: 120px minmax(0, 1fr);
+        gap: 24px;
+        align-items: center;
+        padding: 26px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+      }
+
+      .education-mark {
+        min-height: 120px;
+        border-radius: 20px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        color: #fff;
+        font-size: 1.65rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+      }
+
+      .education-content h4 {
+        margin: 4px 0 8px;
+        font-size: 1.35rem;
+      }
+
+      .education-content p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .education-content p + p {
+        margin-top: 5px;
       }
 
       .panel,
@@ -548,6 +570,14 @@
       }
 
       @media (max-width: 640px) {
+        .education-card {
+          grid-template-columns: 1fr;
+        }
+
+        .education-mark {
+          min-height: 88px;
+        }
+
         .timeline-item {
           grid-template-columns: 1fr;
         }
@@ -567,9 +597,10 @@
   <body>
     <div class="topbar">
       <div class="container nav">
-        <a href="#home" class="brand">LOGAN JIANG</a>
+          <a href="#home" class="brand">LOGAN JIANG</a>
         <div class="nav-links">
           <a href="#about">About</a>
+          <a href="#education">Education</a>
           <a href="#skills">Skills</a>
           <a href="#experience">Experience</a>
           <a href="#projects">Projects</a>
@@ -605,7 +636,7 @@
               </div>
               <div class="stat">
                 <strong>SQL</strong>
-                <span>Python • Neo4j • BI</span>
+                <span>Python • Neo4j • IBM i2</span>
               </div>
             </div>
           </div>
@@ -617,9 +648,7 @@
                   <img src="assets/证件照_小一寸.jpg" alt="Logan Jiang portrait" />
                 </div>
               </div>
-              <div class="profile-badge">Open to opportunities</div>
               <div class="profile-summary">
-                <div class="avatar">LJ</div>
                 <h2>Logan Jiang</h2>
                 <p>Business Analytics • Risk • Digital Transformation</p>
               </div>
@@ -662,6 +691,23 @@
         </div>
       </section>
 
+      <section id="education">
+        <div class="section-head">
+          <h3>Education</h3>
+          <p>Advanced training in analytics and data-driven management.</p>
+        </div>
+
+        <div class="education-card">
+          <div class="education-mark">MMA</div>
+          <div class="education-content">
+            <span class="small-text">Graduate Education</span>
+            <h4>Master of Management in Analytics (MMA)</h4>
+            <p><strong>McGill University</strong> · Desautels Faculty of Management</p>
+            <p>Montréal, Québec, Canada</p>
+          </div>
+        </div>
+      </section>
+
       <section id="skills">
         <div class="section-head">
           <h3>Core Skills</h3>
@@ -675,7 +721,7 @@
               <span>SQL</span>
               <span>Python</span>
               <span>Excel</span>
-              <span>Power BI</span>
+              <span>IBM i2</span>
             </div>
           </div>
 
