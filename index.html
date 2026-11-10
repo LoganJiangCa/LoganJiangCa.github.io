@@ -1,926 +1,839 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Logan Jiang | Analyst & Quant Portfolio</title>
-    <style>
-      :root {
-        --bg: #f3f6fb;
-        --bg-2: #edf3fa;
-        --panel: rgba(255, 255, 255, 0.8);
-        --panel-strong: #ffffff;
-        --primary: #102a43;
-        --primary-2: #1d4f91;
-        --primary-3: #60a5fa;
-        --gold: #d4a64a;
-        --gold-soft: #f9f2e6;
-        --text: #122033;
-        --muted: #4d5e75;
-        --line: rgba(16, 42, 67, 0.1);
-        --shadow: 0 18px 40px rgba(12, 26, 42, 0.12);
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        margin: 0;
-        font-family: "Segoe UI", Arial, sans-serif;
-        background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
-        color: var(--text);
-        line-height: 1.7;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .container {
-        width: min(1180px, calc(100% - 32px));
-        margin: 0 auto;
-      }
-
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 20;
-        backdrop-filter: blur(14px);
-        background: rgba(243, 246, 251, 0.85);
-        border-bottom: 1px solid rgba(16, 42, 67, 0.08);
-      }
-
-      .nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        min-height: 72px;
-        gap: 18px;
-      }
-
-      .brand {
-        font-size: 1.05rem;
-        letter-spacing: 0.18em;
-        font-weight: 800;
-        color: var(--primary);
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 22px;
-        color: var(--muted);
-        font-size: 0.95rem;
-      }
-
-      .nav-links a:hover {
-        color: var(--primary);
-      }
-
-      .cta,
-      .secondary-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px 20px;
-        border-radius: 999px;
-        font-weight: 700;
-        transition: all 0.2s ease;
-      }
-
-      .cta {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
-        color: #fff;
-        box-shadow: var(--shadow);
-      }
-
-      .secondary-btn {
-        border: 1px solid var(--line);
-        background: rgba(255,255,255,0.7);
-        color: var(--primary);
-      }
-
-      .hero {
-        padding: 72px 0 20px;
-      }
-
-      .hero-grid {
-        display: grid;
-        grid-template-columns: 1.35fr 0.9fr;
-        gap: 44px;
-        align-items: center;
-      }
-
-      .eyebrow {
-        display: inline-block;
-        padding: 8px 14px;
-        border-radius: 999px;
-        background: var(--gold-soft);
-        color: #9c6b1a;
-        font-size: 0.72rem;
-        font-weight: 800;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-      }
-
-      h1 {
-        margin: 18px 0 18px;
-        font-size: clamp(2.5rem, 6vw, 4.5rem);
-        line-height: 0.98;
-        letter-spacing: -0.06em;
-      }
-
-      .gradient-text {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 38%, var(--primary-3) 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-
-      .lead {
-        max-width: 700px;
-        color: var(--muted);
-        font-size: 1.06rem;
-      }
-
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin: 22px 0 20px;
-      }
-
-      .hero-actions .cta,
-      .hero-actions .secondary-btn {
-        padding: 10px 17px;
-        font-size: 0.92rem;
-      }
-
-      .stats {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 18px;
-      }
-
-      .stat {
-        min-width: 145px;
-      }
-
-      .stat strong {
-        display: block;
-        font-size: clamp(1.35rem, 1.8vw, 2rem);
-        color: var(--primary);
-      }
-
-      .stat span {
-        color: var(--muted);
-        font-size: 0.8rem;
-      }
-
-      .profile-card {
-        width: 100%;
-        max-width: 360px;
-        justify-self: center;
-        background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.82));
-        border: 1px solid var(--line);
-        border-radius: 24px;
-        box-shadow: var(--shadow);
-        padding: 12px;
-      }
-
-      .profile-visual {
-        min-height: 320px;
-        border-radius: 18px;
-        background: #ffffff;
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 20px 16px 16px;
-      }
-
-      .profile-visual .portrait-shell {
-        position: relative;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .portrait-card {
-        width: min(150px, 56%);
-        aspect-ratio: 3 / 4;
-        border-radius: 16px;
-        overflow: hidden;
-        background: #f4f7fb;
-        border: 1px solid var(--line);
-        box-shadow: 0 10px 26px rgba(18, 38, 63, 0.13);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .portrait-card img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center center;
-        display: block;
-      }
-
-      .profile-visual::before {
-        display: none;
-      }
-
-      .profile-summary {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        margin-top: 13px;
-        color: var(--ink);
-        text-align: center;
-      }
-
-      .profile-summary h2 {
-        margin: 0 0 6px;
-        font-size: 1.5rem;
-      }
-
-      .profile-summary p {
-        margin: 0;
-        color: var(--muted);
-        font-size: 0.82rem;
-      }
-
-      .mini-cards {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 10px;
-        margin-top: 12px;
-      }
-
-      .mini-card {
-        background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(244,247,251,0.9));
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 10px;
-      }
-
-      .mini-card strong {
-        display: block;
-        color: var(--primary);
-        margin-bottom: 4px;
-        font-size: 0.86rem;
-      }
-
-      .mini-card span {
-        color: var(--muted);
-        font-size: 0.76rem;
-      }
-
-      section {
-        padding: 30px 0 10px;
-      }
-
-      .section-head {
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-        gap: 18px;
-        margin-bottom: 20px;
-      }
-
-      .section-head h3 {
-        margin: 0;
-        font-size: clamp(2rem, 3vw, 2.8rem);
-        letter-spacing: -0.05em;
-      }
-
-      .section-head p {
-        margin: 0;
-        color: var(--muted);
-      }
-
-      .about-grid,
-      .skills-grid,
-      .projects-grid,
-      .contact-grid {
-        display: grid;
-        gap: 22px;
-      }
-
-      .about-grid {
-        grid-template-columns: 1.25fr 0.75fr;
-      }
-
-      .education-card {
-        display: grid;
-        grid-template-columns: 190px minmax(0, 1fr);
-        gap: 24px;
-        align-items: center;
-        padding: 26px;
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 22px;
-        box-shadow: var(--shadow);
-      }
-
-      .education-mark {
-        min-height: 120px;
-        border-radius: 20px;
-        display: grid;
-        place-items: center;
-        padding: 16px;
-        background: #fff;
-        border: 1px solid var(--line);
-      }
-
-      .education-mark img {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-
-      .education-content h4 {
-        margin: 4px 0 8px;
-        font-size: 1.35rem;
-      }
-
-      .education-content p {
-        margin: 0;
-        color: var(--muted);
-      }
-
-      .education-content p + p {
-        margin-top: 5px;
-      }
-
-      .panel,
-      .skill-card,
-      .timeline-item,
-      .project-card,
-      .info-card {
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 22px;
-        box-shadow: var(--shadow);
-      }
-
-      .panel {
-        padding: 26px;
-      }
-
-      .panel p {
-        margin: 0;
-        color: var(--muted);
-      }
-
-      .facts-list {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: grid;
-        gap: 14px;
-      }
-
-      .facts-list li {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        color: var(--muted);
-      }
-
-      .facts-list li::before {
-        content: "•";
-        font-size: 2rem;
-        line-height: 1;
-        color: var(--gold);
-      }
-
-      .skills-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .skill-card {
-        padding: 22px;
-      }
-
-      .skill-card h4 {
-        margin: 0 0 14px;
-        font-size: 1.12rem;
-      }
-
-      .tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .tags span {
-        border-radius: 999px;
-        background: rgba(29, 79, 145, 0.08);
-        color: var(--primary);
-        font-weight: 700;
-        font-size: 0.8rem;
-        padding: 8px 12px;
-      }
-
-      .experience {
-        display: grid;
-        gap: 18px;
-      }
-
-      .timeline-item {
-        display: grid;
-        grid-template-columns: 210px minmax(0, 1fr);
-        gap: 18px;
-        padding: 20px 22px;
-        position: relative;
-      }
-
-      .year {
-        position: relative;
-        z-index: 1;
-        font-weight: 800;
-        color: var(--primary-2);
-        white-space: nowrap;
-      }
-
-      .year::before {
-        content: "";
-        display: inline-block;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: var(--primary-2);
-        margin-right: 10px;
-        vertical-align: middle;
-      }
-
-      .timeline-content h4 {
-        margin: 0 0 6px;
-        font-size: 1.2rem;
-      }
-
-      .timeline-content p {
-        margin: 0;
-        color: var(--muted);
-      }
-
-      .projects-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .project-card {
-        overflow: hidden;
-      }
-
-      .project-card-link {
-        display: block;
-        height: 100%;
-        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-      }
-
-      .project-card-link:hover {
-        transform: translateY(-4px);
-        border-color: rgba(29, 79, 145, 0.3);
-        box-shadow: 0 18px 44px rgba(18, 38, 63, 0.16);
-      }
-
-      .project-card-link:focus-visible {
-        outline: 3px solid rgba(29, 79, 145, 0.35);
-        outline-offset: 4px;
-      }
-
-      .project-visual {
-        height: 170px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, #102a43 0%, #1d4f91 48%, #9ec8ff 100%);
-        color: rgba(255,255,255,0.93);
-        font-weight: 800;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        font-size: 0.8rem;
-      }
-
-      .project-body {
-        padding: 22px;
-      }
-
-      .project-body h4 {
-        margin: 0 0 10px;
-      }
-
-      .project-body p {
-        margin: 0 0 16px;
-        color: var(--muted);
-      }
-
-      .contact-grid {
-        grid-template-columns: 1.2fr 0.8fr;
-      }
-
-      .contact-box {
-        background: linear-gradient(135deg, #0d223b 0%, #1d4f91 100%);
-        border-radius: 24px;
-        padding: 28px;
-        color: #fff;
-        box-shadow: var(--shadow);
-      }
-
-      .small-text {
-        display: block;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        font-size: 0.72rem;
-        opacity: 0.75;
-        margin-bottom: 12px;
-      }
-
-      .contact-box h3 {
-        margin: 0 0 16px;
-        font-size: clamp(1.9rem, 3vw, 2.7rem);
-        line-height: 1.1;
-      }
-
-      .contact-box p {
-        margin: 0 0 20px;
-        color: rgba(255,255,255,0.82);
-      }
-
-      .contact-box .secondary-btn {
-        background: rgba(255,255,255,0.12);
-        border-color: rgba(255,255,255,0.25);
-        color: #fff;
-      }
-
-      .info-card {
-        padding: 24px;
-      }
-
-      .info-card p {
-        margin: 0 0 12px;
-        color: var(--muted);
-      }
-
-      footer {
-        padding: 34px 0 48px;
-        text-align: center;
-        color: var(--muted);
-      }
-
-      @media (max-width: 920px) {
-        .hero-grid,
-        .about-grid,
-        .contact-grid,
-        .projects-grid,
-        .skills-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .nav {
-          flex-wrap: wrap;
-          justify-content: center;
-          padding: 18px 0;
-        }
-
-        .nav-links {
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-      }
-
-      @media (max-width: 640px) {
-        .education-card {
-          grid-template-columns: 1fr;
-        }
-
-        .education-mark {
-          min-height: 88px;
-        }
-
-        .timeline-item {
-          grid-template-columns: 1fr;
-        }
-
-        .section-head {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .profile-visual {
-          min-height: 300px;
-        }
-      }
-    </style>
+    <meta
+      name="description"
+      content="Logan Jiang 的个人作品集，聚焦 AML、统计机器学习、解决方案咨询与量化投资。"
+    />
+    <meta name="theme-color" content="#fffaf2" />
+    <title>Logan Jiang — Selected Work</title>
+    <link rel="stylesheet" href="assets/portfolio.css?v=20261110-slide" />
   </head>
-
   <body>
-    <div class="topbar">
-      <div class="container nav">
-          <a href="#home" class="brand">LOGAN JIANG</a>
+    <header class="topbar">
+      <nav class="shell nav" aria-label="主导航" data-i18n-aria-label="navLabel">
+        <a class="brand" href="#home" aria-label="Logan Jiang 首页" data-i18n-aria-label="brandLabel">
+          <span class="brand-mark">LJ</span>
+          <span>LOGAN JIANG</span>
+        </a>
         <div class="nav-links">
-          <a href="#about">About</a>
-          <a href="#education">Education</a>
-          <a href="#skills">Skills</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
+          <a href="#work" data-i18n="navWork">作品集</a>
+          <a href="#about" data-i18n="navAbout">关于</a>
         </div>
-        <a href="#contact" class="cta">Let’s Connect</a>
-      </div>
-    </div>
-
-    <main id="home" class="container">
-      <section class="hero">
-        <div class="hero-grid">
-          <div>
-            <span class="eyebrow">Data • Risk • Strategy</span>
-            <h1>
-              Making sense of <span class="gradient-text">data</span>.<br />
-              Solving real business problems.
-            </h1>
-            <p class="lead">
-              I’m Logan Jiang, a business analytics and risk-focused professional with experience in anti-money laundering, investigative analytics, and digital transformation. I combine structured thinking, data analysis, and business insight to help organizations make smarter decisions.
-            </p>
-            <div class="hero-actions">
-              <a class="cta" href="#projects">View Projects</a>
-              <a class="secondary-btn" href="#about">About Me</a>
-            </div>
-            <div class="stats">
-              <div class="stat">
-                <strong>5+</strong>
-                <span>years in analysis & risk</span>
-              </div>
-              <div class="stat">
-                <strong>10+</strong>
-                <span>data-driven projects</span>
-              </div>
-              <div class="stat">
-                <strong>SQL</strong>
-                <span>Python • Neo4j • IBM i2</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="profile-card">
-            <div class="profile-visual">
-              <div class="portrait-shell">
-                <div class="portrait-card">
-                  <img src="assets/证件照_小一寸.jpg" alt="Logan Jiang portrait" />
-                </div>
-              </div>
-              <div class="profile-summary">
-                <h2>Logan Jiang</h2>
-                <p>Business Analytics • Risk • Digital Transformation</p>
-              </div>
-            </div>
-
-            <div class="mini-cards">
-              <div class="mini-card">
-                <strong>MMA Student</strong>
-                <span>McGill University</span>
-              </div>
-              <div class="mini-card">
-                <strong>AML</strong>
-                <span>Intelligence Analysis</span>
-              </div>
-              <div class="mini-card">
-                <strong>Consulting</strong>
-                <span>Business insights</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="about">
-        <div class="section-head">
-          <h3>About Me</h3>
-          <p>Analytical mindset with a business lens.</p>
-        </div>
-
-        <div class="about-grid">
-          <div class="panel">
-            <p>
-              I have hands-on experience in anti-money laundering (AML), economic crime analytics, internal compliance investigations, and digital transformation projects. My work has involved turning large and complex datasets into practical insights for operational teams, risk functions, and strategic decision-making.
-            </p>
-          </div>
-
-          <div class="panel">
-            <ul class="facts-list">
-              <li>Strong analytical background in risk, compliance, and financial data.</li>
-              <li>Experience supporting enterprise technology and transformation initiatives.</li>
-              <li>Passionate about quantitative research and model-driven decision making.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section id="education">
-        <div class="section-head">
-          <h3>Education</h3>
-          <p>Advanced training in analytics and data-driven management.</p>
-        </div>
-
-        <div class="education-card">
-          <div class="education-mark">
-            <img src="assets/mcgill-university-logo.png" alt="McGill University logo" />
-          </div>
-          <div class="education-content">
-            <span class="small-text">Graduate Education</span>
-            <h4>Master of Management in Analytics (MMA)</h4>
-            <p><strong>McGill University</strong> · Desautels Faculty of Management</p>
-            <p>Montréal, Québec, Canada</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="skills">
-        <div class="section-head">
-          <h3>Core Skills</h3>
-          <p>Tools and capabilities for modern business analysis.</p>
-        </div>
-
-        <div class="skills-grid">
-          <div class="skill-card">
-            <h4>Analytics</h4>
-            <div class="tags">
-              <span>MySQL</span>
-              <span>Python</span>
-              <span>Excel</span>
-              <span>SPSS</span>
-              <span>RapidMiner</span>
-              <span>IBM i2</span>
-              <span title="火眼金睛可视化情报分析软件">HYJJ</span>
-            </div>
-          </div>
-
-          <div class="skill-card">
-            <h4>Risk & Compliance</h4>
-            <div class="tags">
-              <span>AML</span>
-              <span>Compliance</span>
-              <span>Fraud Analysis</span>
-              <span>Investigation</span>
-            </div>
-          </div>
-
-          <div class="skill-card">
-            <h4>Transformation</h4>
-            <div class="tags">
-              <span>Neo4j</span>
-              <span>Data Modeling</span>
-              <span>Visualization</span>
-              <span>Process Design</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="experience">
-        <div class="section-head">
-          <h3>Experience</h3>
-          <p>Focused on data, risk, and strategic transformation.</p>
-        </div>
-
-        <div class="experience">
-          <div class="timeline-item">
-            <div class="year">Apr 2020 - Jun 2026</div>
-            <div class="timeline-content">
-              <h4>Consultant / Senior Data Analyst</h4>
-              <p><strong>Nanjing Cognitive Intelligence Information &amp; Technology Co., Ltd.</strong> · Permanent Full-time</p>
-              <p>Nanjing, Jiangsu, China · Hybrid</p>
-              <p>Contributed to large-scale digital transformation and economic big data initiatives across government, public security, discipline inspection, tobacco, banking, finance, insurance, and more.</p>
-              <div class="tags" style="margin-top: 12px;">
-                <span>MySQL</span>
-                <span>Python</span>
-                <span>Data Analysis</span>
-                <span>Consulting</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="year">Aug 2019 - Jan 2020</div>
-            <div class="timeline-content">
-              <h4>Claims Assistant Analyst</h4>
-              <p><strong>China Life Insurance Company Limited</strong> · Contract Full-time</p>
-              <p>Jingzhou, Hubei, China · On-site</p>
-              <p>Conducted comprehensive statistical analysis on various data sets including claims data, incident data, and personnel relationship data to identify trends and patterns.</p>
-              <div class="tags" style="margin-top: 12px;">
-                <span>Insurance Claims</span>
-                <span>Statistics</span>
-                <span>Data Review</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="year">Jun 2018 - Sep 2018</div>
-            <div class="timeline-content">
-              <h4>Assistant to the Head of Asset Custody Dept</h4>
-              <p><strong>国泰君安证券股份有限公司</strong> · Internship</p>
-              <p>Shenzhen, Guangdong, China · On-site</p>
-              <p>Conducted asset allocation analysis for key clients in the securities and investment banking sector, provided optimization recommendations for asset custody processes, and assisted in operational risk control.</p>
-              <div class="tags" style="margin-top: 12px;">
-                <span>Asset Management</span>
-                <span>Risk Analysis</span>
-                <span>Portfolio Review</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="projects">
-        <div class="section-head">
-          <h3>Featured Projects</h3>
-          <p>Selected work at the intersection of analysis and decision support.</p>
-        </div>
-
-        <div class="projects-grid">
-          <a class="project-card project-card-link" href="Stock%20Quantitative_Tools/Stock%20Quotes%20%26%20Technical%20Analysis.%20bilingual.html" aria-label="Open Stock Quotes and Technical Analysis tool">
-            <div class="project-visual">Stocks</div>
-            <div class="project-body">
-              <h4>Stock Quotes & Technical Analysis</h4>
-              <p>
-                A bilingual stock analysis tool using historical trading data and technical indicators such as MACD, RSI, Williams %R, and Bollinger Bands for actionable market insight.
-              </p>
-              <div class="tags">
-                <span>Python</span>
-                <span>Finance</span>
-                <span>Analytics</span>
-              </div>
-            </div>
+        <div class="nav-tools">
+          <a class="nav-contact" href="#contact">
+            <span data-i18n="navContact">联系我</span>
+            <span aria-hidden="true">↗</span>
           </a>
+          <div class="language-switch" role="group" aria-label="选择语言" data-i18n-aria-label="languageLabel">
+            <button type="button" data-language="zh-CN" aria-pressed="true" aria-label="中文" title="中文">中</button>
+            <button type="button" data-language="en" aria-pressed="false" aria-label="English" title="English">EN</button>
+            <button type="button" data-language="fr" aria-pressed="false" aria-label="Français" title="Français">FR</button>
+          </div>
+        </div>
+      </nav>
+    </header>
 
-          <article class="project-card">
-            <div class="project-visual">Risk</div>
-            <div class="project-body">
-              <h4>AML Monitoring Framework</h4>
-              <p>
-                A practical solution for reviewing suspicious patterns, transaction anomalies, and investigation data to improve compliance risk detection.
-              </p>
-              <div class="tags">
-                <span>AML</span>
-                <span>SQL</span>
-                <span>Risk</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-visual">Quant</div>
-            <div class="project-body">
-              <h4>Quantitative Strategy Research</h4>
-              <p>
-                A personal research initiative focused on strategy design, signal testing, and performance evaluation using historical market data.
-              </p>
-              <div class="tags">
-                <span>Backtesting</span>
-                <span>Python</span>
-                <span>Strategy</span>
-              </div>
-            </div>
-          </article>
+    <main id="home">
+      <section class="shell hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <span class="eyebrow" data-i18n="heroEyebrow">作品集 / 分析 / 策略</span>
+          <h1 id="hero-title">
+            <span id="hero-title-line-one">让复杂问题</span><br />
+            <span id="hero-title-line-two">变得</span><span id="hero-title-highlight" class="headline-accent">清晰</span><span id="hero-title-ending">。</span>
+          </h1>
+          <p class="hero-intro" data-i18n="heroIntro">
+            以数据探索问题，以模型验证判断，以可执行的方案连接洞察与决策。
+            这里记录我在风险分析、机器学习、咨询与量化投资方向的个人作品。
+          </p>
+          <div class="hero-actions">
+            <a class="button-primary" href="#work"><span data-i18n="heroCta">探索作品集</span> <span aria-hidden="true">↓</span></a>
+            <a class="text-link" href="#about"><span data-i18n="heroAbout">了解这个作品集</span> →</a>
+          </div>
+        </div>
+        <div class="hero-art">
+          <div class="art-ring"></div>
+          <div class="art-core">
+            <svg viewBox="0 0 180 180" fill="none" aria-hidden="true">
+              <path d="M25 121L61 83L89 103L142 47" stroke="currentColor" stroke-width="3" />
+              <path d="M111 47H142V78" stroke="currentColor" stroke-width="3" />
+              <circle cx="25" cy="121" r="5" fill="#F18A6B" />
+              <circle cx="61" cy="83" r="5" fill="#5268E8" />
+              <circle cx="89" cy="103" r="5" fill="#D3F36B" />
+              <circle cx="142" cy="47" r="5" fill="#D3F36B" />
+              <path d="M28 142H151" stroke="rgba(255,255,255,.25)" />
+              <path d="M28 28V142" stroke="rgba(255,255,255,.25)" />
+            </svg>
+          </div>
+          <span class="art-sticker" aria-hidden="true">✳</span>
+          <span class="art-caption" data-i18n="artCaption">思考 · 验证 · 构建</span>
+          <div class="hero-signature">
+            <span data-i18n="signatureCaption">分析 · 创造</span>
+            <strong>LOGAN<br />JIANG<span>.</span></strong>
+          </div>
         </div>
       </section>
 
-      <section id="contact">
-        <div class="contact-grid">
-          <div class="contact-box">
-            <span class="small-text">Get in touch</span>
-            <h3>Open to data, risk, and strategy opportunities.</h3>
-            <p>
-              I enjoy collaborating on business analytics, compliance analytics, and digital transformation projects where data can drive better decisions.
-            </p>
-            <a class="secondary-btn" href="https://www.linkedin.com/in/logan-jiang" target="_blank" rel="noreferrer">LinkedIn: www.linkedin.com/in/logan-jiang</a>
+      <section id="work" class="shell portfolio" aria-labelledby="work-title">
+        <div class="section-heading reveal">
+          <div>
+            <span class="section-kicker" data-i18n="sectionKicker">01 — 精选方向</span>
+            <h2 id="work-title"><span data-i18n="workTitle">作品集方向</span><span aria-hidden="true">.</span></h2>
+          </div>
+          <p data-i18n="workIntro">四个方向，持续探索。AML 分析模型与内幕交易风险研判已上线，选择一个方向，翻阅作品并直接体验。</p>
+        </div>
+
+        <div class="portfolio-layout">
+          <div class="portfolio-nav" role="group" aria-label="选择作品集方向" data-i18n-aria-label="chooseField">
+            <button class="portfolio-card reveal" type="button" data-category="aml" aria-pressed="true">
+              <span class="card-number">01</span>
+              <span class="card-content">
+                <h3 data-category-title="aml">反洗钱分析</h3>
+                <span class="card-label" data-category-label="aml">AML · FINANCIAL CRIME</span>
+              </span>
+              <span class="card-arrow" aria-hidden="true">↗</span>
+            </button>
+
+            <button class="portfolio-card reveal" type="button" data-category="ml" aria-pressed="false">
+              <span class="card-number">02</span>
+              <span class="card-content">
+                <h3 data-category-title="ml">统计与机器学习</h3>
+                <span class="card-label" data-category-label="ml">统计 · 机器学习</span>
+              </span>
+              <span class="card-arrow" aria-hidden="true">↗</span>
+            </button>
+
+            <button class="portfolio-card reveal" type="button" data-category="consulting" aria-pressed="false">
+              <span class="card-number">03</span>
+              <span class="card-content">
+                <h3 data-category-title="consulting">解决方案咨询</h3>
+                <span class="card-label" data-category-label="consulting">洞察 · 解决方案</span>
+              </span>
+              <span class="card-arrow" aria-hidden="true">↗</span>
+            </button>
+
+            <button class="portfolio-card reveal" type="button" data-category="quant" aria-pressed="false">
+              <span class="card-number">04</span>
+              <span class="card-content">
+                <h3 data-category-title="quant">量化投资</h3>
+                <span class="card-label" data-category-label="quant">研究 · 回测</span>
+              </span>
+              <span class="card-arrow" aria-hidden="true">↗</span>
+            </button>
           </div>
 
-          <div class="info-card">
-            <span class="small-text">Profile</span>
-            <p><strong>Location:</strong> Montreal, Canada</p>
-            <p><strong>Focus:</strong> Business Analytics, Risk Management, AML, Digital Transformation</p>
-            <p><strong>Interests:</strong> Quantitative analysis, forecasting, operational strategy</p>
-            <p><strong>Stack:</strong> SQL, Python, Neo4j, Excel, Visualization, IBM I2</p>
-            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/logan-jiang" target="_blank" rel="noreferrer">linkedin.com/in/logan-jiang</a></p>
+          <div id="category-detail" class="detail-wrap reveal" data-tone="aml">
+            <div class="detail-copy" aria-live="polite" aria-atomic="true">
+              <span class="micro-label" id="detail-kicker">FIELD 01 / AML</span>
+              <h3 id="detail-title">反洗钱分析</h3>
+              <p id="detail-description">
+                本人从事解决方案咨询多年，服务于银行科技、政府监管机构下属的经济犯罪调查部门，聚焦于提供反洗钱信息化建设与数据分析服务。本类作品主要展示反洗钱检测模型和欺诈检测模型，均已向监管部门交付，演示数据以合成数据为主。
+              </p>
+              <span class="detail-note" data-i18n="detailNote">持续记录研究与实践，更多作品陆续更新</span>
+            </div>
+            <div id="project-card-window" class="project-card-window" role="region" aria-roledescription="carousel" aria-label="作品展示" data-i18n-aria-label="projectGallery" tabindex="0">
+              <div id="project-card-track" class="project-card-track"></div>
+            </div>
+            <div class="detail-controls">
+              <button
+                id="previous-project"
+                class="carousel-button"
+                type="button"
+                aria-label="上一张作品"
+                data-i18n-aria-label="previousProject"
+              >
+                <span aria-hidden="true">←</span>
+              </button>
+              <div class="carousel-position">
+                <span id="carousel-current" aria-hidden="true">01</span>
+                <div id="carousel-track" class="carousel-track" role="group" aria-label="选择作品" data-i18n-aria-label="chooseProject"></div>
+                <span id="carousel-total" aria-hidden="true">03</span>
+                <span id="carousel-announcement" class="sr-only" aria-live="polite" aria-atomic="true"></span>
+              </div>
+              <button
+                id="next-project"
+                class="carousel-button"
+                type="button"
+                aria-label="下一张作品"
+                data-i18n-aria-label="nextProject"
+              >
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+            <div id="project-detail" class="project-detail" aria-live="polite" aria-atomic="true">
+              <span class="micro-label" data-i18n="projectDetailLabel">作品说明</span>
+              <h4 id="project-detail-title">Logan的AML分析模型</h4>
+              <p id="project-detail-description"></p>
+            </div>
           </div>
         </div>
+      </section>
+
+      <section id="about" class="shell contact reveal" aria-label="关于这个作品集" data-i18n-aria-label="aboutLabel">
+        <div class="contact-copy">
+          <span class="micro-label" data-i18n="aboutKicker">关于这个网站</span>
+          <strong data-i18n="aboutStatement">一个持续生长的分析与研究档案。</strong>
+        </div>
+        <a
+          class="contact-link"
+          href="https://www.linkedin.com/in/logan-jiang"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span data-i18n="linkedinLink">在 LinkedIn 联系我</span> <span aria-hidden="true">↗</span>
+        </a>
       </section>
     </main>
 
-    <footer>
-      © 2026 Logan Jiang · Built for clarity, insight, and impact.
+    <footer class="shell" id="contact">
+      <span>© 2026 LOGAN JIANG</span>
+      <span data-i18n="footerTagline">围绕想法、数据与决策构建。</span>
     </footer>
+
+    <script>
+      const cards = document.querySelectorAll(".portfolio-card");
+      const detail = document.querySelector("#category-detail");
+      const detailKicker = document.querySelector("#detail-kicker");
+      const detailTitle = document.querySelector("#detail-title");
+      const detailDescription = document.querySelector("#detail-description");
+      const projectCardWindow = document.querySelector("#project-card-window");
+      const projectCardTrack = document.querySelector("#project-card-track");
+      const projectDetailTitle = document.querySelector("#project-detail-title");
+      const projectDetailDescription = document.querySelector("#project-detail-description");
+      const carouselCurrent = document.querySelector("#carousel-current");
+      const carouselTotal = document.querySelector("#carousel-total");
+      const carouselTrack = document.querySelector("#carousel-track");
+      const languages = {
+        "zh-CN": {
+          title: "Logan Jiang — 个人作品集",
+          description: "Logan Jiang 的个人作品集，聚焦 AML、统计机器学习、解决方案咨询与量化投资。",
+          fieldPrefix: "方向",
+          navLabel: "主导航",
+          brandLabel: "Logan Jiang 首页",
+          languageLabel: "选择语言",
+          navWork: "作品集",
+          navAbout: "关于",
+          navContact: "联系我",
+          heroEyebrow: "作品集 / 分析 / 策略",
+          heroLineOne: "让复杂问题",
+          heroLineTwo: "变得",
+          heroHighlight: "清晰",
+          heroEnding: "。",
+          heroIntro: "以数据探索问题，以模型验证判断，以可执行的方案连接洞察与决策。这里记录我在风险分析、机器学习、咨询与量化投资方向的个人作品。",
+          heroCta: "探索作品集",
+          heroAbout: "了解这个作品集",
+          artCaption: "思考 · 验证 · 构建",
+          signatureCaption: "分析 · 创造",
+          sectionKicker: "01 — 精选方向",
+          workTitle: "作品集方向",
+          workIntro: "四个方向，持续探索。AML 分析模型与内幕交易风险研判已上线，选择一个方向，翻阅作品并直接体验。",
+          projectGallery: "作品展示，可使用左右方向键切换",
+          chooseProject: "选择作品",
+          chooseField: "选择作品集方向",
+          previousProject: "上一张作品",
+          nextProject: "下一张作品",
+          openProject: "打开作品",
+          published: "已发布",
+          projectDetailLabel: "作品说明",
+          detailNote: "持续记录研究与实践，更多作品陆续更新",
+          comingSoon: "即将上线",
+          detailDescriptionAml: "本人从事解决方案咨询多年，服务于银行科技、政府监管机构下属的经济犯罪调查部门，聚焦于提供反洗钱信息化建设与数据分析服务。本类作品主要展示反洗钱检测模型和欺诈检测模型，均已向监管部门交付，演示数据以合成数据为主。",
+          aboutLabel: "关于这个作品集",
+          aboutKicker: "关于这个网站",
+          aboutStatement: "一个持续生长的分析与研究档案。",
+          linkedinLink: "在 LinkedIn 联系我",
+          footerTagline: "围绕想法、数据与决策构建。",
+        },
+        en: {
+          title: "Logan Jiang — Selected Work",
+          description: "Logan Jiang's portfolio in AML, statistical machine learning, solution consulting, and quantitative investing.",
+          fieldPrefix: "FIELD",
+          navLabel: "Main navigation",
+          brandLabel: "Logan Jiang home",
+          languageLabel: "Choose language",
+          navWork: "Portfolio",
+          navAbout: "About",
+          navContact: "Contact",
+          heroEyebrow: "Portfolio / Analysis / Strategy",
+          heroLineOne: "Make complex",
+          heroLineTwo: "ideas ",
+          heroHighlight: "clear",
+          heroEnding: ".",
+          heroIntro: "I explore questions with data, test ideas with models, and connect insight to action. This portfolio brings together selected work in risk analysis, machine learning, consulting, and quantitative investing.",
+          heroCta: "Explore the work",
+          heroAbout: "About this portfolio",
+          artCaption: "THINK · TEST · BUILD",
+          signatureCaption: "ANALYST · BUILDER",
+          sectionKicker: "01 — Selected fields",
+          workTitle: "Areas of work",
+          workIntro: "Four fields, an ongoing exploration. The AML model and insider trading risk study are live. Pick a field, browse the projects, and try them directly.",
+          projectGallery: "Project gallery. Use the left and right arrow keys to browse",
+          chooseProject: "Choose a project",
+          chooseField: "Choose a portfolio field",
+          previousProject: "Previous project card",
+          nextProject: "Next project card",
+          openProject: "Open project",
+          published: "Published",
+          projectDetailLabel: "About this project",
+          detailNote: "An evolving collection of research and practice",
+          comingSoon: "Coming soon",
+          detailDescriptionAml: "I have worked in solution consulting for many years, focusing on AML technology and data analytics capabilities for banking technology teams and economic crime investigation units within government regulatory agencies. This portfolio category features AML and fraud detection models, all delivered to regulatory authorities. Demonstrations primarily use synthetic data.",
+          aboutLabel: "About this portfolio",
+          aboutKicker: "A little about this site",
+          aboutStatement: "An evolving archive of analysis and research.",
+          linkedinLink: "Connect on LinkedIn",
+          footerTagline: "Built around ideas, data & decisions.",
+        },
+        fr: {
+          title: "Logan Jiang — Portfolio",
+          description: "Le portfolio de Logan Jiang : AML, apprentissage automatique statistique, conseil en solutions et investissement quantitatif.",
+          fieldPrefix: "DOMAINE",
+          navLabel: "Navigation principale",
+          brandLabel: "Accueil de Logan Jiang",
+          languageLabel: "Choisir la langue",
+          navWork: "Portfolio",
+          navAbout: "À propos",
+          navContact: "Contact",
+          heroEyebrow: "Portfolio / Analyse / Stratégie",
+          heroLineOne: "Des données,",
+          heroLineTwo: "des idées ",
+          heroHighlight: "claires",
+          heroEnding: ".",
+          heroIntro: "J’explore les questions avec les données, je vérifie les hypothèses avec des modèles et je transforme les analyses en actions. Ce portfolio rassemble mes travaux en analyse des risques, apprentissage automatique, conseil et investissement quantitatif.",
+          heroCta: "Découvrir les projets",
+          heroAbout: "À propos du portfolio",
+          artCaption: "PENSER · TESTER · CRÉER",
+          signatureCaption: "ANALYSTE · CRÉATEUR",
+          sectionKicker: "01 — Domaines sélectionnés",
+          workTitle: "Domaines d’activité",
+          workIntro: "Quatre domaines à explorer. Le modèle LBC et l’étude du risque d’opérations d’initiés sont en ligne. Choisissez un domaine, parcourez les projets et essayez-les directement.",
+          projectGallery: "Galerie de projets. Utilisez les flèches gauche et droite pour naviguer",
+          chooseProject: "Choisir un projet",
+          chooseField: "Choisir un domaine du portfolio",
+          previousProject: "Carte précédente",
+          nextProject: "Carte suivante",
+          openProject: "Voir le projet",
+          published: "Publié",
+          projectDetailLabel: "À propos du projet",
+          detailNote: "Une collection évolutive de recherches et de réalisations",
+          comingSoon: "Bientôt disponible",
+          detailDescriptionAml: "Depuis plusieurs années, je travaille dans le conseil en solutions, principalement pour développer les capacités technologiques et analytiques de lutte contre le blanchiment des équipes technologiques bancaires et des services d’enquête sur la criminalité économique rattachés aux autorités publiques de régulation. Cette catégorie présente des modèles de détection du blanchiment et de la fraude, tous livrés aux autorités de régulation. Les démonstrations utilisent principalement des données synthétiques.",
+          aboutLabel: "À propos de ce portfolio",
+          aboutKicker: "À propos de ce site",
+          aboutStatement: "Un carnet évolutif d’analyses et de recherches.",
+          linkedinLink: "Me contacter sur LinkedIn",
+          footerTagline: "Au croisement des idées, des données et des décisions.",
+        },
+      };
+
+      const categories = {
+        aml: {
+          number: "01",
+          tone: "aml",
+          artMark: "A",
+          label: { "zh-CN": "AML", en: "AML", fr: "LBC / AML" },
+          title: { "zh-CN": "反洗钱分析", en: "AML Analytics", fr: "Analyse LBC / AML" },
+          cardLabel: { "zh-CN": "AML · 金融犯罪", en: "AML · FINANCIAL CRIME", fr: "LBC · CRIMINALITÉ FINANCIÈRE" },
+          description: {
+            "zh-CN": languages["zh-CN"].detailDescriptionAml,
+            en: languages.en.detailDescriptionAml,
+            fr: languages.fr.detailDescriptionAml,
+          },
+          topics: {
+            "zh-CN": ["Logan的AML分析模型", "证券市场内幕交易风险研判", "风险指标与案例分析框架"],
+            en: ["Logan's AML Analysis Model", "Detecting Insider Trading Risk in Securities Markets", "Risk indicators & case analysis frameworks"],
+            fr: ["Modèle d’analyse LBC de Logan", "Détection du risque d’opérations d’initiés sur les marchés", "Indicateurs de risque et cadres d’analyse"],
+          },
+          projectDescriptions: {
+            "zh-CN": [
+              "以合成交易数据演示地下钱庄交易监测：五个业务模型、42个规则组、68条原始子规则。保留原始阈值、各模型原始分数与待确认项，支持中英切换、只读参数核对和浏览器本地CSV导入导出。",
+              "对照六章研判报告，用虚构的11家公司案例交互核验交易异动、账户关系、资金流向与通联线索。沿九阶段调查流程梳理证据联系，支持中、英、法三语切换，并区分报告内容与模拟案例。",
+              "拟整理客户、交易与行为层面的风险指标，结合案例分析框架，串联问题背景、关键发现与后续调查方向。",
+            ],
+            en: [
+              "Explore underground-banking transaction monitoring with synthetic data, five business models, 42 rule groups, and 68 source subrules. Original thresholds, native model scores, and unresolved rules remain visible. Includes Chinese/English switching, read-only parameters, and browser-local CSV import and export.",
+              "Explore a six-chapter research report alongside a fictional 11-company case. Follow nine investigation stages to examine trading anomalies, account relationships, fund flows, and contact timelines. Chinese, English, and French views keep the report and simulated case clearly identified.",
+              "A planned case framework organizing customer, transaction, and behavioral risk indicators to connect context, findings, and further investigation.",
+            ],
+            fr: [
+              "Explorez la surveillance des transactions de banques clandestines avec des données synthétiques : cinq modèles, 42 groupes de règles et 68 sous-règles sources. Les seuils, les scores propres à chaque modèle et les règles non résolues restent visibles. Interface chinois/anglais, paramètres en lecture seule et import-export CSV local.",
+              "Parcourez un rapport en six chapitres et un cas fictif de 11 entreprises. Neuf étapes d’enquête relient anomalies de transactions, comptes, flux financiers et chronologie des contacts. Les vues en chinois, anglais et français distinguent le rapport du cas simulé.",
+              "Un cadre d’analyse prévu pour structurer les indicateurs de risque liés aux clients, aux transactions et aux comportements, puis relier contexte et constats.",
+            ],
+          },
+        },
+        ml: {
+          number: "02",
+          tone: "ml",
+          artMark: "M",
+          label: { "zh-CN": "统计 / 机器学习", en: "STATISTICS / ML", fr: "STATISTIQUES / ML" },
+          title: { "zh-CN": "统计与机器学习", en: "Statistical & Machine Learning", fr: "Statistiques et apprentissage automatique" },
+          cardLabel: { "zh-CN": "统计 · 机器学习", en: "STATISTICS · ML", fr: "STATISTIQUES · ML" },
+          description: {
+            "zh-CN": "以扎实的数据理解和统计方法为基础，呈现从特征探索、模型构建到评估解释的完整思路。",
+            en: "A rigorous workflow from data exploration and feature engineering to model development, evaluation, and interpretation.",
+            fr: "Une démarche rigoureuse, de l’exploration des données et des variables jusqu’à la création, l’évaluation et l’interprétation des modèles.",
+          },
+          topics: {
+            "zh-CN": ["分类、回归与预测建模", "聚类分析与特征探索", "模型验证、解释与误差分析"],
+            en: ["Classification, regression & forecasting", "Clustering & feature exploration", "Model validation, interpretation & error analysis"],
+            fr: ["Classification, régression et prévision", "Segmentation et exploration des variables", "Validation, interprétation et analyse des erreurs"],
+          },
+          projectDescriptions: {
+            "zh-CN": [
+              "拟围绕分类、回归与预测任务，展示数据准备、基线比较与模型评估，说明从业务问题到预测结果的完整过程。",
+              "拟通过探索性分析、特征比较与聚类方法，识别样本之间的结构与差异，解释数据分组背后的含义。",
+              "拟结合验证方法、误差分布与模型解释，检查预测的可靠性，梳理模型局限与后续改进方向。",
+            ],
+            en: [
+              "Planned projects covering data preparation, baseline comparisons, and evaluation for classification, regression, and forecasting tasks.",
+              "A planned exploration of features and clustering methods to identify patterns, compare groups, and interpret differences in the data.",
+              "A planned review of validation methods, error patterns, and model explanations to assess reliability and identify limitations and improvements.",
+            ],
+            fr: [
+              "Des projets prévus sur la préparation des données, les modèles de référence et l’évaluation en classification, régression et prévision.",
+              "Une exploration prévue des variables et des méthodes de segmentation pour repérer les structures, comparer les groupes et interpréter leurs différences.",
+              "Une étude prévue de la validation, des erreurs et de l’interprétation des modèles pour évaluer leur fiabilité et identifier les améliorations possibles.",
+            ],
+          },
+        },
+        consulting: {
+          number: "03",
+          tone: "consulting",
+          artMark: "S",
+          label: { "zh-CN": "解决方案咨询", en: "SOLUTION CONSULTING", fr: "CONSEIL EN SOLUTIONS" },
+          title: { "zh-CN": "解决方案咨询", en: "Solution Consulting", fr: "Conseil en solutions" },
+          cardLabel: { "zh-CN": "洞察 · 解决方案", en: "INSIGHT · SOLUTIONS", fr: "ANALYSE · SOLUTIONS" },
+          description: {
+            "zh-CN": "从业务目标出发，连接现状诊断、数据洞察与方案设计，关注建议如何转化为可执行的行动。",
+            en: "Starting with business goals, connect diagnosis and data insights to practical solutions and actionable plans.",
+            fr: "Partir des objectifs métier pour relier diagnostic, analyse des données et solutions concrètes, puis définir un plan d’action.",
+          },
+          topics: {
+            "zh-CN": ["业务问题诊断与需求拆解", "数据驱动的解决方案设计", "流程优化与实施路线规划"],
+            en: ["Business diagnosis & problem framing", "Data-informed solution design", "Process improvement & implementation roadmaps"],
+            fr: ["Diagnostic métier et cadrage des besoins", "Conception de solutions fondées sur les données", "Optimisation des processus et feuille de route"],
+          },
+          projectDescriptions: {
+            "zh-CN": [
+              "拟从业务目标与使用场景出发，拆解现状、痛点与需求，将宽泛问题转化为可分析、可验证的具体任务。",
+              "拟结合数据洞察与业务约束，比较可选方案，呈现从分析发现到解决方案设计的推导过程。",
+              "拟梳理现有流程与关键环节，识别优化机会，并通过阶段目标、优先级与评估指标形成实施路线。",
+            ],
+            en: [
+              "A planned case study translating business goals, user needs, and operational pain points into specific questions that can be analyzed and tested.",
+              "A planned comparison of solution options using data insights and business constraints to connect analytical findings with practical design.",
+              "A planned process review identifying improvement opportunities and outlining implementation priorities, milestones, and evaluation measures.",
+            ],
+            fr: [
+              "Un cas prévu pour traduire les objectifs métier, les besoins et les difficultés opérationnelles en questions précises à analyser et à vérifier.",
+              "Une comparaison prévue des solutions à partir des données et des contraintes métier, pour relier les constats analytiques à la conception concrète.",
+              "Une revue prévue des processus pour repérer les améliorations et définir les priorités, les étapes et les indicateurs de mise en œuvre.",
+            ],
+          },
+        },
+        quant: {
+          number: "04",
+          tone: "quant",
+          artMark: "Q",
+          label: { "zh-CN": "量化投资", en: "QUANTITATIVE INVESTING", fr: "INVESTISSEMENT QUANTITATIF" },
+          title: { "zh-CN": "量化投资", en: "Quantitative Investing", fr: "Investissement quantitatif" },
+          cardLabel: { "zh-CN": "研究 · 回测", en: "RESEARCH · BACKTESTING", fr: "RECHERCHE · BACKTESTING" },
+          description: {
+            "zh-CN": "记录市场数据分析、策略假设与历史回测研究，注重风险控制、结果验证与研究可复现性。",
+            en: "Researching market data, strategy hypotheses, and historical backtests with an emphasis on risk, validation, and reproducibility.",
+            fr: "Étudier les données de marché, les hypothèses de stratégie et les tests historiques, avec une attention particulière au risque et à la reproductibilité.",
+          },
+          topics: {
+            "zh-CN": ["个股行情与技术面分析", "超跌反弹短线选股器", "绩效分析与风险评估"],
+            en: ["Stock Quotes & Technical Analysis", "Oversold Reversal Stock Screener", "Performance Analysis & Risk Assessment"],
+            fr: ["Cours boursiers et analyse technique", "Sélecteur de titres en rebond après survente", "Analyse de performance et évaluation des risques"],
+          },
+          projectDescriptions: {
+            "zh-CN": [
+              "输入股票代码，查看行情、日K线与成交量，结合均线、布林带、MACD、RSI 和 WR 指标，观察价格走势与技术信号。",
+              "结合跌幅、量价表现与技术确认信号筛选超跌股票，按级别展示结果，并提供指标评分与预期盈亏比，辅助复核候选标的。",
+              "拟围绕策略收益、回撤与风险暴露整理分析框架，比较历史表现与风险来源，记录评估假设和研究局限。",
+            ],
+            en: [
+              "Look up a stock to view quotes, daily candlesticks, and volume alongside moving averages, Bollinger Bands, MACD, RSI, and Williams %R.",
+              "Screen oversold stocks using price declines, volume, and technical confirmation signals. Review graded results, indicator scores, and estimated reward-to-risk ratios.",
+              "A planned framework for reviewing returns, drawdowns, and risk exposures, with historical comparisons and explicit evaluation assumptions and limitations.",
+            ],
+            fr: [
+              "Consultez les cours, les chandeliers journaliers et les volumes, avec les moyennes mobiles, les bandes de Bollinger, le MACD, le RSI et le Williams %R.",
+              "Filtrez les titres survendus selon la baisse, les volumes et les confirmations techniques. Comparez les niveaux, les scores et les ratios rendement-risque estimés.",
+              "Un cadre prévu pour examiner les rendements, les pertes maximales et les expositions au risque, en précisant les hypothèses et les limites de l’évaluation.",
+            ],
+          },
+        },
+      };
+
+      const projectDestinations = {
+        aml: [
+          "projects/aml/",
+          "projects/insider-trading/",
+          null,
+        ],
+        quant: [
+          "Stock%20Quantitative_Tools/Stock%20Quotes%20%26%20Technical%20Analysis.%20bilingual.html",
+          "Stock%20Quantitative_Tools/%E8%B6%85%E8%B7%8C%E5%8F%8D%E5%BC%B9%E7%9F%AD%E7%BA%BF%E9%80%89%E8%82%A1%E5%99%A8.html",
+          null,
+        ],
+      };
+
+      let currentLanguage = "zh-CN";
+      let currentCategory = "aml";
+      let currentProject = 0;
+      let carouselPosition = 1;
+      let isSliding = false;
+      const pendingSteps = [];
+      let slideAnimation;
+      let settleTimer;
+      let queuedFrame = null;
+      let categoryAnimations = [];
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const languageButtons = document.querySelectorAll(".language-switch button");
+      const carouselAnnouncement = document.querySelector("#carousel-announcement");
+
+      function projectIllustration(category, index) {
+        const accent = "var(--detail-accent)";
+        const pop = "var(--detail-pop)";
+        let drawing = "";
+        if (category === "aml") {
+          const centerX = [180, 205, 155][index];
+          const nodes = [[65, 51], [80, 130], [283, 43], [294, 123]];
+          drawing = `<g stroke="${accent}" stroke-opacity=".35" stroke-width="1.6">${nodes.map(([x, y]) => `<path d="M${x} ${y}L${centerX} 86"/>`).join("")}</g>
+            ${nodes.map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="${i === index ? 15 : 10}" fill="${i === index ? pop : "#fffefb"}" stroke="${accent}" stroke-width="1.6"/>`).join("")}
+            <circle cx="${centerX}" cy="86" r="36" fill="#fffefb" stroke="${accent}" stroke-width="2"/>
+            <circle cx="${centerX}" cy="86" r="26" fill="${pop}"/>
+            <path d="M${centerX - 10} 86l7 7 14-16" stroke="${accent}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+        } else if (category === "ml") {
+          const curves = ["M45 130C90 128 100 105 140 96S220 60 310 40", "M45 123C100 35 130 138 185 78S270 45 310 52", "M45 130C100 130 110 50 175 62S235 95 310 37"];
+          drawing = `<g stroke="${accent}" stroke-opacity=".14"><path d="M45 40H315M45 85H315M45 130H315"/><path d="M90 30V140M160 30V140M230 30V140M300 30V140"/></g>
+            <path d="M40 28V140H320" stroke="${accent}" stroke-opacity=".5" stroke-linecap="round"/>
+            ${[[64, 122], [94, 107], [130, 117], [158, 78], [191, 89], [223, 54], [261, 65], [295, 36]].map(([x, y], i) => `<circle cx="${x}" cy="${y + (index - 1) * (i % 2 ? 9 : -6)}" r="5" fill="${accent}" opacity=".5"/>`).join("")}
+            <path d="${curves[index]}" stroke="${accent}" stroke-width="3.5" stroke-linecap="round"/>
+            <circle cx="${[140, 185, 175][index]}" cy="${[96, 78, 62][index]}" r="10" fill="${pop}" stroke="#fffefb" stroke-width="4"/>`;
+        } else if (category === "consulting") {
+          drawing = `<path d="M85 85H270" stroke="${accent}" stroke-width="2" stroke-dasharray="5 6"/>
+            ${[72, 180, 288].map((x, i) => `<rect x="${x - 32}" y="53" width="64" height="64" rx="22" fill="${i === index ? pop : "#fffefb"}" stroke="${accent}" stroke-opacity=".5"/>
+              <circle cx="${x}" cy="85" r="${i === index ? 13 : 8}" fill="none" stroke="${accent}" stroke-width="2"/>
+              <path d="M${x - 15} 135H${x + 15}" stroke="${accent}" stroke-width="3" stroke-opacity=".3" stroke-linecap="round"/>`).join("")}
+            <path d="M110 35Q180 0 250 35" stroke="${accent}" stroke-opacity=".3" stroke-width="1.5"/>`;
+        } else {
+          const heights = [29, 46, 35, 61, 44, 70, 51, 76];
+          drawing = `<path d="M35 140H325" stroke="${accent}" stroke-opacity=".2"/>
+            ${heights.map((height, i) => {
+              const x = 53 + i * 35;
+              const y = 132 - height - (index * 8 * (i % 2));
+              return `<path d="M${x} ${y - 11}V${y + 35}" stroke="${accent}" stroke-width="1.5"/><rect x="${x - 7}" y="${y}" width="14" height="24" rx="4" fill="${i % 3 === index ? accent : pop}"/>`;
+            }).join("")}
+            <path d="${["M43 105Q98 134 145 91T218 76T315 31", "M43 61Q105 119 158 117T238 83T315 45", "M43 124Q98 115 145 91T218 60T315 28"][index]}" stroke="${accent}" stroke-width="2.5" stroke-linecap="round"/>`;
+        }
+        return `<svg viewBox="0 0 360 180" fill="none" aria-hidden="true" focusable="false">${drawing}</svg>`;
+      }
+
+      function renderCategory(animate = false) {
+        const category = categories[currentCategory];
+        if (!category) return;
+        clearTimeout(settleTimer);
+        cancelAnimationFrame(queuedFrame);
+        queuedFrame = null;
+        cancelSlideAnimation();
+        isSliding = false;
+        pendingSteps.length = 0;
+        categoryAnimations.forEach((animation) => animation.cancel());
+        categoryAnimations = [];
+
+        cards.forEach((card) => {
+          const item = categories[card.dataset.category];
+          card.setAttribute("aria-pressed", String(card.dataset.category === currentCategory));
+          card.querySelector("[data-category-title]").textContent = item.title[currentLanguage];
+          card.querySelector("[data-category-label]").textContent = item.cardLabel[currentLanguage];
+        });
+
+        detail.setAttribute("data-tone", category.tone);
+        detailKicker.textContent = `${languages[currentLanguage].fieldPrefix} ${category.number} / ${category.label[currentLanguage]}`;
+        detailTitle.textContent = category.title[currentLanguage];
+        detailDescription.textContent = category.description[currentLanguage];
+
+        const topics = category.topics[currentLanguage];
+        projectCardTrack.replaceChildren(
+          ...[topics.length - 1, ...topics.map((_, index) => index), 0].map((index, position) => {
+            const topic = topics[index];
+            const slide = document.createElement("div");
+            const destination = projectDestinations[currentCategory]?.[index];
+            const card = document.createElement(destination ? "a" : "article");
+            const top = document.createElement("div");
+            const label = document.createElement("span");
+            const number = document.createElement("span");
+            const artwork = document.createElement("div");
+            const illustration = document.createElement("span");
+            const title = document.createElement("h4");
+            const footer = document.createElement("div");
+            const status = document.createElement("span");
+            const action = document.createElement("span");
+
+            slide.className = "project-slide";
+            slide.dataset.projectIndex = index;
+            slide.dataset.clone = String(position === 0 || position === topics.length + 1);
+            slide.setAttribute("role", "group");
+            slide.setAttribute("aria-roledescription", "slide");
+            slide.setAttribute("aria-label", `${index + 1} / ${topics.length}: ${topic}`);
+            card.className = "project-card";
+            card.dataset.number = String(index + 1).padStart(2, "0");
+            if (destination) {
+              card.href = destination;
+              card.setAttribute("aria-label", `${topic} — ${languages[currentLanguage].openProject}`);
+            } else {
+              card.setAttribute("aria-disabled", "true");
+            }
+            top.className = "project-card-top";
+            label.className = "project-card-label";
+            label.textContent = category.cardLabel[currentLanguage];
+            number.className = "project-card-status";
+            number.textContent = `${String(index + 1).padStart(2, "0")} / ${String(topics.length).padStart(2, "0")}`;
+            artwork.className = "project-card-art";
+            artwork.dataset.caption = `${category.label.en} / ${String(index + 1).padStart(2, "0")}`;
+            artwork.setAttribute("aria-hidden", "true");
+            illustration.className = "project-card-illustration";
+            illustration.innerHTML = projectIllustration(currentCategory, index);
+            title.className = "project-card-title";
+            title.textContent = topic;
+            footer.className = "project-card-footer";
+            status.className = "project-card-status";
+            status.textContent = destination ? languages[currentLanguage].published : languages[currentLanguage].comingSoon;
+            action.className = "project-card-action";
+            action.textContent = destination
+              ? `${languages[currentLanguage].openProject} ↗`
+              : languages[currentLanguage].comingSoon;
+
+            top.append(label, number);
+            artwork.append(illustration);
+            footer.append(status, action);
+            card.append(top, artwork, title, footer);
+            slide.append(card);
+            return slide;
+          })
+        );
+        carouselTrack.replaceChildren(...topics.map((topic, index) => {
+          const marker = document.createElement("button");
+          marker.type = "button";
+          marker.className = "carousel-dot";
+          marker.setAttribute("aria-label", `${index + 1} / ${topics.length}: ${topic}`);
+          marker.addEventListener("click", () => moveToProject(index));
+          return marker;
+        }));
+        carouselPosition = currentProject + 1;
+        positionTrack(true);
+        syncCarousel();
+        if (animate && !reducedMotion.matches && typeof projectCardWindow.animate === "function") {
+          categoryAnimations = [detail.querySelector(".detail-copy"), projectCardWindow, detail.querySelector("#project-detail"), detail.querySelector(".detail-controls")].map((element, index) =>
+            element.animate(
+              [{ opacity: .15, transform: "translateY(14px)" }, { opacity: 1, transform: "translateY(0)" }],
+              { duration: 460, delay: index * 45, easing: "cubic-bezier(.22,.72,.16,1)", fill: "backwards" }
+            )
+          );
+        }
+      }
+
+      function syncCarousel() {
+        const category = categories[currentCategory];
+        const topics = category.topics[currentLanguage];
+        const total = topics.length;
+        projectDetailTitle.textContent = topics[currentProject];
+        projectDetailDescription.textContent = category.projectDescriptions[currentLanguage][currentProject];
+        projectCardTrack.querySelectorAll(".project-slide").forEach((slide) => {
+          const active = Number(slide.dataset.projectIndex) === currentProject && slide.dataset.clone !== "true";
+          slide.setAttribute("aria-hidden", String(!active));
+          slide.inert = !active;
+          // Clone cards stay inert while the track slides through the loop.
+          slide.classList.toggle("is-current", Number(slide.dataset.projectIndex) === currentProject);
+        });
+        carouselCurrent.textContent = String(currentProject + 1).padStart(2, "0");
+        carouselTotal.textContent = String(total).padStart(2, "0");
+        carouselTrack.querySelectorAll("button").forEach((marker, index) => marker.setAttribute("aria-current", String(index === currentProject)));
+        carouselAnnouncement.textContent = `${currentProject + 1} / ${total} · ${topics[currentProject]}`;
+      }
+
+      function positionTrack(instant = false) {
+        projectCardTrack.classList.toggle("is-instant", instant);
+        projectCardTrack.style.transform = `translate3d(${-carouselPosition * 100}%, 0, 0)`;
+        if (instant) {
+          void projectCardTrack.offsetWidth;
+          projectCardTrack.classList.remove("is-instant");
+        }
+      }
+
+      function cancelSlideAnimation() {
+        if (!slideAnimation) return;
+        slideAnimation.onfinish = null;
+        slideAnimation.cancel();
+        slideAnimation = null;
+      }
+
+      function finishSlide() {
+        if (!isSliding) return;
+        clearTimeout(settleTimer);
+        cancelSlideAnimation();
+        carouselPosition = currentProject + 1;
+        positionTrack(true);
+        isSliding = false;
+        if (pendingSteps.length) {
+          const step = pendingSteps.shift();
+          queuedFrame = requestAnimationFrame(() => {
+            queuedFrame = null;
+            moveProject(step);
+          });
+        }
+      }
+
+      function startSlide() {
+        const fromTransform = getComputedStyle(projectCardTrack).transform;
+        clearTimeout(settleTimer);
+        cancelSlideAnimation();
+        isSliding = true;
+        syncCarousel();
+        // User-triggered navigation always slides, including reduced-motion mode.
+        if (typeof projectCardTrack.animate === "function") {
+          // Explicit keyframes start a fresh slide on every navigation action.
+          positionTrack(true);
+          slideAnimation = projectCardTrack.animate(
+            [{ transform: fromTransform }, { transform: projectCardTrack.style.transform }],
+            { duration: 640, easing: "cubic-bezier(.22,.72,.16,1)" }
+          );
+          slideAnimation.onfinish = finishSlide;
+        } else {
+          positionTrack();
+        }
+        settleTimer = setTimeout(finishSlide, 760);
+      }
+
+      function moveProject(step) {
+        if (isSliding || queuedFrame !== null) {
+          pendingSteps.push(step);
+          return;
+        }
+        const total = categories[currentCategory].topics[currentLanguage].length;
+        currentProject = (currentProject + step + total) % total;
+        carouselPosition += step;
+        startSlide();
+      }
+
+      function moveToProject(index) {
+        cancelAnimationFrame(queuedFrame);
+        queuedFrame = null;
+        pendingSteps.length = 0;
+        if (index === currentProject) return;
+        clearTimeout(settleTimer);
+        currentProject = index;
+        carouselPosition = index + 1;
+        startSlide();
+      }
+
+      function setLanguage(language) {
+        if (!languages[language]) return;
+
+        currentLanguage = language;
+        const topics = categories[currentCategory].topics[language];
+        currentProject = Math.min(currentProject, topics.length - 1);
+        const content = languages[language];
+        document.documentElement.lang = language;
+        document.title = content.title;
+        document.querySelector('meta[name="description"]').setAttribute("content", content.description);
+        document.querySelectorAll("[data-i18n]").forEach((element) => {
+          element.textContent = content[element.dataset.i18n];
+        });
+        document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
+          element.setAttribute("aria-label", content[element.dataset.i18nAriaLabel]);
+        });
+
+        document.querySelector("#hero-title-line-one").textContent = content.heroLineOne;
+        document.querySelector("#hero-title-line-two").textContent = content.heroLineTwo;
+        document.querySelector("#hero-title-highlight").textContent = content.heroHighlight;
+        document.querySelector("#hero-title-ending").textContent = content.heroEnding;
+        languageButtons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.language === language));
+        });
+        renderCategory();
+      }
+
+      cards.forEach((card) => {
+        card.addEventListener("click", () => {
+          if (currentCategory === card.dataset.category) return;
+          currentCategory = card.dataset.category;
+          currentProject = 0;
+          renderCategory(true);
+        });
+      });
+
+      document.querySelector("#previous-project").addEventListener("click", () => {
+        moveProject(-1);
+      });
+
+      document.querySelector("#next-project").addEventListener("click", () => {
+        moveProject(1);
+      });
+
+      projectCardTrack.addEventListener("transitionend", (event) => {
+        if (event.target === projectCardTrack && event.propertyName === "transform" && !slideAnimation) finishSlide();
+      });
+      projectCardWindow.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+        event.preventDefault();
+        projectCardWindow.focus({ preventScroll: true });
+        moveProject(event.key === "ArrowRight" ? 1 : -1);
+      });
+
+      let swipeStart = null;
+      let suppressClickUntil = 0;
+      projectCardWindow.addEventListener("pointerdown", (event) => {
+        if (!event.isPrimary || event.pointerType === "mouse") return;
+        swipeStart = { x: event.clientX, y: event.clientY };
+      }, { passive: true });
+      projectCardWindow.addEventListener("pointercancel", () => { swipeStart = null; });
+      projectCardWindow.addEventListener("pointerup", (event) => {
+        if (!swipeStart) return;
+        const dx = event.clientX - swipeStart.x;
+        const dy = event.clientY - swipeStart.y;
+        swipeStart = null;
+        if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+        suppressClickUntil = performance.now() + 400;
+        moveProject(dx < 0 ? 1 : -1);
+      }, { passive: true });
+      projectCardWindow.addEventListener("click", (event) => {
+        if (performance.now() < suppressClickUntil) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }, true);
+
+      languageButtons.forEach((button) => {
+        button.addEventListener("click", () => setLanguage(button.dataset.language));
+      });
+
+      setLanguage(currentLanguage);
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries, currentObserver) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                currentObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12 }
+        );
+
+        document.querySelectorAll(".reveal").forEach((item) => observer.observe(item));
+      } else {
+        document.querySelectorAll(".reveal").forEach((item) => item.classList.add("is-visible"));
+      }
+    </script>
   </body>
 </html>

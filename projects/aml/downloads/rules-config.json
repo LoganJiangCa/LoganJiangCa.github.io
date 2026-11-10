@@ -1,0 +1,1929 @@
+{
+  "version": 1,
+  "source_file": "已敲定模型20210506 - 集资和钱庄.xlsx",
+  "source_sha256": "5f846fa89bb8d496764f586bb57f8af49b3c9ded7e949e9381d6e292f4efd948",
+  "models": [
+    {
+      "id": "UB01",
+      "name": "疑似地下钱庄资金拆分账户",
+      "merges": [
+        "A1:G1",
+        "A3:A4",
+        "A8:A11",
+        "A13:A14",
+        "B3:B4",
+        "B8:B11",
+        "B13:B14",
+        "C3:C4",
+        "C8:C11",
+        "C13:C14",
+        "G8:G10",
+        "G13:G14",
+        "H3:H4",
+        "H8:H10",
+        "H13:H14"
+      ],
+      "groups": [
+        {
+          "id": "UB01-G01",
+          "source_number": 1,
+          "name": "快进快出，少留余额",
+          "points": 15,
+          "points_cell": "疑似地下钱庄资金拆分账户!C3",
+          "rules": [
+            {
+              "id": "UB01-R03",
+              "row": 3,
+              "name": "快进快出的交易笔数多",
+              "threshold_raw": "【单笔限额>=10000，时间间隔<=6分钟，特征比<=5%|流入-流出|/流入】的次数>200",
+              "threshold_cell": "疑似地下钱庄资金拆分账户!F3",
+              "suggestion_raw": "200~500",
+              "suggestion_cell": "疑似地下钱庄资金拆分账户!G3",
+              "relation_raw": "and",
+              "relation_cell": "疑似地下钱庄资金拆分账户!H3",
+              "evaluator": {
+                "kind": "rapid_count",
+                "params": {
+                  "minimum_cny_cents": 1000000,
+                  "seconds": 360,
+                  "difference_ratio": "0.05",
+                  "count_gt": 200
+                }
+              }
+            },
+            {
+              "id": "UB01-R04",
+              "row": 4,
+              "name": "日终不留余额",
+              "threshold_raw": "（发生交易且当天日终余额<=20000 的天数/总交易天数）>=70%",
+              "threshold_cell": "疑似地下钱庄资金拆分账户!F4",
+              "suggestion_raw": "比例50%~70%",
+              "suggestion_cell": "疑似地下钱庄资金拆分账户!G4",
+              "relation_raw": "and",
+              "relation_cell": "疑似地下钱庄资金拆分账户!H3",
+              "evaluator": {
+                "kind": "closing_ratio",
+                "params": {
+                  "balance_cny_cents": 2000000,
+                  "ratio_ge": "0.70"
+                }
+              }
+            }
+          ],
+          "operator": "AND",
+          "operator_note": ""
+        },
+        {
+          "id": "UB01-G02",
+          "source_number": 2,
+          "name": "交易金额多为整数",
+          "points": 5,
+          "points_cell": "疑似地下钱庄资金拆分账户!C5",
+          "rules": [
+            {
+              "id": "UB01-R05",
+              "row": 5,
+              "name": "交易金额多为整数",
+              "threshold_raw": "交易金额为100的整数倍与交易总笔数比>=80%\n金额浮动比率<=10%",
+              "threshold_cell": "疑似地下钱庄资金拆分账户!F5",
+              "suggestion_raw": "",
+              "suggestion_cell": "疑似地下钱庄资金拆分账户!G5",
+              "relation_raw": "",
+              "relation_cell": "疑似地下钱庄资金拆分账户!H5",
+              "evaluator": {
+                "kind": "pending",
+                "reason": "金额浮动比率未定义计算公式或分母；不能自行改为精确整倍数或自定容差",
+                "params": {}
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB01-G03",
+          "source_number": 3,
+          "name": "交易金额异常",
+          "points": 12,
+          "points_cell": "疑似地下钱庄资金拆分账户!C6",
+          "rules": [
+            {
+              "id": "UB01-R06",
+              "row": 6,
+              "name": "交易金额异常区间",
+              "threshold_raw": "交易金额区间：990000-5000000；以第一次交易金额异常时间至最后一次交易金额异常时间范围内，总异常次数/同一时间段交易总次数比>=60%",
+              "threshold_cell": "疑似地下钱庄资金拆分账户!F6",
+              "suggestion_raw": "交易金额需不需要区分来源和去向，且不考虑手续费",
+              "suggestion_cell": "疑似地下钱庄资金拆分账户!G6",
+              "relation_raw": "",
+              "relation_cell": "疑似地下钱庄资金拆分账户!H6",
+              "evaluator": {
+                "kind": "amount_interval",
+                "params": {
+                  "lower_cny_cents": 99000000,
+                  "upper_cny_cents": 500000000,
+                  "ratio_ge": "0.60",
+                  "direction": null
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB01-G04",
+          "source_number": 4,
+          "name": "集中转入、分散转出",
+          "points": 10,
+          "points_cell": "疑似地下钱庄资金拆分账户!C7",
+          "rules": [
+            {
+              "id": "UB01-R07",
+              "row": 7,
+              "name": "分散转入、集中转出",
+              "threshold_raw": "入向交易对手账户数/出向交易对手账户数<=33%",
+              "threshold_cell": "疑似地下钱庄资金拆分账户!F7",
+              "suggestion_raw": "10%~33%",
+              "suggestion_cell": "疑似地下钱庄资金拆分账户!G7",
+              "relation_raw": "",
+              "relation_cell": "疑似地下钱庄资金拆分账户!H7",
+              "evaluator": {
+                "kind": "counterparty_ratio",
+                "params": {
+                  "numerator_direction": "I",
+                  "denominator_direction": "O",
+                  "threshold": "0.33",
+                  "comparison": "le"
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB01-G05",
+          "source_number": 5,
+          "name": "疑似注册专用资金拆分账户",
+          "points": 20,
+          "points_cell": "疑似地下钱庄资金拆分账户!C8",
+          "rules": [
+            {
+              "id": "UB01-R08",
+              "row": 8,
+              "name": "注册时间",
+              "threshold_raw": "账户开户时间一年以内",
+              "threshold_cell": "疑似地下钱庄资金拆分账户!F8",
+              "suggestion_raw": "只针对全量数据，关系为and",
+              "suggestion_cell": "疑似地下钱庄资金拆分账户!G8",
+              "relation_raw": "and",
+              "relation_cell": "疑似地下钱庄资金拆分账户!H8",
+              "evaluator": {
+                "kind": "opening_recent",
+                "params": {
+                  "years_le": 1
+                }
+              }
+            },
+            {
+              "id": "UB01-R09",
+              "row": 9,
+              "name": "第一次异常交易时间",
+              "threshold_raw": "交易对手信息或备注列包含“黄金、珠宝、贵金属、投资、三门峡”等字眼的第一次交易金额>5000000的时间，距开户时间<=10天",
+              "threshold_cell": "疑似地下钱庄资金拆分账户!F9",
+              "suggestion_raw": "只针对全量数据，关系为and",
+              "suggestion_cell": "疑似地下钱庄资金拆分账户!G8",
+              "relation_raw": "and",
+              "relation_cell": "疑似地下钱庄资金拆分账户!H8",
+              "evaluator": {
+                "kind": "first_abnormal",
+                "params": {
+                  "keywords": [
+                    "黄金",
+                    "珠宝",
+                    "贵金属",
+                    "投资",
+                    "三门峡"
+                  ],
+                  "amount_gt_cny_cents": 500000000,
+                  "days_le": 10
+                }
+              }
+            },
+            {
+              "id": "UB01-R10",
+              "row": 10,
+              "name": "身份标签：个人",
+              "threshold_raw": "账户开户名称判断为个人",
+              "threshold_cell": "疑似地下钱庄资金拆分账户!F10",
+              "suggestion_raw": "只针对全量数据，关系为and",
+              "suggestion_cell": "疑似地下钱庄资金拆分账户!G8",
+              "relation_raw": "and",
+              "relation_cell": "疑似地下钱庄资金拆分账户!H8",
+              "evaluator": {
+                "kind": "customer_type",
+                "params": {
+                  "equals": "individual"
+                }
+              }
+            },
+            {
+              "id": "UB01-R11",
+              "row": 11,
+              "name": "账户开户人年龄偏低",
+              "threshold_raw": "账户开户人年龄<=20岁",
+              "threshold_cell": "疑似地下钱庄资金拆分账户!F11",
+              "suggestion_raw": "针对非全量数据",
+              "suggestion_cell": "疑似地下钱庄资金拆分账户!G11",
+              "relation_raw": "or",
+              "relation_cell": "疑似地下钱庄资金拆分账户!H11",
+              "evaluator": {
+                "kind": "age",
+                "params": {
+                  "years_le": 20
+                }
+              }
+            }
+          ],
+          "operator": "UNKNOWN",
+          "operator_note": "组内AND/OR混合，缺少括号及全量/非全量分支定义"
+        },
+        {
+          "id": "UB01-G06",
+          "source_number": 6,
+          "name": "测试交易",
+          "points": 20,
+          "points_cell": "疑似地下钱庄资金拆分账户!C12",
+          "rules": [
+            {
+              "id": "UB01-R12",
+              "row": 12,
+              "name": "存在沉默期和测试交易2",
+              "threshold_raw": "沉默期：时间间隔>=120分钟沉默期后首次入向交易金额<=50元不包含关键字：结息",
+              "threshold_cell": "疑似地下钱庄资金拆分账户!F12",
+              "suggestion_raw": "",
+              "suggestion_cell": "疑似地下钱庄资金拆分账户!G12",
+              "relation_raw": "",
+              "relation_cell": "疑似地下钱庄资金拆分账户!H12",
+              "evaluator": {
+                "kind": "silent_test",
+                "params": {
+                  "gap_seconds_ge": 7200,
+                  "amount_cny_cents_le": 5000,
+                  "exclude_keyword": "结息"
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB01-G07",
+          "source_number": 7,
+          "name": "异常进出帐",
+          "points": 20,
+          "points_cell": "疑似地下钱庄资金拆分账户!C13",
+          "rules": [
+            {
+              "id": "UB01-R13",
+              "row": 13,
+              "name": "间断进账占比大",
+              "threshold_raw": "存在连续4次以上进账的交易总天数/交易总天数<=30%",
+              "threshold_cell": "疑似地下钱庄资金拆分账户!F13",
+              "suggestion_raw": "默认时间按照升序排序，关系是“且”",
+              "suggestion_cell": "疑似地下钱庄资金拆分账户!G13",
+              "relation_raw": "and",
+              "relation_cell": "疑似地下钱庄资金拆分账户!H13",
+              "evaluator": {
+                "kind": "run_day_ratio",
+                "params": {
+                  "direction": "I",
+                  "run_ge": 4,
+                  "ratio_threshold": "0.30",
+                  "comparison": "le"
+                }
+              }
+            },
+            {
+              "id": "UB01-R14",
+              "row": 14,
+              "name": "连续出账占比大",
+              "threshold_raw": "存在连续6次以上出账的交易总天数/交易总天数>=70%",
+              "threshold_cell": "疑似地下钱庄资金拆分账户!F14",
+              "suggestion_raw": "默认时间按照升序排序，关系是“且”",
+              "suggestion_cell": "疑似地下钱庄资金拆分账户!G13",
+              "relation_raw": "and",
+              "relation_cell": "疑似地下钱庄资金拆分账户!H13",
+              "evaluator": {
+                "kind": "run_day_ratio",
+                "params": {
+                  "direction": "O",
+                  "run_ge": 6,
+                  "ratio_threshold": "0.70",
+                  "comparison": "ge"
+                }
+              }
+            }
+          ],
+          "operator": "AND",
+          "operator_note": ""
+        }
+      ]
+    },
+    {
+      "id": "UB02",
+      "name": "疑似地下钱庄资金过渡账户",
+      "merges": [
+        "A1:G1",
+        "A3:A4",
+        "A7:A8",
+        "A11:A14",
+        "B3:B4",
+        "B7:B8",
+        "B11:B14",
+        "C3:C4",
+        "C7:C8",
+        "C11:C14",
+        "G11:G13",
+        "H3:H4",
+        "H7:H8",
+        "H11:H13"
+      ],
+      "groups": [
+        {
+          "id": "UB02-G01",
+          "source_number": 1,
+          "name": "快进快出，少留余额",
+          "points": 15,
+          "points_cell": "疑似地下钱庄资金过渡账户!C3",
+          "rules": [
+            {
+              "id": "UB02-R03",
+              "row": 3,
+              "name": "快进快出的交易笔数多",
+              "threshold_raw": "【单笔限额>=10000，时间间隔<=6分钟，特征比<=5%|流入-流出|/流入】的次数>30",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F3",
+              "suggestion_raw": "30~50",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G3",
+              "relation_raw": "and",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H3",
+              "evaluator": {
+                "kind": "rapid_count",
+                "params": {
+                  "minimum_cny_cents": 1000000,
+                  "seconds": 360,
+                  "difference_ratio": "0.05",
+                  "count_gt": 30
+                }
+              }
+            },
+            {
+              "id": "UB02-R04",
+              "row": 4,
+              "name": "日终不留余额",
+              "threshold_raw": "（发生交易且当天日终余额<=20000 的天数/总交易天数）>=70%",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F4",
+              "suggestion_raw": "比例50%~70%",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G4",
+              "relation_raw": "and",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H3",
+              "evaluator": {
+                "kind": "closing_ratio",
+                "params": {
+                  "balance_cny_cents": 2000000,
+                  "ratio_ge": "0.70"
+                }
+              }
+            }
+          ],
+          "operator": "AND",
+          "operator_note": ""
+        },
+        {
+          "id": "UB02-G02",
+          "source_number": 2,
+          "name": "多次触发大额交易监测",
+          "points": 15,
+          "points_cell": "疑似地下钱庄资金过渡账户!C5",
+          "rules": [
+            {
+              "id": "UB02-R05",
+              "row": 5,
+              "name": "多次触发大额交易监测",
+              "threshold_raw": "多次触发大额交易监测",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F5",
+              "suggestion_raw": "",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G5",
+              "relation_raw": "",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H5",
+              "evaluator": {
+                "kind": "pending",
+                "reason": "原表“多次”未指定次数阈值及统计窗；仅展示已提供大额监测事件数",
+                "params": {
+                  "event_type": "large_transaction"
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB02-G04",
+          "source_number": 4,
+          "name": "交易金额多为整数",
+          "points": 5,
+          "points_cell": "疑似地下钱庄资金过渡账户!C6",
+          "rules": [
+            {
+              "id": "UB02-R06",
+              "row": 6,
+              "name": "交易金额多为整数",
+              "threshold_raw": "交易金额为100的整数倍与交易总笔数比>=80%\n金额浮动比率<=10%",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F6",
+              "suggestion_raw": "",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G6",
+              "relation_raw": "",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H6",
+              "evaluator": {
+                "kind": "pending",
+                "reason": "金额浮动比率未定义计算公式或分母；不能自行改为精确整倍数或自定容差",
+                "params": {}
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB02-G05",
+          "source_number": 5,
+          "name": "交易金额异常",
+          "points": 12,
+          "points_cell": "疑似地下钱庄资金过渡账户!C7",
+          "rules": [
+            {
+              "id": "UB02-R07",
+              "row": 7,
+              "name": "入向交易金额异常区间",
+              "threshold_raw": "入向交易金额区间：100000-500000；以第一次入向交易金额异常时间至最后一次入向交易金额异常时间范围内，总异常次数/同一时间段入向交易总次数比>=60%",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F7",
+              "suggestion_raw": "不考虑手续费(60%)",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G7",
+              "relation_raw": "or",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H7",
+              "evaluator": {
+                "kind": "amount_interval",
+                "params": {
+                  "lower_cny_cents": 10000000,
+                  "upper_cny_cents": 50000000,
+                  "ratio_ge": "0.60",
+                  "direction": "I"
+                }
+              }
+            },
+            {
+              "id": "UB02-R08",
+              "row": 8,
+              "name": "出向交易金额异常区间",
+              "threshold_raw": "出向交易金额区间：500000-1000000；以第一次出向交易金额异常时间至最后一次出向交易金额异常时间范围内，总异常次数/同一时间段出向交易总次数比>=60%",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F8",
+              "suggestion_raw": "",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G8",
+              "relation_raw": "or",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H7",
+              "evaluator": {
+                "kind": "amount_interval",
+                "params": {
+                  "lower_cny_cents": 50000000,
+                  "upper_cny_cents": 100000000,
+                  "ratio_ge": "0.60",
+                  "direction": "O"
+                }
+              }
+            }
+          ],
+          "operator": "OR",
+          "operator_note": ""
+        },
+        {
+          "id": "UB02-G06",
+          "source_number": 6,
+          "name": "分散转入、集中转出",
+          "points": 10,
+          "points_cell": "疑似地下钱庄资金过渡账户!C9",
+          "rules": [
+            {
+              "id": "UB02-R09",
+              "row": 9,
+              "name": "分散转入、集中转出",
+              "threshold_raw": "出向交易对手账户数/入向交易对手账户数<= 50%",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F9",
+              "suggestion_raw": "",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G9",
+              "relation_raw": "",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H9",
+              "evaluator": {
+                "kind": "counterparty_ratio",
+                "params": {
+                  "numerator_direction": "O",
+                  "denominator_direction": "I",
+                  "threshold": "0.50",
+                  "comparison": "le"
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB02-G07",
+          "source_number": 7,
+          "name": "工作日交易",
+          "points": 5,
+          "points_cell": "疑似地下钱庄资金过渡账户!C10",
+          "rules": [
+            {
+              "id": "UB02-R10",
+              "row": 10,
+              "name": "工作日交易",
+              "threshold_raw": "工作日交易笔数/总交易笔数>=80%",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F10",
+              "suggestion_raw": "",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G10",
+              "relation_raw": "",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H10",
+              "evaluator": {
+                "kind": "pending",
+                "reason": "工作日未提供节假日及调休口径，不能自动把周一至周五当作工作日",
+                "params": {}
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB02-G08",
+          "source_number": 8,
+          "name": "疑似注册专用资金过渡账户",
+          "points": 20,
+          "points_cell": "疑似地下钱庄资金过渡账户!C11",
+          "rules": [
+            {
+              "id": "UB02-R11",
+              "row": 11,
+              "name": "注册时间",
+              "threshold_raw": "账户开户时间一年以内",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F11",
+              "suggestion_raw": "只针对全量数据，关系为and",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G11",
+              "relation_raw": "and",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H11",
+              "evaluator": {
+                "kind": "opening_recent",
+                "params": {
+                  "years_le": 1
+                }
+              }
+            },
+            {
+              "id": "UB02-R12",
+              "row": 12,
+              "name": "第一次异常交易时间",
+              "threshold_raw": "交易对手信息或备注列包含“黄金、珠宝、贵金属、投资、三门峡”等字眼的第一次交易金额>5000000的时间，距开户时间<=10天",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F12",
+              "suggestion_raw": "只针对全量数据，关系为and",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G11",
+              "relation_raw": "and",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H11",
+              "evaluator": {
+                "kind": "first_abnormal",
+                "params": {
+                  "keywords": [
+                    "黄金",
+                    "珠宝",
+                    "贵金属",
+                    "投资",
+                    "三门峡"
+                  ],
+                  "amount_gt_cny_cents": 500000000,
+                  "days_le": 10
+                }
+              }
+            },
+            {
+              "id": "UB02-R13",
+              "row": 13,
+              "name": "身份标签：个人",
+              "threshold_raw": "账户开户名称判断为个人",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F13",
+              "suggestion_raw": "只针对全量数据，关系为and",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G11",
+              "relation_raw": "and",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H11",
+              "evaluator": {
+                "kind": "customer_type",
+                "params": {
+                  "equals": "individual"
+                }
+              }
+            },
+            {
+              "id": "UB02-R14",
+              "row": 14,
+              "name": "账户开户人年龄偏低",
+              "threshold_raw": "账户开户人年龄<=20岁",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F14",
+              "suggestion_raw": "针对非全量数据",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G14",
+              "relation_raw": "or",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H14",
+              "evaluator": {
+                "kind": "age",
+                "params": {
+                  "years_le": 20
+                }
+              }
+            }
+          ],
+          "operator": "UNKNOWN",
+          "operator_note": "组内AND/OR混合，缺少括号及全量/非全量分支定义"
+        },
+        {
+          "id": "UB02-G09",
+          "source_number": 9,
+          "name": "日间交易",
+          "points": 5,
+          "points_cell": "疑似地下钱庄资金过渡账户!C15",
+          "rules": [
+            {
+              "id": "UB02-R15",
+              "row": 15,
+              "name": "日间交易",
+              "threshold_raw": "10点-15点的交易笔数/交易总笔数>=60%",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F15",
+              "suggestion_raw": "",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G15",
+              "relation_raw": "",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H15",
+              "evaluator": {
+                "kind": "daytime_ratio",
+                "params": {
+                  "start_time": "10:00:00",
+                  "end_time": "15:00:00",
+                  "ratio_ge": "0.60"
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB02-G10",
+          "source_number": 10,
+          "name": "账户活跃期短",
+          "points": 15,
+          "points_cell": "疑似地下钱庄资金过渡账户!C16",
+          "rules": [
+            {
+              "id": "UB02-R16",
+              "row": 16,
+              "name": "账户活跃期短",
+              "threshold_raw": "交易总天数<=60天",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F16",
+              "suggestion_raw": "",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G16",
+              "relation_raw": "",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H16",
+              "evaluator": {
+                "kind": "active_days",
+                "params": {
+                  "days_le": 60
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB02-G11",
+          "source_number": 11,
+          "name": "测试交易",
+          "points": 20,
+          "points_cell": "疑似地下钱庄资金过渡账户!C17",
+          "rules": [
+            {
+              "id": "UB02-R17",
+              "row": 17,
+              "name": "存在沉默期和测试交易2",
+              "threshold_raw": "沉默期：时间间隔>=120分钟沉默期后首次入向交易金额<=50元不包含关键字：结息",
+              "threshold_cell": "疑似地下钱庄资金过渡账户!F17",
+              "suggestion_raw": "",
+              "suggestion_cell": "疑似地下钱庄资金过渡账户!G17",
+              "relation_raw": "",
+              "relation_cell": "疑似地下钱庄资金过渡账户!H17",
+              "evaluator": {
+                "kind": "silent_test",
+                "params": {
+                  "gap_seconds_ge": 7200,
+                  "amount_cny_cents_le": 5000,
+                  "exclude_keyword": "结息"
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        }
+      ]
+    },
+    {
+      "id": "UB03",
+      "name": "地下钱庄对公购置贵金属",
+      "merges": [
+        "A1:G1",
+        "A3:A4",
+        "A6:A7",
+        "A9:A10",
+        "A18:A20",
+        "B3:B4",
+        "B6:B7",
+        "B9:B10",
+        "B18:B20",
+        "C3:C4",
+        "C6:C7",
+        "C9:C10",
+        "C18:C20",
+        "G18:G20",
+        "H6:H7"
+      ],
+      "groups": [
+        {
+          "id": "UB03-G01",
+          "source_number": 1,
+          "name": "快进快出，少留余额",
+          "points": 15,
+          "points_cell": "地下钱庄对公购置贵金属!C3",
+          "rules": [
+            {
+              "id": "UB03-R03",
+              "row": 3,
+              "name": "快进快出的交易笔数多",
+              "threshold_raw": "【单笔限额>=10000，时间间隔<=6分钟，特征比<=5%|流入-流出|/流入】的次数>30",
+              "threshold_cell": "地下钱庄对公购置贵金属!F3",
+              "suggestion_raw": "30~50",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G3",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对公购置贵金属!H3",
+              "evaluator": {
+                "kind": "rapid_count",
+                "params": {
+                  "minimum_cny_cents": 1000000,
+                  "seconds": 360,
+                  "difference_ratio": "0.05",
+                  "count_gt": 30
+                }
+              }
+            },
+            {
+              "id": "UB03-R04",
+              "row": 4,
+              "name": "日终不留余额",
+              "threshold_raw": "（发生交易且当天日终余额<=20000 的天数/总交易天数）>=60%",
+              "threshold_cell": "地下钱庄对公购置贵金属!F4",
+              "suggestion_raw": "比例50%~60%",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G4",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对公购置贵金属!H4",
+              "evaluator": {
+                "kind": "closing_ratio",
+                "params": {
+                  "balance_cny_cents": 2000000,
+                  "ratio_ge": "0.60"
+                }
+              }
+            }
+          ],
+          "operator": "UNKNOWN",
+          "operator_note": "原表未填写组内AND/OR关系"
+        },
+        {
+          "id": "UB03-G02",
+          "source_number": 2,
+          "name": "交易对手信息包含“黄金、珠宝、贵金属、投资、三门峡”等字眼",
+          "points": 20,
+          "points_cell": "地下钱庄对公购置贵金属!C6",
+          "rules": [
+            {
+              "id": "UB03-R06",
+              "row": 6,
+              "name": "交易对手名称包含“黄金、珠宝、贵金属、投资、三门峡”等字眼",
+              "threshold_raw": "交易对方名称匹配满足地下钱庄对公购置贵金属模型对应高风险行业词库（词库添加“黄金、珠宝、贵金属、投资、三门峡”）关键词，\n匹配高风险对手行业的交易总金额>=10000000",
+              "threshold_cell": "地下钱庄对公购置贵金属!F6",
+              "suggestion_raw": "5000000~10000000",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G6",
+              "relation_raw": "or",
+              "relation_cell": "地下钱庄对公购置贵金属!H6",
+              "evaluator": {
+                "kind": "keyword_sum",
+                "params": {
+                  "field": "counterparty_name",
+                  "keywords": [
+                    "黄金",
+                    "珠宝",
+                    "贵金属",
+                    "投资",
+                    "三门峡"
+                  ],
+                  "amount_ge_cny_cents": 1000000000
+                }
+              }
+            },
+            {
+              "id": "UB03-R07",
+              "row": 7,
+              "name": "备注包含“黄金、珠宝、贵金属、投资、三门峡”等字眼",
+              "threshold_raw": "备注匹配满足地下钱庄对公购置贵金属模型对应交易敏感词库（词库添加“黄金、珠宝、贵金属、投资、三门峡”）关键词，\n匹配交易敏感词的交易总金额>=10000000",
+              "threshold_cell": "地下钱庄对公购置贵金属!F7",
+              "suggestion_raw": "5000000~10000000",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G7",
+              "relation_raw": "or",
+              "relation_cell": "地下钱庄对公购置贵金属!H6",
+              "evaluator": {
+                "kind": "keyword_sum",
+                "params": {
+                  "field": "remark",
+                  "keywords": [
+                    "黄金",
+                    "珠宝",
+                    "贵金属",
+                    "投资",
+                    "三门峡"
+                  ],
+                  "amount_ge_cny_cents": 1000000000
+                }
+              }
+            }
+          ],
+          "operator": "OR",
+          "operator_note": ""
+        },
+        {
+          "id": "UB03-G03",
+          "source_number": 3,
+          "name": "风险情况",
+          "points": 15,
+          "points_cell": "地下钱庄对公购置贵金属!C9",
+          "rules": [
+            {
+              "id": "UB03-R09",
+              "row": 9,
+              "name": "身份标签：公司",
+              "threshold_raw": "账户开户名称判断为公司",
+              "threshold_cell": "地下钱庄对公购置贵金属!F9",
+              "suggestion_raw": "",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G9",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对公购置贵金属!H9",
+              "evaluator": {
+                "kind": "customer_type",
+                "params": {
+                  "equals": "company"
+                }
+              }
+            },
+            {
+              "id": "UB03-R10",
+              "row": 10,
+              "name": "风险情况：经营异常、自身风险、强制执行等",
+              "threshold_raw": "（基本信息中）经营状态：异常",
+              "threshold_cell": "地下钱庄对公购置贵金属!F10",
+              "suggestion_raw": "",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G10",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对公购置贵金属!H10",
+              "evaluator": {
+                "kind": "business_status",
+                "params": {
+                  "equals": "abnormal"
+                }
+              }
+            }
+          ],
+          "operator": "UNKNOWN",
+          "operator_note": "原表未填写组内AND/OR关系"
+        },
+        {
+          "id": "UB03-G04",
+          "source_number": 4,
+          "name": "多次触发大额交易监测",
+          "points": 15,
+          "points_cell": "地下钱庄对公购置贵金属!C12",
+          "rules": [
+            {
+              "id": "UB03-R12",
+              "row": 12,
+              "name": "多次触发大额交易监测",
+              "threshold_raw": "多次触发大额交易监测",
+              "threshold_cell": "地下钱庄对公购置贵金属!F12",
+              "suggestion_raw": "",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G12",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对公购置贵金属!H12",
+              "evaluator": {
+                "kind": "pending",
+                "reason": "原表“多次”未指定次数阈值及统计窗；仅展示已提供大额监测事件数",
+                "params": {
+                  "event_type": "large_transaction"
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB03-G06",
+          "source_number": 6,
+          "name": "交易金额多为整数",
+          "points": 5,
+          "points_cell": "地下钱庄对公购置贵金属!C14",
+          "rules": [
+            {
+              "id": "UB03-R14",
+              "row": 14,
+              "name": "交易金额多为整数",
+              "threshold_raw": "交易金额为10的整数倍与交易总笔数比>=80%\n金额浮动比率<=10%",
+              "threshold_cell": "地下钱庄对公购置贵金属!F14",
+              "suggestion_raw": "交易金额需不需要区分来源和去向",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G14",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对公购置贵金属!H14",
+              "evaluator": {
+                "kind": "pending",
+                "reason": "金额浮动比率未定义计算公式或分母；不能自行改为精确整倍数或自定容差",
+                "params": {}
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB03-G07",
+          "source_number": 7,
+          "name": "交易金额异常",
+          "points": 12,
+          "points_cell": "地下钱庄对公购置贵金属!C15",
+          "rules": [
+            {
+              "id": "UB03-R15",
+              "row": 15,
+              "name": "交易金额异常区间",
+              "threshold_raw": "交易金额区间：990000-5000000；以第一次交易金额异常时间至最后一次交易金额异常时间范围内，总异常次数/同一时间段交易总次数比>=60%",
+              "threshold_cell": "地下钱庄对公购置贵金属!F15",
+              "suggestion_raw": "交易金额需不需要区分来源和去向，且不考虑手续费",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G15",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对公购置贵金属!H15",
+              "evaluator": {
+                "kind": "amount_interval",
+                "params": {
+                  "lower_cny_cents": 99000000,
+                  "upper_cny_cents": 500000000,
+                  "ratio_ge": "0.60",
+                  "direction": null
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB03-G08",
+          "source_number": 8,
+          "name": "分散转入、集中转出",
+          "points": 10,
+          "points_cell": "地下钱庄对公购置贵金属!C16",
+          "rules": [
+            {
+              "id": "UB03-R16",
+              "row": 16,
+              "name": "分散转入、集中转出",
+              "threshold_raw": "出向交易对手账户数/入向交易对手账户数<= 25%",
+              "threshold_cell": "地下钱庄对公购置贵金属!F16",
+              "suggestion_raw": "",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G16",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对公购置贵金属!H16",
+              "evaluator": {
+                "kind": "counterparty_ratio",
+                "params": {
+                  "numerator_direction": "O",
+                  "denominator_direction": "I",
+                  "threshold": "0.25",
+                  "comparison": "le"
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB03-G09",
+          "source_number": 9,
+          "name": "工作日交易",
+          "points": 5,
+          "points_cell": "地下钱庄对公购置贵金属!C17",
+          "rules": [
+            {
+              "id": "UB03-R17",
+              "row": 17,
+              "name": "工作日交易",
+              "threshold_raw": "工作日交易笔数/总交易笔数>=80%",
+              "threshold_cell": "地下钱庄对公购置贵金属!F17",
+              "suggestion_raw": "",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G17",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对公购置贵金属!H17",
+              "evaluator": {
+                "kind": "pending",
+                "reason": "工作日未提供节假日及调休口径，不能自动把周一至周五当作工作日",
+                "params": {}
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB03-G10",
+          "source_number": 10,
+          "name": "疑似注册专用贵金属通道对公账户",
+          "points": 20,
+          "points_cell": "地下钱庄对公购置贵金属!C18",
+          "rules": [
+            {
+              "id": "UB03-R18",
+              "row": 18,
+              "name": "注册时间",
+              "threshold_raw": "账户开户时间一年以内",
+              "threshold_cell": "地下钱庄对公购置贵金属!F18",
+              "suggestion_raw": "只针对全量数据，关系是“且”",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G18",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对公购置贵金属!H18",
+              "evaluator": {
+                "kind": "opening_recent",
+                "params": {
+                  "years_le": 1
+                }
+              }
+            },
+            {
+              "id": "UB03-R19",
+              "row": 19,
+              "name": "第一次异常交易时间",
+              "threshold_raw": "交易对手信息或备注列包含“黄金、珠宝、贵金属、投资、三门峡”等字眼的第一次交易金额>5000000的时间，距开户时间<=30天",
+              "threshold_cell": "地下钱庄对公购置贵金属!F19",
+              "suggestion_raw": "只针对全量数据，关系是“且”",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G18",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对公购置贵金属!H19",
+              "evaluator": {
+                "kind": "first_abnormal",
+                "params": {
+                  "keywords": [
+                    "黄金",
+                    "珠宝",
+                    "贵金属",
+                    "投资",
+                    "三门峡"
+                  ],
+                  "amount_gt_cny_cents": 500000000,
+                  "days_le": 30
+                }
+              }
+            },
+            {
+              "id": "UB03-R20",
+              "row": 20,
+              "name": "身份标签：公司",
+              "threshold_raw": "账户开户名称判断为公司",
+              "threshold_cell": "地下钱庄对公购置贵金属!F20",
+              "suggestion_raw": "只针对全量数据，关系是“且”",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G18",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对公购置贵金属!H20",
+              "evaluator": {
+                "kind": "customer_type",
+                "params": {
+                  "equals": "company"
+                }
+              }
+            }
+          ],
+          "operator": "AND",
+          "operator_note": "关系依据G列明确文字“关系是且”，阈值仍取F列"
+        },
+        {
+          "id": "UB03-G11",
+          "source_number": 11,
+          "name": "日间交易",
+          "points": 5,
+          "points_cell": "地下钱庄对公购置贵金属!C21",
+          "rules": [
+            {
+              "id": "UB03-R21",
+              "row": 21,
+              "name": "日间交易",
+              "threshold_raw": "10点-15点的交易笔数/交易总笔数>=60%",
+              "threshold_cell": "地下钱庄对公购置贵金属!F21",
+              "suggestion_raw": "50%~60%",
+              "suggestion_cell": "地下钱庄对公购置贵金属!G21",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对公购置贵金属!H21",
+              "evaluator": {
+                "kind": "daytime_ratio",
+                "params": {
+                  "start_time": "10:00:00",
+                  "end_time": "15:00:00",
+                  "ratio_ge": "0.60"
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        }
+      ]
+    },
+    {
+      "id": "UB04",
+      "name": "地下钱庄对私购置贵重金属类",
+      "merges": [
+        "A1:G1",
+        "A3:A4",
+        "A6:A7",
+        "A9:A10",
+        "A18:A21",
+        "B3:B4",
+        "B6:B7",
+        "B9:B10",
+        "B18:B21",
+        "C3:C4",
+        "C6:C7",
+        "C9:C10",
+        "C18:C21",
+        "G18:G20",
+        "H6:H7",
+        "H18:H20"
+      ],
+      "groups": [
+        {
+          "id": "UB04-G01",
+          "source_number": 1,
+          "name": "快进快出，少留余额",
+          "points": 15,
+          "points_cell": "地下钱庄对私购置贵重金属类!C3",
+          "rules": [
+            {
+              "id": "UB04-R03",
+              "row": 3,
+              "name": "快进快出的交易笔数多",
+              "threshold_raw": "【单笔限额>=10000，时间间隔<=6分钟，特征比<=5%|流入-流出|/流入】的次数>30",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F3",
+              "suggestion_raw": "30~50",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G3",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H3",
+              "evaluator": {
+                "kind": "rapid_count",
+                "params": {
+                  "minimum_cny_cents": 1000000,
+                  "seconds": 360,
+                  "difference_ratio": "0.05",
+                  "count_gt": 30
+                }
+              }
+            },
+            {
+              "id": "UB04-R04",
+              "row": 4,
+              "name": "日终不留余额",
+              "threshold_raw": "（发生交易且当天日终余额<=20000 的天数/总交易天数）>=60%",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F4",
+              "suggestion_raw": "比例50%~60%",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G4",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H4",
+              "evaluator": {
+                "kind": "closing_ratio",
+                "params": {
+                  "balance_cny_cents": 2000000,
+                  "ratio_ge": "0.60"
+                }
+              }
+            }
+          ],
+          "operator": "UNKNOWN",
+          "operator_note": "原表未填写组内AND/OR关系"
+        },
+        {
+          "id": "UB04-G02",
+          "source_number": 2,
+          "name": "交易对手信息包含“黄金、珠宝、贵金属、投资、三门峡”等字眼",
+          "points": 20,
+          "points_cell": "地下钱庄对私购置贵重金属类!C6",
+          "rules": [
+            {
+              "id": "UB04-R06",
+              "row": 6,
+              "name": "交易对手名称包含“黄金、珠宝、贵金属、投资、三门峡”等字眼",
+              "threshold_raw": "交易对方名称匹配满足地下钱庄对公购置贵金属模型对应高风险行业词库（词库添加“黄金、珠宝、贵金属、投资、三门峡”）关键词，\n匹配高风险对手行业的交易总金额>=10000000",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F6",
+              "suggestion_raw": "5000000~10000000",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G6",
+              "relation_raw": "or",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H6",
+              "evaluator": {
+                "kind": "keyword_sum",
+                "params": {
+                  "field": "counterparty_name",
+                  "keywords": [
+                    "黄金",
+                    "珠宝",
+                    "贵金属",
+                    "投资",
+                    "三门峡"
+                  ],
+                  "amount_ge_cny_cents": 1000000000
+                }
+              }
+            },
+            {
+              "id": "UB04-R07",
+              "row": 7,
+              "name": "备注包含“黄金、珠宝、贵金属、投资、三门峡”等字眼",
+              "threshold_raw": "备注匹配满足地下钱庄对公购置贵金属模型对应交易敏感词库（词库添加“黄金、珠宝、贵金属、投资、三门峡”）关键词，\n匹配交易敏感词的交易总金额>=10000000",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F7",
+              "suggestion_raw": "5000000~10000000",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G7",
+              "relation_raw": "or",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H6",
+              "evaluator": {
+                "kind": "keyword_sum",
+                "params": {
+                  "field": "remark",
+                  "keywords": [
+                    "黄金",
+                    "珠宝",
+                    "贵金属",
+                    "投资",
+                    "三门峡"
+                  ],
+                  "amount_ge_cny_cents": 1000000000
+                }
+              }
+            }
+          ],
+          "operator": "OR",
+          "operator_note": ""
+        },
+        {
+          "id": "UB04-G03",
+          "source_number": 3,
+          "name": "风险情况",
+          "points": 15,
+          "points_cell": "地下钱庄对私购置贵重金属类!C9",
+          "rules": [
+            {
+              "id": "UB04-R09",
+              "row": 9,
+              "name": "身份标签：个人",
+              "threshold_raw": "账户开户名称判断个人",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F9",
+              "suggestion_raw": "",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G9",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H9",
+              "evaluator": {
+                "kind": "customer_type",
+                "params": {
+                  "equals": "individual"
+                }
+              }
+            },
+            {
+              "id": "UB04-R10",
+              "row": 10,
+              "name": "风险情况2：经营异常、自身风险、强制执行等",
+              "threshold_raw": "（基本信息中）客户账户限制状态",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F10",
+              "suggestion_raw": "",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G10",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H10",
+              "evaluator": {
+                "kind": "pending",
+                "reason": "客户账户限制状态未指定哪些取值触发规则；不猜测限制状态映射",
+                "params": {}
+              }
+            }
+          ],
+          "operator": "UNKNOWN",
+          "operator_note": "原表未填写组内AND/OR关系"
+        },
+        {
+          "id": "UB04-G04",
+          "source_number": 4,
+          "name": "多次触发大额交易监测",
+          "points": 15,
+          "points_cell": "地下钱庄对私购置贵重金属类!C12",
+          "rules": [
+            {
+              "id": "UB04-R12",
+              "row": 12,
+              "name": "多次触发大额交易监测",
+              "threshold_raw": "多次触发大额交易监测",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F12",
+              "suggestion_raw": "",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G12",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H12",
+              "evaluator": {
+                "kind": "pending",
+                "reason": "原表“多次”未指定次数阈值及统计窗；仅展示已提供大额监测事件数",
+                "params": {
+                  "event_type": "large_transaction"
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB04-G06",
+          "source_number": 6,
+          "name": "交易金额多为整数",
+          "points": 5,
+          "points_cell": "地下钱庄对私购置贵重金属类!C14",
+          "rules": [
+            {
+              "id": "UB04-R14",
+              "row": 14,
+              "name": "交易金额多为整数",
+              "threshold_raw": "交易金额为10的整数倍与交易总笔数比>=80%\n金额浮动比率<=10%",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F14",
+              "suggestion_raw": "交易金额需不需要区分来源和去向",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G14",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H14",
+              "evaluator": {
+                "kind": "pending",
+                "reason": "金额浮动比率未定义计算公式或分母；不能自行改为精确整倍数或自定容差",
+                "params": {}
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB04-G07",
+          "source_number": 7,
+          "name": "交易金额异常",
+          "points": 12,
+          "points_cell": "地下钱庄对私购置贵重金属类!C15",
+          "rules": [
+            {
+              "id": "UB04-R15",
+              "row": 15,
+              "name": "交易金额异常区间",
+              "threshold_raw": "交易金额区间：990000-5000000；以第一次交易金额异常时间至最后一次交易金额异常时间范围内，总异常次数/同一时间段交易总次数比>=60%",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F15",
+              "suggestion_raw": "交易金额需不需要区分来源和去向，且不考虑手续费",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G15",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H15",
+              "evaluator": {
+                "kind": "amount_interval",
+                "params": {
+                  "lower_cny_cents": 99000000,
+                  "upper_cny_cents": 500000000,
+                  "ratio_ge": "0.60",
+                  "direction": null
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB04-G08",
+          "source_number": 8,
+          "name": "分散转入、集中转出",
+          "points": 10,
+          "points_cell": "地下钱庄对私购置贵重金属类!C16",
+          "rules": [
+            {
+              "id": "UB04-R16",
+              "row": 16,
+              "name": "分散转入、集中转出",
+              "threshold_raw": "出向交易对手账户数/入向交易对手账户数<= 25%",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F16",
+              "suggestion_raw": "",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G16",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H16",
+              "evaluator": {
+                "kind": "counterparty_ratio",
+                "params": {
+                  "numerator_direction": "O",
+                  "denominator_direction": "I",
+                  "threshold": "0.25",
+                  "comparison": "le"
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB04-G09",
+          "source_number": 9,
+          "name": "工作日交易",
+          "points": 5,
+          "points_cell": "地下钱庄对私购置贵重金属类!C17",
+          "rules": [
+            {
+              "id": "UB04-R17",
+              "row": 17,
+              "name": "工作日交易",
+              "threshold_raw": "工作日交易笔数/总交易笔数>=80%",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F17",
+              "suggestion_raw": "",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G17",
+              "relation_raw": "",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H17",
+              "evaluator": {
+                "kind": "pending",
+                "reason": "工作日未提供节假日及调休口径，不能自动把周一至周五当作工作日",
+                "params": {}
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        },
+        {
+          "id": "UB04-G10",
+          "source_number": 10,
+          "name": "疑似注册专用贵金属通道对私账户",
+          "points": 20,
+          "points_cell": "地下钱庄对私购置贵重金属类!C18",
+          "rules": [
+            {
+              "id": "UB04-R18",
+              "row": 18,
+              "name": "注册时间",
+              "threshold_raw": "账户开户时间一年以内",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F18",
+              "suggestion_raw": "只针对全量数据，关系是“且”",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G18",
+              "relation_raw": "and",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H18",
+              "evaluator": {
+                "kind": "opening_recent",
+                "params": {
+                  "years_le": 1
+                }
+              }
+            },
+            {
+              "id": "UB04-R19",
+              "row": 19,
+              "name": "第一次异常交易时间",
+              "threshold_raw": "交易对手信息或备注列包含“黄金、珠宝、贵金属、投资、三门峡”等字眼的第一次交易金额>5000000的时间，距开户时间<=10天",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F19",
+              "suggestion_raw": "只针对全量数据，关系是“且”",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G18",
+              "relation_raw": "and",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H18",
+              "evaluator": {
+                "kind": "first_abnormal",
+                "params": {
+                  "keywords": [
+                    "黄金",
+                    "珠宝",
+                    "贵金属",
+                    "投资",
+                    "三门峡"
+                  ],
+                  "amount_gt_cny_cents": 500000000,
+                  "days_le": 10
+                }
+              }
+            },
+            {
+              "id": "UB04-R20",
+              "row": 20,
+              "name": "身份标签：个人",
+              "threshold_raw": "账户开户名称判断为个人",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F20",
+              "suggestion_raw": "只针对全量数据，关系是“且”",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G18",
+              "relation_raw": "and",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H18",
+              "evaluator": {
+                "kind": "customer_type",
+                "params": {
+                  "equals": "individual"
+                }
+              }
+            },
+            {
+              "id": "UB04-R21",
+              "row": 21,
+              "name": "账户开户人年龄偏低",
+              "threshold_raw": "账户开户人年龄<=20岁",
+              "threshold_cell": "地下钱庄对私购置贵重金属类!F21",
+              "suggestion_raw": "针对非全量数据",
+              "suggestion_cell": "地下钱庄对私购置贵重金属类!G21",
+              "relation_raw": "or",
+              "relation_cell": "地下钱庄对私购置贵重金属类!H21",
+              "evaluator": {
+                "kind": "age",
+                "params": {
+                  "years_le": 20
+                }
+              }
+            }
+          ],
+          "operator": "UNKNOWN",
+          "operator_note": "组内AND/OR混合，缺少括号及全量/非全量分支定义"
+        }
+      ]
+    },
+    {
+      "id": "UB05",
+      "name": "疑似汇兑钱庄-对私",
+      "merges": [
+        "A1:G1",
+        "A3:A4",
+        "A5:A6",
+        "A7:A8",
+        "A9:A10",
+        "A11:A12",
+        "B3:B4",
+        "B5:B6",
+        "B7:B8",
+        "B9:B10",
+        "B11:B12",
+        "C3:C4",
+        "C5:C6",
+        "C7:C8",
+        "C9:C10",
+        "C11:C12",
+        "H3:H4",
+        "H5:H6",
+        "H7:H8",
+        "H9:H10",
+        "H11:H12"
+      ],
+      "groups": [
+        {
+          "id": "UB05-G01",
+          "source_number": 1,
+          "name": "名下多张借记卡",
+          "points": 10,
+          "points_cell": "疑似汇兑钱庄-对私!C3",
+          "rules": [
+            {
+              "id": "UB05-R03",
+              "row": 3,
+              "name": "一户多卡",
+              "threshold_raw": "（基本信息表中）【账号数量】>=2",
+              "threshold_cell": "疑似汇兑钱庄-对私!F3",
+              "suggestion_raw": "\n",
+              "suggestion_cell": "疑似汇兑钱庄-对私!G3",
+              "relation_raw": "and",
+              "relation_cell": "疑似汇兑钱庄-对私!H3",
+              "evaluator": {
+                "kind": "card_count",
+                "params": {
+                  "count_ge": 2
+                }
+              }
+            },
+            {
+              "id": "UB05-R04",
+              "row": 4,
+              "name": "卡类型：借记卡",
+              "threshold_raw": "（基本信息表中）账户类型=借记卡",
+              "threshold_cell": "疑似汇兑钱庄-对私!F4",
+              "suggestion_raw": "\n",
+              "suggestion_cell": "疑似汇兑钱庄-对私!G4",
+              "relation_raw": "and",
+              "relation_cell": "疑似汇兑钱庄-对私!H3",
+              "evaluator": {
+                "kind": "account_type",
+                "params": {
+                  "equals": "debit_card"
+                }
+              }
+            }
+          ],
+          "operator": "AND",
+          "operator_note": ""
+        },
+        {
+          "id": "UB05-G02",
+          "source_number": 2,
+          "name": "非沉默期交易金额巨大且交易频繁",
+          "points": 10,
+          "points_cell": "疑似汇兑钱庄-对私!C5",
+          "rules": [
+            {
+              "id": "UB05-R05",
+              "row": 5,
+              "name": "非沉默期日平均交易金额",
+              "threshold_raw": "(日交易笔数>=5次的非沉默日)日平均交易金额>1000000",
+              "threshold_cell": "疑似汇兑钱庄-对私!F5",
+              "suggestion_raw": "\n",
+              "suggestion_cell": "疑似汇兑钱庄-对私!G5",
+              "relation_raw": "and",
+              "relation_cell": "疑似汇兑钱庄-对私!H5",
+              "evaluator": {
+                "kind": "nonsilent_daily_amount",
+                "params": {
+                  "min_count": 5,
+                  "average_gt_cny_cents": 100000000
+                }
+              }
+            },
+            {
+              "id": "UB05-R06",
+              "row": 6,
+              "name": "非沉默期日平均交易笔数",
+              "threshold_raw": "(日交易总金额>=10000元的非沉默日)日平均交易笔数>20",
+              "threshold_cell": "疑似汇兑钱庄-对私!F6",
+              "suggestion_raw": "\n",
+              "suggestion_cell": "疑似汇兑钱庄-对私!G6",
+              "relation_raw": "and",
+              "relation_cell": "疑似汇兑钱庄-对私!H5",
+              "evaluator": {
+                "kind": "nonsilent_daily_count",
+                "params": {
+                  "min_daily_cny_cents": 1000000,
+                  "average_gt": 20
+                }
+              }
+            }
+          ],
+          "operator": "AND",
+          "operator_note": ""
+        },
+        {
+          "id": "UB05-G03",
+          "source_number": 3,
+          "name": "金额可能有接近官方或黑市汇率的特征",
+          "points": 20,
+          "points_cell": "疑似汇兑钱庄-对私!C7",
+          "rules": [
+            {
+              "id": "UB05-R07",
+              "row": 7,
+              "name": "  入向交易金额整数倍低发",
+              "threshold_raw": "入向交易金额为100的整数倍的交易笔数/入向交易总笔数<=30%，\n金额浮动比率<=5%",
+              "threshold_cell": "疑似汇兑钱庄-对私!F7",
+              "suggestion_raw": "\n",
+              "suggestion_cell": "疑似汇兑钱庄-对私!G7",
+              "relation_raw": "and",
+              "relation_cell": "疑似汇兑钱庄-对私!H7",
+              "evaluator": {
+                "kind": "pending",
+                "reason": "金额浮动比率未定义计算公式或分母；不能自行改为精确整倍数或自定容差",
+                "params": {}
+              }
+            },
+            {
+              "id": "UB05-R08",
+              "row": 8,
+              "name": "入向人民币金额/澳币或港币兑人名币汇率多接近整百",
+              "threshold_raw": "(入向人民币金额/澳币或港币兑人名币汇率)为100的整数倍的交易笔数/入向交易总笔数>=30%，\n金额浮动比率<=5%",
+              "threshold_cell": "疑似汇兑钱庄-对私!F8",
+              "suggestion_raw": "澳门币汇率近3年最高0.89，最低0.76，港币基本维持0.86；建议统一定0.86",
+              "suggestion_cell": "疑似汇兑钱庄-对私!G8",
+              "relation_raw": "and",
+              "relation_cell": "疑似汇兑钱庄-对私!H7",
+              "evaluator": {
+                "kind": "pending",
+                "reason": "金额浮动比率定义及澳门币/港币选择口径未明确；G8历史0.86不作当前汇率",
+                "params": {}
+              }
+            }
+          ],
+          "operator": "AND",
+          "operator_note": ""
+        },
+        {
+          "id": "UB05-G04",
+          "source_number": 4,
+          "name": "分散转入、分散转出",
+          "points": 15,
+          "points_cell": "疑似汇兑钱庄-对私!C9",
+          "rules": [
+            {
+              "id": "UB05-R09",
+              "row": 9,
+              "name": "分散转入、分散转出",
+              "threshold_raw": "入向交易对手账户数/出向交易对手账户数>=70%",
+              "threshold_cell": "疑似汇兑钱庄-对私!F9",
+              "suggestion_raw": "\n",
+              "suggestion_cell": "疑似汇兑钱庄-对私!G9",
+              "relation_raw": "and",
+              "relation_cell": "疑似汇兑钱庄-对私!H9",
+              "evaluator": {
+                "kind": "counterparty_ratio",
+                "params": {
+                  "numerator_direction": "I",
+                  "denominator_direction": "O",
+                  "threshold": "0.70",
+                  "comparison": "ge"
+                }
+              }
+            },
+            {
+              "id": "UB05-R10",
+              "row": 10,
+              "name": "月交易对手数量大、交易对手数量多",
+              "threshold_raw": "存在平均交易总额>=100万且\n去重交易对手>=50的月",
+              "threshold_cell": "疑似汇兑钱庄-对私!F10",
+              "suggestion_raw": "\n",
+              "suggestion_cell": "疑似汇兑钱庄-对私!G10",
+              "relation_raw": "and",
+              "relation_cell": "疑似汇兑钱庄-对私!H9",
+              "evaluator": {
+                "kind": "pending",
+                "reason": "“存在平均交易总额>=100万的月”未明确平均分母和月完整性口径",
+                "params": {}
+              }
+            }
+          ],
+          "operator": "AND",
+          "operator_note": ""
+        },
+        {
+          "id": "UB05-G05",
+          "source_number": 5,
+          "name": "频发快进快出",
+          "points": 15,
+          "points_cell": "疑似汇兑钱庄-对私!C11",
+          "rules": [
+            {
+              "id": "UB05-R11",
+              "row": 11,
+              "name": "快进快出",
+              "threshold_raw": "单笔限额>=10000\n时间间隔<=6分钟\n特征比<=5%|流入-流出|/流入",
+              "threshold_cell": "疑似汇兑钱庄-对私!F11",
+              "suggestion_raw": "\n",
+              "suggestion_cell": "疑似汇兑钱庄-对私!G11",
+              "relation_raw": "and",
+              "relation_cell": "疑似汇兑钱庄-对私!H11",
+              "evaluator": {
+                "kind": "rapid_exists",
+                "params": {
+                  "minimum_cny_cents": 1000000,
+                  "seconds": 360,
+                  "difference_ratio": "0.05"
+                }
+              }
+            },
+            {
+              "id": "UB05-R12",
+              "row": 12,
+              "name": "快进快出的交易笔数",
+              "threshold_raw": "【单笔限额>=10000，时间间隔<=6分钟，特征比<=5%|流入-流出|/流入】的次数>100",
+              "threshold_cell": "疑似汇兑钱庄-对私!F12",
+              "suggestion_raw": "\n",
+              "suggestion_cell": "疑似汇兑钱庄-对私!G12",
+              "relation_raw": "and",
+              "relation_cell": "疑似汇兑钱庄-对私!H11",
+              "evaluator": {
+                "kind": "rapid_count",
+                "params": {
+                  "minimum_cny_cents": 1000000,
+                  "seconds": 360,
+                  "difference_ratio": "0.05",
+                  "count_gt": 100
+                }
+              }
+            }
+          ],
+          "operator": "AND",
+          "operator_note": ""
+        },
+        {
+          "id": "UB05-G06",
+          "source_number": 6,
+          "name": "日终不留余额",
+          "points": 15,
+          "points_cell": "疑似汇兑钱庄-对私!C13",
+          "rules": [
+            {
+              "id": "UB05-R13",
+              "row": 13,
+              "name": "日终不留余额",
+              "threshold_raw": "（发生交易且当天日终余额<=4900的天数/总交易天数）>=80%",
+              "threshold_cell": "疑似汇兑钱庄-对私!F13",
+              "suggestion_raw": "\n",
+              "suggestion_cell": "疑似汇兑钱庄-对私!G13",
+              "relation_raw": "\n",
+              "relation_cell": "疑似汇兑钱庄-对私!H13",
+              "evaluator": {
+                "kind": "closing_ratio",
+                "params": {
+                  "balance_cny_cents": 490000,
+                  "ratio_ge": "0.80"
+                }
+              }
+            }
+          ],
+          "operator": "SINGLE",
+          "operator_note": ""
+        }
+      ]
+    }
+  ],
+  "conventions": {
+    "money": "整数分；仅以明确当日CNY/单位汇率换算并按分四舍五入；不联网、不使用G列历史汇率",
+    "pairing": "同币种、一进一出、同笔不复用；出账按时间遍历，选择最早合格未配对入账；同秒I先于O再按交易ID；两笔均需达到人民币限额",
+    "period": "银行当地无时区时间；起止日期均包含整天；基准日由用户明确选择，不早于分析期末",
+    "boundaries": "金额区间两端包含；10:00:00至15:00:00两端包含；连续4/6次以上分别为>=4/>=6；一年按日历周年包含周年日",
+    "balance": "辅助表须为各交易日完整账户日终各币种快照；所有期间出现的币种须每天有记录；不使用交易后余额推算",
+    "first": "首次异常使用开户至分析期末的历史，不随界面分析起日截断；依赖history_complete和coverage声明；关键词及>500万同时满足",
+    "silence": "相邻两笔流水间隔>=120分钟，后一笔为入账且<=50元、备注不含结息；首笔无前序且无其他命中时无法评价",
+    "direction_conflict": "UB01组4文字描述相互冲突，严格按F7入向对手数/出向对手数<=33%计算，并保留原描述",
+    "scope": "不额外推断模型整体客户类型门槛；同一账户可同时在多个模型获得规则分；不设来源未给出的模型命中分数线"
+  },
+  "screening": {
+    "version": "triage-v1",
+    "title": "本项目高危筛查口径（非原Excel整体阈值）",
+    "high_risk_min_categories": 2,
+    "description": "至少命中两类不同的已确认异常行为，且包含至少一类重点行为，列为高危（优先核查）。同一行为跨模型不重复计算；未知组不作为依据；不累加模型分数、不归一化、不计算洗钱概率。",
+    "signals": {
+      "rapid_flow": {
+        "name": "资金快进快出",
+        "priority": true,
+        "groups": ["UB01-G01", "UB02-G01", "UB05-G05"]
+      },
+      "keyword_amount": {
+        "name": "敏感词相关交易金额大",
+        "priority": true,
+        "groups": ["UB03-G02", "UB04-G02"]
+      },
+      "amount_cluster": {
+        "name": "金额集中在原表异常区间",
+        "priority": true,
+        "groups": ["UB01-G03", "UB02-G05", "UB03-G07", "UB04-G07"]
+      },
+      "counterparty_concentration": {
+        "name": "收付款对手数量明显不对称",
+        "priority": false,
+        "groups": ["UB01-G04", "UB02-G06", "UB03-G08", "UB04-G08"]
+      },
+      "test_transfer": {
+        "name": "长时间无交易后出现小额试转特征",
+        "priority": false,
+        "groups": ["UB01-G06", "UB02-G11"]
+      },
+      "run_pattern": {
+        "name": "连续收支方式异常",
+        "priority": false,
+        "groups": ["UB01-G07"]
+      },
+      "daily_intensity": {
+        "name": "活跃日交易金额和笔数同时偏大",
+        "priority": false,
+        "groups": ["UB05-G02"]
+      },
+      "recent_keyword": {
+        "name": "新开户后很快发生敏感大额交易",
+        "priority": false,
+        "groups": ["UB03-G10"]
+      }
+    }
+  }
+}

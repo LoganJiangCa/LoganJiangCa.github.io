@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="地下钱庄交易监测作品：五个业务规则模型、可追溯评分、只读参数看板和可解释账户风险结论。无需安装，浏览器本地运行。">
+  <meta name="theme-color" content="#12263b">
+  <title>Logan的AML分析模型</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script defer src="assets/bundle.js"></script>
+  <script defer src="assets/engine.js"></script>
+  <script defer src="assets/i18n.js"></script>
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#workspace">跳转到分析工作台</a>
+  <header class="topbar">
+    <a class="brand" href="./index.html" aria-label="Logan的AML分析模型，返回作品首页"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 28 28"><path d="M4 7h8l4 7h8M4 14h5l4 7h11M4 21h4"/></svg></span><span class="brand-label">Logan的AML分析模型<span class="brand-sub">交易规则实验室</span></span></a>
+    <nav aria-label="页面导航"><a href="#workspace" class="nav-active">分析工作台</a><button class="nav-button" id="about-button">项目说明</button></nav>
+    <div class="topbar-actions"><span class="local-label"><span class="status-dot"></span>浏览器本地运行</span><button id="language-button" class="language-button" type="button" aria-label="切换到英文">English</button></div>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-copy"><p class="eyebrow"><span></span>业务规则评分 · 可解释的交易监测</p><h1 id="page-title">让异常交易，<br><em>有据可查。</em></h1><p class="hero-description">从一笔流水到一个判断。用五个业务模型，观察资金行为，追溯命中原因，找到值得优先核查的账户。</p><div class="hero-tags"><span>原始阈值</span><span>三值逻辑</span><span>证据可追溯</span></div></div>
+      <div class="hero-reference"><div class="reference-top"><span class="tiny-label">规则档案</span><span class="verified-label"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m4 10 4 4 8-8"/></svg>源表已核对</span></div><div class="reference-numbers"><div><b>05</b><span>业务模型</span></div><div><b>42</b><span>计分规则组</span></div><div><b>68</b><span>原始子规则</span></div></div><div class="reference-divider"></div><p>每个阈值都有出处，每个结论都有依据。</p><button class="reference-button" id="parameters-button"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="8" width="10" height="8" rx="2"/><path d="M7 8V6a3 3 0 0 1 6 0v2"/></svg>打开模型参数看板<span>只读 ↗</span></button></div>
+    </section>
+
+    <section class="workspace" id="workspace" aria-label="交易分析工作台">
+      <aside class="filter-panel">
+        <div class="aside-heading"><span class="step-number">01</span><h2>分析设置</h2></div>
+        <p class="section-label">数据来源</p>
+        <div class="data-source"><span class="source-icon" aria-hidden="true">▤</span><div><b id="data-title">合成演示数据</b><small id="data-description">固定种子 · 9个账户</small></div><span class="small-dot"></span></div>
+        <div class="source-actions"><button class="button subtle" id="demo-button">加载演示</button><button class="button subtle" id="import-button">导入CSV</button></div>
+        <form id="analysis-form">
+          <fieldset><legend>分析期间</legend><label for="start-date">开始日期</label><input id="start-date" type="date" required value="2025-01-01"><label for="end-date">结束日期（含当日）</label><input id="end-date" type="date" required value="2025-01-31"><label for="reference-date">分析基准日<button type="button" class="info-tip" title="开户时长和年龄按此日期计算，须不早于分析结束日期" aria-label="分析基准日说明">?</button></label><input id="reference-date" type="date" required value="2025-01-31"></fieldset>
+          <fieldset class="model-fieldset"><legend>参与分析的模型</legend><div id="model-checkboxes"></div></fieldset>
+          <button type="submit" class="button primary analyze-button" id="analyze-button">运行分析<span aria-hidden="true">↗</span></button>
+        </form>
+        <div class="privacy-note"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2 3 5v5c0 4 7 7 7 7s7-3 7-7V5Z"/><path d="m7 10 2 2 4-4"/></svg><p>文件只在你的浏览器中处理，<br>不上传到服务器。</p></div>
+        <button class="text-button" id="dictionary-button">查看数据格式与字段说明 ↗</button>
+      </aside>
+
+      <div class="results-panel" id="results-panel" aria-busy="false">
+        <div class="results-heading"><div><p class="eyebrow dark">ANALYSIS WORKSPACE</p><h2>从规则，到结论</h2></div><span class="data-badge" id="dataset-badge">合成数据演示</span></div>
+        <div id="error-message" class="error-message" role="alert" hidden></div>
+        <p class="analysis-context" id="analysis-context" aria-live="polite">正在载入演示分析…</p>
+        <div class="summary-grid" id="summary-grid"></div>
+        <div class="results-toolbar"><div class="tabs" role="tablist" aria-label="分析结果视图"><button role="tab" aria-selected="true" aria-controls="overview-view" id="overview-tab" data-view="overview">风险总览</button><button role="tab" aria-selected="false" aria-controls="scores-view" id="scores-tab" data-view="scores">模型评分</button><button role="tab" aria-selected="false" aria-controls="rules-view" id="rules-tab" data-view="rules">规则明细</button></div><div class="export-actions"><button class="button export" id="export-accounts">↓ 账户结果</button></div></div>
+
+        <section id="rules-view" role="tabpanel" aria-labelledby="rules-tab" hidden><div class="section-heading"><div><h3>模型规则详解</h3><p>每个模型精选4条复杂规则；完整清单保留全部68条。</p></div><button class="text-button" id="back-to-analysis">返回分析 ↗</button></div><div class="model-tabs" id="showcase-tabs" role="tablist" aria-label="模型规则"></div><div id="showcase-content"></div><aside class="rule-downloads"><div><h4>需要查看全部规则？</h4><p>完整清单包含五个模型、42个规则组、68条子规则及原始Excel出处。</p></div><div class="rule-download-actions"><a class="button primary" href="downloads/rules-complete.csv" download="rules-complete.csv" id="download-rules-csv">下载完整规则（双语CSV）</a><a class="button subtle" href="downloads/rules-config.json" download="rules-config.json" id="download-rules-json">下载原始参数（JSON）</a><button class="text-button" id="export-evaluation-details">下载本次分析规则结果CSV</button></div></aside></section>
+
+        <section id="overview-view" role="tabpanel" aria-labelledby="overview-tab"><div class="section-heading"><div><h3>先看这些账户</h3><p>按核查优先级排列，点击账户查看具体原因。</p></div><span class="muted-tag">跨模型去重</span></div><div class="table-wrap"><table class="accounts-table"><thead><tr><th>账户</th><th>筛查结论</th><th>异常类别</th><th>主要观察</th><th><span class="sr-only">查看</span></th></tr></thead><tbody id="conclusions-table"></tbody></table></div><details class="policy-note"><summary>“高危”是怎么判断的？</summary><p id="screening-description"></p><p>“高危”表示本项目的人工核查优先级，不是洗钱概率或违法认定。只有已确认命中的规则组参与筛查；缺资料和口径不明的规则保留为无法评价。年龄、客户类型、卡数不会单独导致高危。</p></details></section>
+        <section id="scores-view" role="tabpanel" aria-labelledby="scores-tab" hidden><div class="section-heading"><div><h3>保留每个模型的原始分数</h3><p>不同模型分别计分，同组只加一次分。</p></div><label class="sr-only" for="ranking-model">评分模型</label><select id="ranking-model"></select></div><div class="table-wrap"><table class="accounts-table"><thead><tr><th>账户</th><th>原始得分</th><th>命中组</th><th>已评价子规则</th><th>无法评价子规则</th><th>待评价组分值</th></tr></thead><tbody id="scores-table"></tbody></table></div></section>
+        <section class="account-detail" id="account-detail" aria-labelledby="detail-title"><div class="section-heading"><div><p class="eyebrow dark">ACCOUNT REVIEW</p><h3 id="detail-title">账户详情</h3></div><span id="detail-risk-badge"></span></div><div id="conclusion-card"></div><div id="model-score-cards" class="model-score-cards"></div><div class="section-heading rule-heading"><div><h3>沿着规则，核对证据</h3><p>子规则状态和规则组状态分别展示，未知项不作为未命中。</p></div><label class="sr-only" for="detail-model">证据模型</label><select id="detail-model"></select></div><div id="rule-groups"></div><div id="evidence-panel" class="evidence-panel" hidden></div></section>
+        <p class="results-footnote">规则匹配程度 ≠ 洗钱概率。结果限定于当前分析期间、所选模型及已提供的数据。</p>
+      </div>
+    </section>
+    <footer><a class="footer-brand" href="#">Logan的AML分析模型 <span>· 地下钱庄交易监测</span></a><span>纯静态作品 · Python逻辑对照 · 无需安装即可体验</span><button class="text-button" id="footer-about">关于这个项目 ↗</button></footer>
+  </main>
+
+  <dialog id="parameters-dialog" class="parameter-dialog" aria-labelledby="parameters-title"><div class="dialog-heading"><div><p class="eyebrow dark">MODEL REFERENCE / 只读档案</p><h2 id="parameters-title">每一分，都能找到原始依据。</h2></div><button class="icon-button close-dialog" aria-label="关闭参数看板">×</button></div><p class="dialog-lead">每个模型精选4条复杂规则，参数只供查看；完整清单可从下方下载。</p><div class="dialog-stats" id="parameter-stats"></div><div class="model-tabs" id="parameter-tabs" role="tablist" aria-label="原始模型"></div><div id="parameter-content"></div><details class="policy-note"><summary>本项目高危筛查口径 · 与原表参数分开说明</summary><div id="parameter-policy"></div></details><details class="policy-note"><summary>公共计算约定与原始文件指纹</summary><div id="parameter-conventions"></div></details></dialog>
+
+  <dialog id="import-dialog" aria-labelledby="import-title"><div class="dialog-heading"><div><p class="eyebrow dark">LOCAL DATA / 本地文件</p><h2 id="import-title">导入你的交易数据</h2></div><button class="icon-button close-dialog" aria-label="关闭数据导入">×</button></div><p class="dialog-lead">使用固定英文表头的UTF-8 CSV。交易表必需，辅助表缺失仅影响依赖它的规则。</p><form id="import-form"><div id="file-inputs" class="file-inputs"></div><div class="error-message" id="import-error" role="alert" hidden></div><p class="muted">账号按字符串读取；完全重复流水去重；同一标识有冲突会报错。上传文件不会被发送或保存。</p><div class="dialog-actions"><button type="submit" class="button primary">导入并分析 ↗</button><button type="button" class="button subtle" id="sample-button">下载示例交易CSV</button></div></form><details class="policy-note"><summary>固定字段格式与数据依据</summary><div id="import-dictionary"></div></details></dialog>
+
+  <dialog id="about-dialog" aria-labelledby="about-title"><div class="dialog-heading"><div><p class="eyebrow dark">ABOUT THIS PROJECT</p><h2 id="about-title">一个可以核对依据的规则模型作品</h2></div><button class="icon-button close-dialog" aria-label="关闭项目说明">×</button></div><p class="dialog-lead">本项目把Excel中的五个业务规则评分模型实现为可交互的交易监测工具。核心是明确规则、正确计分和解释原因。</p><div class="about-grid"><div><b>42组 / 68条</b><p>按真实合并单元格整理，保留F列阈值、C列分值和AND/OR。</p></div><div><b>54条已实现</b><p>14条子规则和7组关系待确认。数据不足时明确显示“无法评价”。</p></div><div><b>资金计算有边界</b><p>整数分计算，同币种配对；跨币种合计须有用户明确提供的当日汇率。</p></div><div><b>纯合成数据</b><p>固定种子20210506，包含正常、命中、边界及缺字段案例，未降低原始阈值。</p></div></div><h3>怎样体验</h3><ol class="how-to"><li>直接看默认演示，或导入固定格式CSV。</li><li>选择期间和模型，点击“运行分析”。</li><li>点击账户，看大白话结论及原始模型得分。</li><li>展开规则，查看实际指标、阈值与证据；导出CSV。</li></ol><p class="muted">这是业务规则评分与作品演示，不声称真实洗钱识别准确率。高危名单表示优先人工核查，结论不是违法认定。</p><p class="muted">原始规则来源：已敲定模型20210506 - 集资和钱庄.xlsx。HTML版由同一规则配置生成，Python实现保留作对照。部署方法见仓库README。</p></dialog>
+  <noscript><div class="noscript-message">此作品需要启用JavaScript才能在浏览器中进行规则分析。无需服务器，也无需安装Python。</div></noscript>
+</body>
+</html>
