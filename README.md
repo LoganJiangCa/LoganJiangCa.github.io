@@ -19,6 +19,6 @@ The published projects preserve their original analysis logic and source paramet
 
 ## Preview and deployment
 
-Serve the repository root with any static HTTP server, for example `python -m http.server 8000`, then open `http://localhost:8000/`.
+Project cards link to explicit HTML files so the same destinations work when opening the local homepage and on GitHub Pages. Open the root `index.html` in a browser, or serve the repository root with any static HTTP server, for example `python -m http.server 8000`, then open `http://localhost:8000/`.
 
 GitHub Pages publishes the repository root from `main`; no build or backend is required. The root `.nojekyll` file disables Jekyll processing.
