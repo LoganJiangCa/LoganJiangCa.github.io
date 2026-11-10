@@ -1,24 +1,25 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="地下钱庄交易监测作品：五个业务规则模型、可追溯评分、只读参数看板和可解释账户风险结论。无需安装，浏览器本地运行。">
+  <meta name="description" content="Underground-banking transaction monitoring with five business-rule models, traceable scoring, read-only parameters and explainable account screening. Runs locally in your browser without installation.">
   <meta name="theme-color" content="#12263b">
-  <title>Logan的AML分析模型</title>
+  <title>Logan's AML Analysis Model</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/styles.css?v=20261110-languages">
   <script defer src="assets/bundle.js"></script>
   <script defer src="assets/engine.js"></script>
-  <script defer src="assets/i18n.js"></script>
-  <script defer src="assets/app.js"></script>
+  <script defer src="assets/fr.js?v=20261110-languages"></script>
+  <script defer src="assets/i18n.js?v=20261110-languages"></script>
+  <script defer src="assets/app.js?v=20261110-languages"></script>
 </head>
 <body>
   <a class="skip-link" href="#workspace">跳转到分析工作台</a>
   <header class="topbar">
     <a class="brand" href="./index.html" aria-label="Logan的AML分析模型，返回作品首页"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 28 28"><path d="M4 7h8l4 7h8M4 14h5l4 7h11M4 21h4"/></svg></span><span class="brand-label">Logan的AML分析模型<span class="brand-sub">交易规则实验室</span></span></a>
     <nav aria-label="页面导航"><a href="#workspace" class="nav-active">分析工作台</a><button class="nav-button" id="about-button">项目说明</button></nav>
-    <div class="topbar-actions"><span class="local-label"><span class="status-dot"></span>浏览器本地运行</span><button id="language-button" class="language-button" type="button" aria-label="切换到英文">English</button></div>
+    <div class="topbar-actions"><span class="local-label"><span class="status-dot"></span>浏览器本地运行</span><select id="language-select" class="language-button" aria-label="Interface language"><option value="en" selected>English</option><option value="fr">Français</option><option value="zh">中文</option></select></div>
   </header>
   <main>
     <section class="hero" aria-labelledby="page-title">
@@ -64,6 +65,6 @@
   <dialog id="import-dialog" aria-labelledby="import-title"><div class="dialog-heading"><div><p class="eyebrow dark">LOCAL DATA / 本地文件</p><h2 id="import-title">导入你的交易数据</h2></div><button class="icon-button close-dialog" aria-label="关闭数据导入">×</button></div><p class="dialog-lead">使用固定英文表头的UTF-8 CSV。交易表必需，辅助表缺失仅影响依赖它的规则。</p><form id="import-form"><div id="file-inputs" class="file-inputs"></div><div class="error-message" id="import-error" role="alert" hidden></div><p class="muted">账号按字符串读取；完全重复流水去重；同一标识有冲突会报错。上传文件不会被发送或保存。</p><div class="dialog-actions"><button type="submit" class="button primary">导入并分析 ↗</button><button type="button" class="button subtle" id="sample-button">下载示例交易CSV</button></div></form><details class="policy-note"><summary>固定字段格式与数据依据</summary><div id="import-dictionary"></div></details></dialog>
 
   <dialog id="about-dialog" aria-labelledby="about-title"><div class="dialog-heading"><div><p class="eyebrow dark">ABOUT THIS PROJECT</p><h2 id="about-title">一个可以核对依据的规则模型作品</h2></div><button class="icon-button close-dialog" aria-label="关闭项目说明">×</button></div><p class="dialog-lead">本项目把Excel中的五个业务规则评分模型实现为可交互的交易监测工具。核心是明确规则、正确计分和解释原因。</p><div class="about-grid"><div><b>42组 / 68条</b><p>按真实合并单元格整理，保留F列阈值、C列分值和AND/OR。</p></div><div><b>54条已实现</b><p>14条子规则和7组关系待确认。数据不足时明确显示“无法评价”。</p></div><div><b>资金计算有边界</b><p>整数分计算，同币种配对；跨币种合计须有用户明确提供的当日汇率。</p></div><div><b>纯合成数据</b><p>固定种子20210506，包含正常、命中、边界及缺字段案例，未降低原始阈值。</p></div></div><h3>怎样体验</h3><ol class="how-to"><li>直接看默认演示，或导入固定格式CSV。</li><li>选择期间和模型，点击“运行分析”。</li><li>点击账户，看大白话结论及原始模型得分。</li><li>展开规则，查看实际指标、阈值与证据；导出CSV。</li></ol><p class="muted">这是业务规则评分与作品演示，不声称真实洗钱识别准确率。高危名单表示优先人工核查，结论不是违法认定。</p><p class="muted">原始规则来源：已敲定模型20210506 - 集资和钱庄.xlsx。HTML版由同一规则配置生成，Python实现保留作对照。部署方法见仓库README。</p></dialog>
-  <noscript><div class="noscript-message">此作品需要启用JavaScript才能在浏览器中进行规则分析。无需服务器，也无需安装Python。</div></noscript>
+  <noscript><div class="noscript-message">Enable JavaScript to analyze rules in your browser. No server or Python installation is required.</div></noscript>
 </body>
 </html>

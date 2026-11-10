@@ -1,9 +1,10 @@
-/* Display-only bilingual text. Scoring continues to use the original configuration. */
+/* Display-only multilingual text. Scoring continues to use the original configuration. */
 (function(root){
   "use strict";
-  const B=root.AML_BUNDLE,A=root.AML,E=B.display_en;
-  let language="zh";
+  const B=root.AML_BUNDLE,A=root.AML,E=B.display_en,F=root.AML_FR;
+  let language="en";
   const labels={
+    "固定种子 · 9个账户":"Fixed seed · 9 accounts",
     "跳转到分析工作台":"Skip to the analysis workspace","Logan的AML分析模型":"Logan's AML Analysis Model","交易规则实验室":"Transaction Rule Lab","分析工作台":"Workspace","项目说明":"About","浏览器本地运行":"Runs in your browser","MODEL REFERENCE / 只读档案":"MODEL REFERENCE / READ ONLY","LOCAL DATA / 本地文件":"LOCAL DATA / LOCAL FILES",
     "业务规则评分 · 可解释的交易监测":"BUSINESS RULES · EXPLAINABLE MONITORING","让异常交易，":"Follow the flow.","有据可查。":"Find the signals.",
     "从一笔流水到一个判断。用五个业务模型，观察资金行为，追溯命中原因，找到值得优先核查的账户。":"From a transaction to a reviewable conclusion. Explore five business-rule models, trace the evidence, and identify accounts to review first.",
@@ -42,11 +43,11 @@
   const signalNames={'资金快进快出':'Rapid fund turnover','敏感词相关交易金额大':'Large sensitive-keyword totals','金额集中在原表异常区间':'Abnormal amount concentration','收付款对手数量明显不对称':'Uneven incoming and outgoing counterparties','长时间无交易后出现小额试转特征':'Small test credits after inactivity','连续收支方式异常':'Unusual incoming/outgoing sequences','活跃日交易金额和笔数同时偏大':'Large and frequent active-day activity','新开户后很快发生敏感大额交易':'Sensitive large transfers soon after opening'};
   const modelLabels=Object.fromEntries(B.config.models.flatMap(m=>[[m.name,E.models[m.id].name],[shortZh[m.id],E.models[m.id].short]]));
   const lookup={...labels,...modelLabels,...signalNames,...E.rule_names,...E.thresholds,...E.group_names,...E.reasons};
-  function t(source){return language==="en"?(lookup[source]||source):source;}
-  function choose(zh,en){return language==="en"?en:zh;}
-  function modelName(id,short=false){return language==="en"?E.models[id][short?"short":"name"]:(short?({UB01:"资金拆分",UB02:"资金过渡",UB03:"对公贵金属",UB04:"对私贵金属",UB05:"汇兑对私"})[id]:B.config.models.find(m=>m.id===id).name);}
+  function t(source){const en=lookup[source]||source;return language==="fr"?F.translate(en):language==="en"?en:source;}
+  function choose(zh,en){return language==="fr"?F.translate(en):language==="en"?en:zh;}
+  function modelName(id,short=false){if(language==="fr")return F.models[id][short?"short":"name"];return language==="en"?E.models[id][short?"short":"name"]:(short?({UB01:"资金拆分",UB02:"资金过渡",UB03:"对公贵金属",UB04:"对私贵金属",UB05:"汇兑对私"})[id]:B.config.models.find(m=>m.id===id).name);}
   function message(text){
-    if(language!=="en")return text;
+    if(language==="zh")return text;
     if(lookup[text])return lookup[text];
     const patterns=[
       [/^流水缺少(.+)，不以缺失值代替0或未命中$/,m=>`Missing transaction field ${m[1]}; missing values are not treated as zero or no match.`],
@@ -65,18 +66,18 @@
     for(const[regex,render]of patterns){const match=regex.exec(text);if(match)return render(match);}
     return text;
   }
-  function money(cents){if(language!=="en")return A.prettyMoney(String(cents));const r=A.decimal(cents),n=A.roundFraction(r.n,r.d),negative=n<0n,abs=negative?-n:n;let text=(abs/100n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");const fraction=(abs%100n).toString().padStart(2,"0").replace(/0+$/,"");return "CNY "+(negative?"-":"")+text+(fraction?"."+fraction:"");}
-  function level(value){if(language!=="en")return value;return ({[A.HIGH]:"High risk · priority review",[A.ATTENTION]:"Watch · further review",[A.INSUFFICIENT]:"Insufficient data",[A.CLEAR]:"No clear anomaly observed"})[value]||value;}
+  function money(cents){if(language==="zh")return A.prettyMoney(String(cents));const r=A.decimal(cents),n=A.roundFraction(r.n,r.d),negative=n<0n,abs=negative?-n:n;let text=(abs/100n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");const fraction=(abs%100n).toString().padStart(2,"0").replace(/0+$/,"");return "CNY "+(negative?"-":"")+(language==="fr"?text.replace(/,/g,"\u202f"):text)+(fraction?(language==="fr"?",":".")+fraction:"");}
+  function level(value){if(language==="zh")return value;return ({[A.HIGH]:"High risk · priority review",[A.ATTENTION]:"Watch · further review",[A.INSUFFICIENT]:"Insufficient data",[A.CLEAR]:"No clear anomaly observed"})[value]||value;}
   function conclusion(c){
-    if(language!=="en")return c.plain_conclusion;
+    if(language==="zh")return c.plain_conclusion;
     const n=c.confirmed_behavior_types;
     let text=c.is_high_risk?`This account shows ${n} confirmed types of unusual fund activity and meets the project's high-risk screening criteria. Prioritize human review.`:c.risk_level===A.ATTENTION?`This account shows ${n} confirmed types of unusual activity. It does not yet meet the project's high-risk screening criteria; further review is recommended.`:c.risk_level===A.INSUFFICIENT?"Available results do not support a high-risk finding, but unresolved rules prevent treating the account as low risk.":"No activity meeting the project screening criteria was found within the selected models and period. This does not establish that the account is risk-free.";
     if(c.screening_unknown_groups)text+=` Another ${c.screening_unknown_groups} groups are unavailable; they have not been counted as no match.`;
     return text;
   }
-  function action(c){if(language!=="en")return c.suggested_action;return c.is_high_risk?"Check the source and ultimate destination of funds, the purpose of transfers, and supporting business records first.":c.risk_level===A.ATTENTION?"Check the purpose of the unusual transactions and obtain missing evidence before reassessing.":c.risk_level===A.INSUFFICIENT?"Obtain missing profiles, closing balances or other supporting data, and clarify unresolved business definitions.":"Retain the results and evidence, and review subsequent changes in transaction activity.";}
+  function action(c){if(language==="zh")return c.suggested_action;return c.is_high_risk?"Check the source and ultimate destination of funds, the purpose of transfers, and supporting business records first.":c.risk_level===A.ATTENTION?"Check the purpose of the unusual transactions and obtain missing evidence before reassessing.":c.risk_level===A.INSUFFICIENT?"Obtain missing profiles, closing balances or other supporting data, and clarify unresolved business definitions.":"Retain the results and evidence, and review subsequent changes in transaction activity.";}
   function signal(s,rows){
-    if(language!=="en")return s.explanation;
+    if(language==="zh")return s.explanation;
     const m=rows.filter(r=>s.rules.includes(r.rule_id)&&r.status===A.HIT&&r.group_status===A.HIT).map(r=>JSON.parse(r.actual));
     if(s.category==="rapid_flow")return `${Math.max(...m.map(v=>v['配对数']||0))} pairs of similarly sized funds arrived and left within a short interval, indicating rapid turnover.`;
     if(s.category==="keyword_amount"){const total=m.map(v=>BigInt(v['匹配金额_人民币分']||0)).reduce((a,b)=>a>b?a:b,0n);return `Transactions with source sensitive keywords in names or remarks total ${money(total)} (gross incoming and outgoing amounts, not netted).`;}
@@ -91,9 +92,11 @@
   const originals=new WeakMap(),attributes=new WeakMap();
   function apply(scope=document){
     const walker=document.createTreeWalker(scope,NodeFilter.SHOW_TEXT);let node;
-    while((node=walker.nextNode())){if(node.parentElement?.closest('script,style,code,pre,[data-keep-source],#language-button'))continue;if(!originals.has(node))originals.set(node,node.nodeValue);const original=originals.get(node),trimmed=original.trim();node.nodeValue=trimmed?original.replace(trimmed,t(trimmed)):original;}
-    for(const element of scope.querySelectorAll?.('[aria-label],[title]')||[]){if(element.id==='language-button'||element.closest('[data-keep-source]'))continue;if(!attributes.has(element))attributes.set(element,Object.fromEntries(['aria-label','title'].filter(k=>element.hasAttribute(k)).map(k=>[k,element.getAttribute(k)])));for(const[k,v]of Object.entries(attributes.get(element)))element.setAttribute(k,t(v));}
+    while((node=walker.nextNode())){if(node.parentElement?.closest('script,style,title,code,pre,[data-keep-source],#language-select,[data-model-label]'))continue;if(!originals.has(node))originals.set(node,node.nodeValue);const original=originals.get(node),trimmed=original.trim();node.nodeValue=trimmed?original.replace(trimmed,t(trimmed)):original;}
+    for(const element of scope.querySelectorAll?.('[aria-label],[title]')||[]){if(element.id==='language-select'||element.closest('[data-keep-source]'))continue;if(!attributes.has(element))attributes.set(element,Object.fromEntries(['aria-label','title'].filter(k=>element.hasAttribute(k)).map(k=>[k,element.getAttribute(k)])));for(const[k,v]of Object.entries(attributes.get(element)))element.setAttribute(k,t(v));}
   }
-  function setLanguage(value){if(!['zh','en'].includes(value)||value===language)return;language=value;document.documentElement.lang=value==='en'?'en':'zh-CN';document.title=choose('Logan的AML分析模型',"Logan's AML Analysis Model");document.dispatchEvent(new CustomEvent('aml-language-change'));apply();const button=document.getElementById('language-button');button.textContent=value==='en'?'中文':'English';button.setAttribute('aria-label',value==='en'?'Switch interface to Chinese':'切换到英文');}
-  root.AML_I18N=Object.freeze({get language(){return language;},t,choose,modelName,message,money,level,conclusion,action,signal,apply,setLanguage});
+  function setLanguage(value){if(!['en','fr','zh'].includes(value))return;const changed=value!==language;language=value;document.documentElement.lang=value==='zh'?'zh-CN':value;document.title=choose('Logan的AML分析模型',"Logan's AML Analysis Model");const select=document.getElementById('language-select');if(select){select.value=value;select.setAttribute('aria-label',choose('界面语言','Interface language'));}if(changed)document.dispatchEvent(new CustomEvent('aml-language-change'));apply();}
+  const localized=fn=>(...args)=>{const value=fn(...args);return language==='fr'?F.translate(value):value;};
+  root.AML_I18N=Object.freeze({get language(){return language;},t,choose,modelName,message:localized(message),money,level:localized(level),conclusion:localized(conclusion),action:localized(action),signal:localized(signal),apply,setLanguage});
+  setLanguage('en');
 })(window);
