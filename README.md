@@ -2,7 +2,7 @@
 
 Live site: https://loganjiangca.github.io/
 
-A static portfolio with English, French, and Chinese navigation. The homepage and all four published projects open in English, with language options ordered English, Français, 中文. The homepage presents work in AML analytics, statistics and machine learning, solution consulting, and quantitative investing.
+A static portfolio with English, French, and Chinese navigation. The homepage and all five published projects open in English, with language options ordered English, Français, 中文. The homepage presents work in AML analytics, statistics and machine learning, solution consulting, and quantitative investing.
 
 ## Published projects
 
@@ -10,12 +10,15 @@ A static portfolio with English, French, and Chinese navigation. The homepage an
 | --- | --- | --- |
 | Logan's AML Analysis Model | [`projects/aml/`](projects/aml/index.html) | `Profolio/AML OLD/docs/` static application and assets |
 | Detecting Insider Trading Risk in Securities Markets | [`projects/insider-trading/`](projects/insider-trading/index.html) | Final standalone HTML from the project's `outputs/` directory |
+| Police Academy Big Data Practical Training Platform | [`projects/police-academy/`](projects/police-academy/index.html) | Finalized trilingual solution-design case study under Solution Consulting |
 | Stock Quotes & Technical Analysis | [Open project](Stock%20Quantitative_Tools/Stock%20Quotes%20%26%20Technical%20Analysis.%20bilingual.html) | Standalone HTML in `Stock Quantitative_Tools/` |
 | Oversold Reversal Stock Screener | [Open project](Stock%20Quantitative_Tools/%E8%B6%85%E8%B7%8C%E5%8F%8D%E5%BC%B9%E7%9F%AD%E7%BA%BF%E9%80%89%E8%82%A1%E5%99%A8.html) | Standalone HTML in `Stock Quantitative_Tools/` |
 
 The AML application uses synthetic demonstration data, retains original rule thresholds and model scores, and explicitly identifies unresolved rules. CSV imports are processed locally in the visitor's browser. The insider trading project distinguishes its research report from its fictional interactive case.
 
 The published projects preserve their original analysis logic and source parameters while providing translated interfaces. Development environments, browser profiles, caches, and private working files are excluded from these project folders.
+
+The Police Academy project is the first entry in Solution Consulting. Its English, French and Chinese cards open the corresponding project language. The case study covers the author’s contribution, delivered results, information-laboratory architecture, five modules, two parallel teaching workflows, and hardware/floor plans. Only final static pages and assets are published; the original Word document and local editing material are excluded.
 
 ## Preview and deployment
 

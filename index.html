@@ -81,7 +81,7 @@
             <span class="section-kicker" data-i18n="sectionKicker">01 — Selected fields</span>
             <h2 id="work-title"><span data-i18n="workTitle">Areas of work</span><span aria-hidden="true">.</span></h2>
           </div>
-          <p data-i18n="workIntro">Four fields, an ongoing exploration. The AML model and insider trading risk study are live. Pick a field, browse the projects, and try them directly.</p>
+          <p data-i18n="workIntro">Four fields, an ongoing exploration. The AML model, insider trading risk study, and Police Academy training platform are live. Pick a field, browse the projects, and try them directly.</p>
         </div>
 
         <div class="portfolio-layout">
@@ -227,7 +227,7 @@
           signatureCaption: "分析 · 创造",
           sectionKicker: "01 — 精选方向",
           workTitle: "作品集方向",
-          workIntro: "四个方向，持续探索。AML 分析模型与内幕交易风险研判已上线，选择一个方向，翻阅作品并直接体验。",
+          workIntro: "四个方向，持续探索。AML 分析模型、内幕交易风险研判与警校大数据实战训练平台已上线，选择一个方向，翻阅作品并直接体验。",
           projectGallery: "作品展示，可使用左右方向键切换",
           chooseProject: "选择作品",
           chooseField: "选择作品集方向",
@@ -267,7 +267,7 @@
           signatureCaption: "ANALYST · BUILDER",
           sectionKicker: "01 — Selected fields",
           workTitle: "Areas of work",
-          workIntro: "Four fields, an ongoing exploration. The AML model and insider trading risk study are live. Pick a field, browse the projects, and try them directly.",
+          workIntro: "Four fields, an ongoing exploration. The AML model, insider trading risk study, and Police Academy training platform are live. Pick a field, browse the projects, and try them directly.",
           projectGallery: "Project gallery. Use the left and right arrow keys to browse",
           chooseProject: "Choose a project",
           chooseField: "Choose a portfolio field",
@@ -307,7 +307,7 @@
           signatureCaption: "ANALYSTE · CRÉATEUR",
           sectionKicker: "01 — Domaines sélectionnés",
           workTitle: "Domaines d’activité",
-          workIntro: "Quatre domaines à explorer. Le modèle LBC et l’étude du risque d’opérations d’initiés sont en ligne. Choisissez un domaine, parcourez les projets et essayez-les directement.",
+          workIntro: "Quatre domaines à explorer. Le modèle LBC, l’étude du risque d’opérations d’initiés et la plateforme de formation pour l’école de police sont en ligne. Choisissez un domaine, parcourez les projets et essayez-les directement.",
           projectGallery: "Galerie de projets. Utilisez les flèches gauche et droite pour naviguer",
           chooseProject: "Choisir un projet",
           chooseField: "Choisir un domaine du portfolio",
@@ -411,22 +411,25 @@
             fr: "Partir des objectifs métier pour relier diagnostic, analyse des données et solutions concrètes, puis définir un plan d’action.",
           },
           topics: {
-            "zh-CN": ["业务问题诊断与需求拆解", "数据驱动的解决方案设计", "流程优化与实施路线规划"],
-            en: ["Business diagnosis & problem framing", "Data-informed solution design", "Process improvement & implementation roadmaps"],
-            fr: ["Diagnostic métier et cadrage des besoins", "Conception de solutions fondées sur les données", "Optimisation des processus et feuille de route"],
+            "zh-CN": ["警校大数据实战训练平台", "业务问题诊断与需求拆解", "数据驱动的解决方案设计", "流程优化与实施路线规划"],
+            en: ["Police Academy Big Data Practical Training Platform", "Business diagnosis & problem framing", "Data-informed solution design", "Process improvement & implementation roadmaps"],
+            fr: ["Plateforme de formation pratique au big data pour une école de police", "Diagnostic métier et cadrage des besoins", "Conception de solutions fondées sur les données", "Optimisation des processus et feuille de route"],
           },
           projectDescriptions: {
             "zh-CN": [
+              "围绕400+名学员与20+名教师开展调研，独立设计五模块一体化大数据实战训练方案，统筹平台、实验室与配套硬件的实施交付。项目于2022年9月交付，3个月内通过验收。",
               "拟从业务目标与使用场景出发，拆解现状、痛点与需求，将宽泛问题转化为可分析、可验证的具体任务。",
               "拟结合数据洞察与业务约束，比较可选方案，呈现从分析发现到解决方案设计的推导过程。",
               "拟梳理现有流程与关键环节，识别优化机会，并通过阶段目标、优先级与评估指标形成实施路线。",
             ],
             en: [
+              "A delivered solution informed by research with 400+ students and 20+ faculty. I independently designed five integrated training modules and coordinated delivery across the platform, laboratory and supporting hardware. Delivered in September 2022 and accepted within three months.",
               "A planned case study translating business goals, user needs, and operational pain points into specific questions that can be analyzed and tested.",
               "A planned comparison of solution options using data insights and business constraints to connect analytical findings with practical design.",
               "A planned process review identifying improvement opportunities and outlining implementation priorities, milestones, and evaluation measures.",
             ],
             fr: [
+              "Une solution issue d’une étude auprès de plus de 400 étudiants et de plus de 20 enseignants. J’ai conçu de manière autonome cinq modules de formation intégrés et coordonné la livraison de la plateforme, du laboratoire et du matériel. Projet livré en septembre 2022 et réceptionné sous trois mois.",
               "Un cas prévu pour traduire les objectifs métier, les besoins et les difficultés opérationnelles en questions précises à analyser et à vérifier.",
               "Une comparaison prévue des solutions à partir des données et des contraintes métier, pour relier les constats analytiques à la conception concrète.",
               "Une revue prévue des processus pour repérer les améliorations et définir les priorités, les étapes et les indicateurs de mise en œuvre.",
@@ -471,6 +474,12 @@
       };
 
       const projectDestinations = {
+        consulting: [
+          "projects/police-academy/index.html",
+          null,
+          null,
+          null,
+        ],
         aml: [
           "projects/aml/index.html",
           "projects/insider-trading/index.html",
@@ -518,8 +527,8 @@
             <circle cx="${[140, 185, 175][index]}" cy="${[96, 78, 62][index]}" r="10" fill="${pop}" stroke="#fffefb" stroke-width="4"/>`;
         } else if (category === "consulting") {
           drawing = `<path d="M85 85H270" stroke="${accent}" stroke-width="2" stroke-dasharray="5 6"/>
-            ${[72, 180, 288].map((x, i) => `<rect x="${x - 32}" y="53" width="64" height="64" rx="22" fill="${i === index ? pop : "#fffefb"}" stroke="${accent}" stroke-opacity=".5"/>
-              <circle cx="${x}" cy="85" r="${i === index ? 13 : 8}" fill="none" stroke="${accent}" stroke-width="2"/>
+            ${[72, 180, 288].map((x, i) => `<rect x="${x - 32}" y="53" width="64" height="64" rx="22" fill="${i === index % 3 ? pop : "#fffefb"}" stroke="${accent}" stroke-opacity=".5"/>
+              <circle cx="${x}" cy="85" r="${i === index % 3 ? 13 : 8}" fill="none" stroke="${accent}" stroke-width="2"/>
               <path d="M${x - 15} 135H${x + 15}" stroke="${accent}" stroke-width="3" stroke-opacity=".3" stroke-linecap="round"/>`).join("")}
             <path d="M110 35Q180 0 250 35" stroke="${accent}" stroke-opacity=".3" stroke-width="1.5"/>`;
         } else {
@@ -585,7 +594,9 @@
             card.className = "project-card";
             card.dataset.number = String(index + 1).padStart(2, "0");
             if (destination) {
-              card.href = destination;
+              card.href = destination === "projects/police-academy/index.html"
+                ? `${destination}?lang=${currentLanguage === "zh-CN" ? "zh" : currentLanguage}`
+                : destination;
               card.setAttribute("aria-label", `${topic} — ${languages[currentLanguage].openProject}`);
             } else {
               card.setAttribute("aria-disabled", "true");
