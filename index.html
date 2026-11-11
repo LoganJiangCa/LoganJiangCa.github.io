@@ -9,7 +9,7 @@
     />
     <meta name="theme-color" content="#fffaf2" />
     <title>Logan Jiang — Selected Work</title>
-    <link rel="stylesheet" href="assets/portfolio.css?v=20261111-profile" />
+    <link rel="stylesheet" href="assets/portfolio.css?v=20261111-profile-redesign" />
   </head>
   <body>
     <header class="topbar">
@@ -37,30 +37,6 @@
     </header>
 
     <main id="home">
-      <section id="profile" class="shell profile-section" aria-labelledby="profile-title">
-        <div class="profile-card">
-          <div class="profile-heading">
-            <p class="section-kicker" data-i18n="profileKicker">Personal Profile</p>
-            <h2 id="profile-title" data-i18n="profileEducation">MMA, McGill University</h2>
-            <p class="profile-experience" data-i18n="profileExperience">6 years of experience in solution consulting for big data and AI.</p>
-          </div>
-          <dl class="profile-details">
-            <div>
-              <dt data-i18n="profileSectorsLabel">Sectors Served</dt>
-              <dd data-i18n="profileSectors">Government, law enforcement, banking, financial institutions, higher education, and the tobacco industry.</dd>
-            </div>
-            <div>
-              <dt data-i18n="profileSpecialismsLabel">Specialisms</dt>
-              <dd data-i18n="profileSpecialisms">Banking technology, enterprise digital transformation, and information systems development for law enforcement.</dd>
-            </div>
-            <div>
-              <dt data-i18n="profileFocusLabel">Analytical Focus</dt>
-              <dd data-i18n="profileFocus">Anti-money laundering, economic crime, financial crime, internal anti-corruption, business analytics, and retail.</dd>
-            </div>
-          </dl>
-        </div>
-      </section>
-
       <section class="shell hero" aria-labelledby="hero-title">
         <div class="hero-copy">
           <span class="eyebrow" data-i18n="heroEyebrow">Portfolio / Analysis / Strategy</span>
@@ -68,14 +44,38 @@
             <span id="hero-title-line-one">Make complex</span><br />
             <span id="hero-title-line-two">ideas </span><span id="hero-title-highlight" class="headline-accent">clear</span><span id="hero-title-ending">.</span>
           </h1>
-          <p class="hero-intro" data-i18n="heroIntro">
-            I explore questions with data, test ideas with models, and connect insight to action. This portfolio brings together selected work in risk analysis, machine learning, consulting, and quantitative investing.
-          </p>
+          <div id="profile" class="profile-intro">
+            <p class="profile-kicker" data-i18n="profileKicker">Personal Profile</p>
+            <div class="profile-summary">
+              <p class="profile-tenure" data-i18n-aria-label="profileExperience" aria-label="6 years of experience in solution consulting for big data and AI."><strong>6</strong><span data-i18n="profileYearsLabel">years of experience</span></p>
+              <h2 id="profile-title" data-i18n="profileRole">Big Data &amp; AI Solution Consulting</h2>
+            </div>
+          </div>
           <div class="hero-actions">
             <a class="button-primary" href="#work"><span data-i18n="heroCta">Explore the work</span> <span aria-hidden="true">↓</span></a>
             <a class="text-link" href="#about"><span data-i18n="heroAbout">About this portfolio</span> →</a>
           </div>
         </div>
+        <section class="profile-overview" aria-labelledby="profile-title">
+          <article class="profile-panel profile-sectors">
+            <div class="profile-panel-heading"><span class="profile-panel-mark" aria-hidden="true">↗</span><h3 data-i18n="profileSectorsLabel">Sectors Served</h3></div>
+            <ul id="profile-sector-list" class="profile-tags">
+              <li>Government</li><li>Law Enforcement</li><li>Banking</li><li>Financial Institutions</li><li>Higher Education</li><li>Tobacco</li>
+            </ul>
+          </article>
+          <article class="profile-panel profile-specialisms">
+            <div class="profile-panel-heading"><span class="profile-panel-mark" aria-hidden="true">⌁</span><h3 data-i18n="profileSpecialismsLabel">Specialisms</h3></div>
+            <ol id="profile-specialism-list" class="profile-specialism-list">
+              <li>Banking Technology</li><li>Enterprise Digital Transformation</li><li>Information Systems Development for Law Enforcement</li>
+            </ol>
+          </article>
+          <article class="profile-panel profile-focus">
+            <div class="profile-panel-heading"><span class="profile-panel-mark" aria-hidden="true">✳</span><h3 data-i18n="profileFocusLabel">Analytical Focus</h3></div>
+            <ul id="profile-focus-list" class="profile-tags">
+              <li>AML</li><li>Economic Crime</li><li>Financial Crime</li><li>Internal Anti-corruption</li><li>Business Analytics</li><li>Retail</li>
+            </ul>
+          </article>
+        </section>
         <div class="hero-art">
           <div class="art-ring"></div>
           <div class="art-core">
@@ -240,14 +240,15 @@
           navAbout: "关于",
           navContact: "联系我",
           profileKicker: "个人简介",
-          profileEducation: "麦吉尔大学 · 商业分析与咨询专业硕士",
+          profileRole: "大数据与 AI 解决方案咨询",
+          profileYearsLabel: "年工作经验",
           profileExperience: "大数据与 AI 方向解决方案咨询，6 年工作经验。",
           profileSectorsLabel: "服务行业",
-          profileSectors: "政府、执法机构、银行、金融机构、高校、烟草。",
+          profileSectorItems: ["政府", "执法机构", "银行", "金融机构", "高校", "烟草"],
           profileSpecialismsLabel: "细分行业",
-          profileSpecialisms: "银行科技、企业数字化转型、执法机构信息化建设。",
+          profileSpecialismItems: ["银行科技", "企业数字化转型", "执法机构信息化建设"],
           profileFocusLabel: "数据分析方向",
-          profileFocus: "主要聚焦于反洗钱、经济犯罪、金融犯罪、内部反腐、商业分析与零售。",
+          profileFocusItems: ["反洗钱", "经济犯罪", "金融犯罪", "内部反腐", "商业分析", "零售"],
           heroEyebrow: "作品集 / 分析 / 策略",
           heroLineOne: "让复杂问题",
           heroLineTwo: "变得",
@@ -290,14 +291,15 @@
           navAbout: "About",
           navContact: "Contact",
           profileKicker: "Personal Profile",
-          profileEducation: "MMA, McGill University",
+          profileRole: "Big Data & AI Solution Consulting",
+          profileYearsLabel: "years of experience",
           profileExperience: "6 years of experience in solution consulting for big data and AI.",
           profileSectorsLabel: "Sectors Served",
-          profileSectors: "Government, law enforcement, banking, financial institutions, higher education, and the tobacco industry.",
+          profileSectorItems: ["Government", "Law Enforcement", "Banking", "Financial Institutions", "Higher Education", "Tobacco"],
           profileSpecialismsLabel: "Specialisms",
-          profileSpecialisms: "Banking technology, enterprise digital transformation, and information systems development for law enforcement.",
+          profileSpecialismItems: ["Banking Technology", "Enterprise Digital Transformation", "Information Systems Development for Law Enforcement"],
           profileFocusLabel: "Analytical Focus",
-          profileFocus: "Anti-money laundering, economic crime, financial crime, internal anti-corruption, business analytics, and retail.",
+          profileFocusItems: ["AML", "Economic Crime", "Financial Crime", "Internal Anti-corruption", "Business Analytics", "Retail"],
           heroEyebrow: "Portfolio / Analysis / Strategy",
           heroLineOne: "Make complex",
           heroLineTwo: "ideas ",
@@ -340,14 +342,15 @@
           navAbout: "À propos",
           navContact: "Contact",
           profileKicker: "Profil personnel",
-          profileEducation: "Université McGill · Maîtrise en analytique de gestion et en conseil",
+          profileRole: "Conseil en solutions de données massives et d’IA",
+          profileYearsLabel: "ans d’expérience",
           profileExperience: "6 ans d’expérience en conseil en solutions de données massives et d’intelligence artificielle.",
           profileSectorsLabel: "Secteurs accompagnés",
-          profileSectors: "Administrations publiques, services d’application de la loi, banques, institutions financières, enseignement supérieur et industrie du tabac.",
+          profileSectorItems: ["Administrations", "Application de la loi", "Banques", "Institutions financières", "Enseignement supérieur", "Industrie du tabac"],
           profileSpecialismsLabel: "Domaines de spécialisation",
-          profileSpecialisms: "Technologies bancaires, transformation numérique des entreprises et mise en place de systèmes d’information pour les services d’application de la loi.",
+          profileSpecialismItems: ["Technologies bancaires", "Transformation numérique des entreprises", "Mise en place de systèmes d’information pour l’application de la loi"],
           profileFocusLabel: "Axes d’analyse",
-          profileFocus: "Lutte contre le blanchiment d’argent, criminalité économique, criminalité financière, lutte contre la corruption interne, analytique d’affaires et commerce de détail.",
+          profileFocusItems: ["LBC", "Criminalité économique", "Criminalité financière", "Anticorruption interne", "Analytique d’affaires", "Commerce de détail"],
           heroEyebrow: "Portfolio / Analyse / Stratégie",
           heroLineOne: "Des données,",
           heroLineTwo: "des idées ",
@@ -795,6 +798,17 @@
         });
         document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
           element.setAttribute("aria-label", content[element.dataset.i18nAriaLabel]);
+        });
+        [
+          ["#profile-sector-list", "profileSectorItems"],
+          ["#profile-specialism-list", "profileSpecialismItems"],
+          ["#profile-focus-list", "profileFocusItems"],
+        ].forEach(([selector, key]) => {
+          document.querySelector(selector).replaceChildren(...content[key].map((label) => {
+            const item = document.createElement("li");
+            item.textContent = label;
+            return item;
+          }));
         });
 
         document.querySelector("#hero-title-line-one").textContent = content.heroLineOne;
