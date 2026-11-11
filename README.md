@@ -2,15 +2,16 @@
 
 Live site: https://loganjiangca.github.io/
 
-A static portfolio with English, French, and Chinese navigation. The homepage and all five published projects open in English, with language options ordered English, Français, 中文. The homepage presents work in AML analytics, statistics and machine learning, solution consulting, and quantitative investing.
+A static portfolio with English, French, and Chinese navigation. The categories are ordered **01 AML Analytics → 02 Solution Consulting → 03 Statistical & Machine Learning → 04 Quantitative Investing**. Only published work is listed: two AML projects, one consulting project, one machine-learning project, and two quantitative tools. The five hosted projects open in English, with language options ordered English, Français, 中文. The machine-learning entry links to the original English notebook on GitHub.
 
 ## Published projects
 
 | Project | Entry point | Source deliverable |
 | --- | --- | --- |
-| Logan's AML Analysis Model | [`projects/aml/`](projects/aml/index.html) | `Profolio/AML OLD/docs/` static application and assets |
-| Detecting Insider Trading Risk in Securities Markets | [`projects/insider-trading/`](projects/insider-trading/index.html) | Final standalone HTML from the project's `outputs/` directory |
+| AML Detection Platform Model | [`projects/aml/`](projects/aml/index.html) | Static application with five business models, 42 rule groups and 68 source sub-rules |
+| Securities Market Insider Trading Risk Assessment Model | [`projects/insider-trading/`](projects/insider-trading/index.html) | Standalone research presentation distinguishing report content from the fictional interactive case |
 | Police Academy Big Data Practical Training Platform | [`projects/police-academy/`](projects/police-academy/index.html) | Finalized trilingual solution-design case study under Solution Consulting |
+| Pharmacy Transaction Revenue Prediction (Machine Learning) | [Original notebook](https://github.com/LoganJiangCa/Machine-Learning-projects/blob/main/pharmacy-revenue-prediction/pharmacy_revenue_prediction_ML%20project.ipynb) | Public English notebook: 62,139 pharmacy sales records; linear regression and random forest; per-transaction revenue prediction with known units sold |
 | Stock Quotes & Technical Analysis | [Open project](Stock%20Quantitative_Tools/Stock%20Quotes%20%26%20Technical%20Analysis.%20bilingual.html) | Standalone HTML in `Stock Quantitative_Tools/` |
 | Oversold Reversal Stock Screener | [Open project](Stock%20Quantitative_Tools/%E8%B6%85%E8%B7%8C%E5%8F%8D%E5%BC%B9%E7%9F%AD%E7%BA%BF%E9%80%89%E8%82%A1%E5%99%A8.html) | Standalone HTML in `Stock Quantitative_Tools/` |
 
@@ -19,6 +20,8 @@ The AML application uses synthetic demonstration data, retains original rule thr
 The published projects preserve their original analysis logic and source parameters while providing translated interfaces. Development environments, browser profiles, caches, and private working files are excluded from these project folders.
 
 The Police Academy project is the first entry in Solution Consulting. Its English, French and Chinese cards open the corresponding project language. The case study covers the author’s contribution, delivered results, information-laboratory architecture, five modules, two parallel teaching workflows, and hardware/floor plans. Only final static pages and assets are published; the original Word document and local editing material are excluded.
+
+Categories containing one project keep the 01/01 indicator and hide unavailable navigation controls. The two-project categories retain horizontal carousel navigation. Unpublished placeholders are removed from every category.
 
 ## Preview and deployment
 

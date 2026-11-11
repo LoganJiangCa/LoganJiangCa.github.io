@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Underground-banking transaction monitoring with five business-rule models, traceable scoring, read-only parameters and explainable account screening. Runs locally in your browser without installation.">
   <meta name="theme-color" content="#12263b">
-  <title>Logan's AML Analysis Model</title>
+  <title>AML Detection Platform Model</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/styles.css?v=20261110-languages">
   <script defer src="assets/bundle.js"></script>
   <script defer src="assets/engine.js"></script>
-  <script defer src="assets/fr.js?v=20261110-languages"></script>
-  <script defer src="assets/i18n.js?v=20261110-languages"></script>
+  <script defer src="assets/fr.js?v=20261111-project-names"></script>
+  <script defer src="assets/i18n.js?v=20261111-project-names"></script>
   <script defer src="assets/app.js?v=20261110-languages"></script>
 </head>
 <body>
   <a class="skip-link" href="#workspace">跳转到分析工作台</a>
   <header class="topbar">
-    <a class="brand" href="./index.html" aria-label="Logan的AML分析模型，返回作品首页"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 28 28"><path d="M4 7h8l4 7h8M4 14h5l4 7h11M4 21h4"/></svg></span><span class="brand-label">Logan的AML分析模型<span class="brand-sub">交易规则实验室</span></span></a>
+    <a class="brand" href="./index.html" aria-label="反洗钱检测平台模型，返回作品首页"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 28 28"><path d="M4 7h8l4 7h8M4 14h5l4 7h11M4 21h4"/></svg></span><span class="brand-label">反洗钱检测平台模型<span class="brand-sub">交易规则实验室</span></span></a>
     <nav aria-label="页面导航"><a href="#workspace" class="nav-active">分析工作台</a><button class="nav-button" id="about-button">项目说明</button></nav>
     <div class="topbar-actions"><span class="local-label"><span class="status-dot"></span>浏览器本地运行</span><select id="language-select" class="language-button" aria-label="Interface language"><option value="en" selected>English</option><option value="fr">Français</option><option value="zh">中文</option></select></div>
   </header>
@@ -57,7 +57,7 @@
         <p class="results-footnote">规则匹配程度 ≠ 洗钱概率。结果限定于当前分析期间、所选模型及已提供的数据。</p>
       </div>
     </section>
-    <footer><a class="footer-brand" href="#">Logan的AML分析模型 <span>· 地下钱庄交易监测</span></a><span>纯静态作品 · Python逻辑对照 · 无需安装即可体验</span><button class="text-button" id="footer-about">关于这个项目 ↗</button></footer>
+    <footer><a class="footer-brand" href="#">反洗钱检测平台模型 <span>· 地下钱庄交易监测</span></a><span>纯静态作品 · Python逻辑对照 · 无需安装即可体验</span><button class="text-button" id="footer-about">关于这个项目 ↗</button></footer>
   </main>
 
   <dialog id="parameters-dialog" class="parameter-dialog" aria-labelledby="parameters-title"><div class="dialog-heading"><div><p class="eyebrow dark">MODEL REFERENCE / 只读档案</p><h2 id="parameters-title">每一分，都能找到原始依据。</h2></div><button class="icon-button close-dialog" aria-label="关闭参数看板">×</button></div><p class="dialog-lead">每个模型精选4条复杂规则，参数只供查看；完整清单可从下方下载。</p><div class="dialog-stats" id="parameter-stats"></div><div class="model-tabs" id="parameter-tabs" role="tablist" aria-label="原始模型"></div><div id="parameter-content"></div><details class="policy-note"><summary>本项目高危筛查口径 · 与原表参数分开说明</summary><div id="parameter-policy"></div></details><details class="policy-note"><summary>公共计算约定与原始文件指纹</summary><div id="parameter-conventions"></div></details></dialog>
