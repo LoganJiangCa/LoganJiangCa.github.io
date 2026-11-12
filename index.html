@@ -9,14 +9,14 @@
     />
     <meta name="theme-color" content="#fffaf2" />
     <title>Logan Jiang — Selected Work</title>
-    <link rel="stylesheet" href="assets/portfolio.css?v=20261111-profile-redesign" />
+    <link rel="stylesheet" href="assets/portfolio.css?v=20261111-chinese-name" />
   </head>
   <body>
     <header class="topbar">
       <nav class="shell nav" aria-label="Main navigation" data-i18n-aria-label="navLabel">
         <a class="brand" href="#home" aria-label="Logan Jiang home" data-i18n-aria-label="brandLabel">
-          <span class="brand-mark">LJ</span>
-          <span>LOGAN JIANG</span>
+          <span class="brand-mark" data-i18n="brandInitials">LJ</span>
+          <span data-i18n="displayName">LOGAN JIANG</span>
         </a>
         <div class="nav-links">
           <a href="#work" data-i18n="navWork">Portfolio</a>
@@ -94,7 +94,7 @@
           <span class="art-caption" data-i18n="artCaption">THINK · TEST · BUILD</span>
           <div class="hero-signature">
             <span data-i18n="signatureCaption">ANALYST · BUILDER</span>
-            <strong>LOGAN<br />JIANG<span>.</span></strong>
+            <strong><span data-i18n="signatureFirst">LOGAN</span><br id="signature-name-break" /><span data-i18n="signatureLast">JIANG</span><span class="signature-ending">.</span></strong>
           </div>
         </div>
       </section>
@@ -211,7 +211,7 @@
     </main>
 
     <footer class="shell" id="contact">
-      <span>© 2026 LOGAN JIANG</span>
+      <span data-i18n="footerCopyright">© 2026 LOGAN JIANG</span>
       <span data-i18n="footerTagline">Built around ideas, data &amp; decisions.</span>
     </footer>
 
@@ -230,11 +230,16 @@
       const carouselTrack = document.querySelector("#carousel-track");
       const languages = {
         "zh-CN": {
-          title: "Logan Jiang — 个人作品集",
-          description: "Logan Jiang 的个人作品集，聚焦 AML、统计机器学习、解决方案咨询与量化投资。",
+          title: "江全隆 — 个人作品集",
+          description: "江全隆的个人作品集，聚焦 AML、统计机器学习、解决方案咨询与量化投资。",
           fieldPrefix: "方向",
           navLabel: "主导航",
-          brandLabel: "Logan Jiang 首页",
+          brandLabel: "江全隆首页",
+          displayName: "江全隆",
+          brandInitials: "江",
+          signatureFirst: "江全隆",
+          signatureLast: "",
+          footerCopyright: "© 2026 江全隆",
           languageLabel: "选择语言",
           navWork: "作品集",
           navAbout: "关于",
@@ -286,6 +291,11 @@
           fieldPrefix: "FIELD",
           navLabel: "Main navigation",
           brandLabel: "Logan Jiang home",
+          displayName: "LOGAN JIANG",
+          brandInitials: "LJ",
+          signatureFirst: "LOGAN",
+          signatureLast: "JIANG",
+          footerCopyright: "© 2026 LOGAN JIANG",
           languageLabel: "Choose language",
           navWork: "Portfolio",
           navAbout: "About",
@@ -337,6 +347,11 @@
           fieldPrefix: "DOMAINE",
           navLabel: "Navigation principale",
           brandLabel: "Accueil de Logan Jiang",
+          displayName: "LOGAN JIANG",
+          brandInitials: "LJ",
+          signatureFirst: "LOGAN",
+          signatureLast: "JIANG",
+          footerCopyright: "© 2026 LOGAN JIANG",
           languageLabel: "Choisir la langue",
           navWork: "Portfolio",
           navAbout: "À propos",
@@ -799,6 +814,7 @@
         document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
           element.setAttribute("aria-label", content[element.dataset.i18nAriaLabel]);
         });
+        document.querySelector("#signature-name-break").hidden = !content.signatureLast;
         [
           ["#profile-sector-list", "profileSectorItems"],
           ["#profile-specialism-list", "profileSpecialismItems"],

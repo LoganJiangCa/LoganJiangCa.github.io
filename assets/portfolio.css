@@ -156,7 +156,7 @@ h1 { margin: 27px 0 28px; font-size: clamp(3.6rem, 6.1vw, 5.8rem); font-weight: 
 .hero-signature { position: absolute; right: -2px; bottom: 32px; z-index: 2; display: flex; flex-direction: column; align-items: flex-end; line-height: .84; text-shadow: 0 2px 18px #fffaf2cc; }
 .hero-signature > span { font-family: var(--mono); font-size: .65rem; font-weight: 700; letter-spacing: .3em; }
 .hero-signature strong { margin-top: 12px; font-size: clamp(3rem, 5.2vw, 5rem); font-weight: 850; letter-spacing: -.09em; }
-.hero-signature strong span { color: var(--coral); }
+.hero-signature strong .signature-ending { color: var(--coral); }
 
 /* Four rounded field selectors above an open, colorful exhibition stage. */
 .portfolio { padding-block: 26px 88px; }
