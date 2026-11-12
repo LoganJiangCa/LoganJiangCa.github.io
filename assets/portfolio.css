@@ -250,7 +250,8 @@ article.project-card .project-card-action { background: #f3f2ec; color: var(--mu
 .carousel-dot::before { width: 6px; height: 6px; border-radius: 99px; background: var(--detail-accent); opacity: .25; content: ""; transition: width 350ms var(--ease), opacity 350ms ease; }
 .carousel-dot[aria-current="true"]::before { width: 22px; opacity: 1; }
 
-.contact { display: flex; align-items: center; justify-content: space-between; gap: 28px; padding: 36px 40px; border-radius: 30px; background: var(--lime); }
+.contact { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; padding: 36px 40px; border-radius: 30px; background: var(--lime); }
+.contact-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 12px; max-width: 100%; margin-left: auto; }
 .contact-copy .micro-label { display: block; margin-bottom: 9px; color: #4f6040; }
 .contact-copy strong { font-size: clamp(1.1rem, 2.1vw, 1.6rem); letter-spacing: -.04em; }
 .contact-link { display: inline-flex; flex-shrink: 0; align-items: center; gap: 20px; padding: 14px 21px; border-radius: 99px; background: var(--ink); color: white; font-size: .8rem; font-weight: 650; transition: transform 250ms var(--ease); }
@@ -377,6 +378,8 @@ footer { display: flex; justify-content: space-between; gap: 20px; margin-top: 3
   .carousel-button { width: 44px; height: 44px; }
   .carousel-position { gap: 9px; font-size: .63rem; }
   .contact { align-items: flex-start; flex-direction: column; gap: 22px; padding: 28px 24px; border-radius: 26px; }
+  .contact-actions { width: 100%; margin-left: 0; flex-direction: column; align-items: stretch; justify-content: flex-start; }
+  .contact-actions .contact-link { justify-content: space-between; }
   footer { flex-direction: column; gap: 6px; margin-top: 24px !important; font-size: .59rem; }
 }
 @media (max-width: 360px) {
