@@ -85,7 +85,9 @@ button:focus-visible, a:focus-visible, [tabindex="0"]:focus-visible {
 .profile-tenure { display: flex; align-items: center; gap: 11px; margin: 0; }
 .profile-tenure strong { color: var(--coral); font-size: 4.6rem; font-weight: 800; letter-spacing: -.08em; line-height: .9; }
 .profile-tenure > span { max-width: 78px; color: var(--muted); font-size: .7rem; line-height: 1.5; }
-.profile-summary h2 { margin: 0; padding-left: 23px; border-left: 1px solid #d9d9ce; font-size: clamp(1.15rem, 1.8vw, 1.5rem); font-weight: 650; letter-spacing: -.025em; line-height: 1.45; overflow-wrap: break-word; }
+.profile-role { min-width: 0; padding-left: 23px; border-left: 1px solid #d9d9ce; }
+.profile-summary h2 { margin: 0; font-size: clamp(1.15rem, 1.8vw, 1.5rem); font-weight: 650; letter-spacing: -.025em; line-height: 1.45; overflow-wrap: break-word; }
+.profile-subtitle { margin: 7px 0 0; color: var(--muted); font-size: .94rem; font-weight: 500; line-height: 1.5; overflow-wrap: break-word; }
 .profile-overview { grid-column: 1 / -1; grid-row: 2; display: grid; grid-template-columns: 1fr 1.12fr 1.04fr; gap: 16px; min-width: 0; }
 .profile-panel { position: relative; z-index: 0; min-width: 0; padding: 27px; border: 1px solid var(--line); border-radius: 25px; background: #fffdfa; color: var(--ink); transform: scale(1); transform-origin: center; transition: transform 320ms var(--ease), background-color 320ms var(--ease), color 320ms var(--ease), border-color 320ms var(--ease), box-shadow 320ms var(--ease); }
 .profile-panel-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
@@ -108,7 +110,7 @@ button:focus-visible, a:focus-visible, [tabindex="0"]:focus-visible {
 }
 @media (max-width: 900px) {
   .profile-summary { gap: 16px; }
-  .profile-summary h2 { padding-left: 16px; }
+  .profile-role { padding-left: 16px; }
   .profile-tenure strong { font-size: 3.7rem; }
   .profile-tenure > span { max-width: 62px; font-size: .65rem; }
   .profile-panel { padding: 23px 20px; }
@@ -123,7 +125,8 @@ button:focus-visible, a:focus-visible, [tabindex="0"]:focus-visible {
   .profile-intro { margin-top: 0; }
   .profile-kicker { margin-bottom: 13px; }
   .profile-summary { gap: 19px; }
-  .profile-summary h2 { padding-left: 19px; font-size: 1.12rem; }
+  .profile-role { padding-left: 19px; }
+  .profile-summary h2 { font-size: 1.12rem; }
   .profile-tenure strong { font-size: 3.9rem; }
   .profile-tenure > span { max-width: 68px; }
   .profile-overview { margin-top: 32px; }
